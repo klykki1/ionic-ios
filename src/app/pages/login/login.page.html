@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      {{'login.title'|translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-avatar>
+    <img src="../assets/imgs/oat.png" class="logoPosition"/>
+  </ion-avatar>
+  <div #mailConfirmation class="confirmation-modal">
+    <h3>{{'login.send_success'|translate}}</h3>
+    <p>{{'login.send_info'|translate}}</p>
+  </div>
+  <form class="form-position" [formGroup]="loginForm">
+    <ion-row class="email">
+      <ion-col>
+        <ion-input formControlName="email" type="email"
+                   placeholder="{{'login.email'|translate}}"></ion-input>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="(!loginForm.controls.email.valid && (loginForm.controls.email.dirty || submitReg))"
+         class="erreurMsg">
+      <span>{{'errors.email_validation'|translate}}</span>
+    </div>
+
+    <ion-row class="password">
+      <ion-col>
+        <ion-input formControlName="password" type="password"
+                   placeholder="{{'login.password'|translate}}"></ion-input>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="(!loginForm.controls.password?.valid && (loginForm.controls.password?.dirty || submitReg))"
+         class="erreurMsg">&nbsp;
+      <span *ngIf="loginForm.hasError('minlength',['password'])">{{'errors.min-length.8'|translate}}</span>
+      <span *ngIf="loginForm.hasError('required',['password'])">{{'errors.required_password'|translate}}</span>
+      &nbsp;
+    </div>
+    <ion-row class=" ion-justify-content-between">
+      <ion-col class="resetCol" size="6">
+        <ion-button (click)="resetPassword()" type="button" class="reset-password-btn" fill="clear"
+        >{{'login.reset'|translate}}</ion-button>
+      </ion-col>
+      <ion-col class="resetCreate" size="6">
+        <ion-button [routerLink]="('/register')" type="button" class="reset-password-btn" fill="clear"
+        >{{'login.create_account'|translate}}</ion-button>
+      </ion-col>
+
+
+    </ion-row>
+    <ion-button class="sidentifier" (click)="userLogin()" [disabled]="loginForm.invalid" type="submit"                 expand="full" fill="clear">
+      <ion-icon name="checkmark"></ion-icon>
+      {{'login.title'|translate}}
+    </ion-button>
+    <!-- <ion-button shape="round" class="sidentifierFacebook " (click)="userLogin()" type="button" expand="full"
+                fill="clear">
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      {{'login.connect_facebook'|translate}}
+    </ion-button>
+    <ion-button shape="round" class="sidentifierGoogle" (click)="userLogin()" type="button" expand="full" fill="clear">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      {{'login.connect_google'|translate}}
+    </ion-button> -->
+
+  </form>
+</ion-content>

@@ -1,0 +1,95 @@
+<app-header [isFiltered]="true" [isMenu]="true" [isProfile]="true"
+            (newItemEvent)="getdatfromdateBase($event)" (filterEvent)="getFiltred($event)"></app-header>
+<ion-content [ngClass]="services.isLoggedIn ? 'rem' : ''">
+  <!-- <ion-button (click)="toggleInfiniteScroll()" expand="block">
+    Toggle
+  </ion-button> -->
+
+  <app-categories-slider></app-categories-slider>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+                           refreshingSpinner="circles" refreshingText="Loading...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="filtred.length == 0" class="no-content">
+    <h4>{{'not_found.annonces'|translate}}</h4>
+  </div>
+  <ion-spinner name="dots" class="loadwhensearch" *ngIf="showSpinner"></ion-spinner>
+  <ion-list class="chat-sliding-demo">
+    <ion-item-sliding class='animated fadeIn' *ngFor="let product of filtred;let i=index;" #item>
+      <ion-item>
+        <ion-avatar class="animated fadeIn avatarimg" slot="start">
+          <ion-fab slot="fixed" *ngIf="(selected!=i)&& product.voice.length>0" (click)="playAudio(product,i)"
+                   class="micposition" slot="start">
+            <ion-fab-button logo size="small">
+              <ion-icon name="play">
+              </ion-icon>
+            </ion-fab-button>
+          </ion-fab>
+          <img [src]="product.src" (click)="openViewer(product?.src)">
+          <div *ngIf="selected==i" class="effectposition" id="bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
+        </ion-avatar>
+        <ion-label (click)="gotoDetails(product)">
+          <h2 class="productTitle ">{{product.title}}</h2>
+          <p>{{product.description}}</p>
+          <h3 style="position: absolute;right: 2%;top: 10%;">
+            <ion-note>{{ product.updated_at | timeAgo:'ar'}}</ion-note>
+            
+          </h3>
+            
+          
+          <ion-grid [fixed]="true">
+          <ion-row class="info-row">
+            <ion-col>
+              <ion-note *ngIf="product.price">
+                {{product.price}}
+                <span class="euro">€</span>
+              </ion-note>
+            </ion-col>
+            <ion-col>
+              <ion-note *ngIf="getDistanceFromLatLonInKm(product)">
+                {{getDistanceFromLatLonInKm(product)}} {{'favoris.km'|translate}}
+              </ion-note>
+              <ion-spinner *ngIf="!getDistanceFromLatLonInKm(product)">
+              </ion-spinner>
+            </ion-col>
+            <ion-col>
+              
+              <ion-note>
+                <ion-icon ios="star" name="eye"></ion-icon>
+                {{product.visitor}}
+              </ion-note>
+            </ion-col>
+          </ion-row>
+          </ion-grid>
+        </ion-label>
+      
+
+      </ion-item>
+      <ion-item-options *ngIf="services.isLoggedIn" side="start">
+        <ion-button class="logo" expandable (click)="favoris(product)">
+          <ion-icon name="star" class="expand-hide"></ion-icon>
+          <!--          <div class="expand-hide">{{'favoris.favori'|translate}}</div>-->
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+  <ion-infinite-scroll *ngIf=!searchterm (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading ..."
+    ></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<!-- <app-footer></app-footer> -->

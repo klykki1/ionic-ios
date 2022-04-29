@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{'recherche.Mes_recherches'|translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="rem" padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!recherches || recherches.length == 0" class="no-content">
+    <h4>{{'not_found.recherches'|translate}} </h4>
+  </div>
+  <ion-list>
+    <ion-row class="itemPrincipale" lines="none" *ngFor="let recherche of recherches;let i = index">
+      <ion-button class="closecustom" color="danger" (click)="delete(recherche.id,i)">
+        <ion-icon name="trash-outline" class="animated fadeIn ">
+        </ion-icon>
+      </ion-button>
+      <ion-avatar (click)="searchDetails(recherche)" *ngIf="recherche.product" slot="start">
+        <ion-icon name="recherche.subcategory.category.icon"></ion-icon>
+      </ion-avatar>
+      <ion-row class="rowDetail" (click)="recherche.product.length >0 && searchDetails(recherche)">
+        <h2 class="center-text touppercase">{{recherche.name}}</h2>
+        <!--        <hr>-->
+        <p>
+          <ion-row class="rowTrouve" *ngIf="recherche.product.length>0 || !recherche.isActive">
+        <span class="oui">
+          <ion-icon name="checkmark-done-outline" slot="start"></ion-icon>
+          {{'recherche.Trouve'|translate}}
+        </span>
+          </ion-row>
+          <ion-row class="rowTrouve" lines="none" *ngIf="recherche.product.length == 0 || recherche.isActive">
+        <span class="non">
+          <ion-icon name="search" slot="start"></ion-icon>
+          {{'recherche.En_Cours'|translate}}
+        </span>
+          </ion-row>
+          <ion-row class="rowAutre">
+        <span class="content-info">
+          <ion-icon [name]="recherche.subcategory.category.icon" slot="start"></ion-icon>
+          {{recherche.subcategory.category.title}}
+          &nbsp;/&nbsp;{{recherche.subcategory.title}}
+        </span>
+          </ion-row>
+          <ion-row class="rowAutre" *ngIf="recherche.locate && recherche.product?.price">
+        <span class="content-info">
+          <ion-icon name="logo-euro" slot="start"></ion-icon>
+          {{recherche.product.price}}
+        </span>
+          </ion-row>
+          <ion-row class="rowAutre">
+        <span class="content-info">
+          <ion-icon name="locate-outline" slot="start"></ion-icon>
+          {{'recherche.suivi'|translate}} :&nbsp;
+          <span *ngIf="recherche.locate" class="oui">
+            {{'recherche.oui'|translate}}
+          </span>
+          <span *ngIf="!recherche.locate" class="non">
+            {{'recherche.non'|translate}}
+          </span>
+        </span>
+          </ion-row>
+        </p>
+      </ion-row>
+      <ion-row  *ngIf="recherche.product.length>0">
+      <ion-button [ngClass]="isExist(recherche.id) ? 'pulseanim' : ''" class="closcustom" color="success" (click)="searchDetails(recherche)">
+        <ion-icon name="list-circle-outline"></ion-icon>
+      </ion-button>
+      </ion-row>
+    </ion-row>
+  </ion-list>
+</ion-content>
+<!-- <app-footer></app-footer> -->

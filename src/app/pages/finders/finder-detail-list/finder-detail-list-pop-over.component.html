@@ -1,0 +1,28 @@
+<ion-content>
+  <ion-spinner name="dots" class="loadwhensearch" *ngIf="showSpinner"></ion-spinner>
+  <ion-list class="chat-sliding-demo">
+    <ion-item-sliding class='animated fadeIn' *ngFor="let product of results.product;let i=index;" #item>
+      <ion-item>
+        <ion-avatar class="animated fadeIn avatarimg" slot="start">
+          <img [src]="product.galleries[0].url">
+        </ion-avatar>
+        <ion-row>
+
+          <ion-col size="6" (click)="gotoDetails(product)" class="info-row">
+            <h2 (click)="gotoDetails(product)" style="    white-space: nowrap;">{{product?.title}}</h2>
+            <ion-row>
+              <ion-note *ngIf="product?.price">
+                {{product?.price}}
+                <span class="euro">€</span>
+              </ion-note>
+              <ion-note>
+                {{getDistanceFromLatLonInKm(product)}}
+                {{'favoris.km'|translate}}
+              </ion-note>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

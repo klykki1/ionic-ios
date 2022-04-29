@@ -1,0 +1,12 @@
+
+<ion-list id="subCategorylist" class="subitems" id="mycontent">
+  <div class="categories-row">
+    <div  class="category-class"
+         *ngFor="let category of categories;let i=index">
+      <div class="middle middlecontent"  (click)="showSubcategories(category)">
+        <ion-icon name="{{category.icon}}"></ion-icon>
+        <h3 class="cat-subtitle">{{category.title}}</h3>
+      </div>
+    </div>
+  </div>
+</ion-list>

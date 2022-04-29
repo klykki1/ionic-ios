@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <span *ngIf="!isProfile">{{'register.title'|translate}}</span>
+      <span *ngIf="isProfile">{{'register.Profile'|translate}}</span>
+    </ion-title>
+    <!-- <ion-buttons *ngIf="isProfile" color="primary">
+      <ion-button (click)="closeModal()">
+        <ion-icon class="close-modal" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-select okText="{{'modals.ok'|translate}}" cancelText="{{'modals.cancel'|translate}}" [(ngModel)]="userSettings.language" 
+    (ngModelChange)="changeLanguage(userSettings.language)"
+    >
+      <ion-select-option   value="en">{{'settings.langs.en'|translate}}</ion-select-option>
+      <ion-select-option   value="ar">{{'settings.langs.ar'|translate}}</ion-select-option>
+      <ion-select-option  value="fr">{{'settings.langs.fr'|translate}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-avatar>
+    <img src="../assets/imgs/oat.png" class="logoPosition"/>
+  </ion-avatar>
+  <form [formGroup]="addReginForm">
+    <ion-row class="firstCHild">
+      <ion-col class="custom-col ion-no-margin ">
+        <ion-input formControlName="name" [(ngModel)]="user.name"  type="text" placeholder="{{'register.name'|translate}}"></ion-input>
+      </ion-col>
+
+      <ion-col class="custom-col ion-no-margin">
+        <ion-input formControlName="last_name" [(ngModel)]="user.last_name"  type="text" placeholder="{{'register.last_name'|translate}}"></ion-input>
+      </ion-col>
+    </ion-row>
+    <div
+      *ngIf="(addReginForm.hasError('required',['name'])||addReginForm.hasError('required',['last_name'])) && submitReg"
+      class="erreurMsg resizer" item-end>{{'errors.required'|translate}}</div>
+    <ion-row class="custom-col">
+      <ion-col>
+        <ion-input formControlName="email" [(ngModel)]="user.email" type="email" placeholder="Email"></ion-input>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="(!addReginForm.controls.email.valid && (addReginForm.controls.email.dirty || submitReg))"
+         class="erreurMsg">
+      <span>{{'errors.email_validation'|translate}}</span>
+    </div>
+<!--
+-->
+    <ion-row *ngIf="!isProfile" class="custom-col">
+      <ion-col>
+        <ion-input formControlName="password" [(ngModel)]="user.password"  [type]="!showpassword ? 'password' : 'text'"
+                   placeholder="Mot de passe"></ion-input>
+      </ion-col>
+    </ion-row>
+    <div
+      *ngIf="(!addReginForm.controls.password?.valid && (addReginForm.controls.password?.dirty || submitReg) && !isProfile)"
+      class="erreurMsg">&nbsp;
+      <span *ngIf="addReginForm.hasError('minlength',['password'])">{{'errors.min-length.8'|translate}}</span>
+      <span *ngIf="addReginForm.hasError('required',['password'])">{{'errors.required'|translate}}</span>
+      &nbsp;
+    </div>
+    <ion-row *ngIf="!isProfile" class="custom-col">
+      <ion-col size="12">
+        <ion-input formControlName="vpassword" [type]="!showpassword ? 'password' : 'text'"
+                   placeholder="{{'register.confirm_pass'|translate}}"></ion-input>
+      </ion-col>
+      <ion-col class="colShowPassword">
+        <ion-icon class="iconPassword" *ngIf="!showpassword" (click)="cahngepasswordView()" color="primary" name="eye">
+        </ion-icon>
+        <ion-icon class="iconPassword" *ngIf="showpassword" (click)="cahngepasswordView()" color="primary"
+                  name="eye-off">
+        </ion-icon>
+      </ion-col>
+    </ion-row>
+    <div
+      *ngIf="(!addReginForm.controls.vpassword?.valid && (addReginForm.controls.vpassword?.dirty || submitReg)&& !isProfile)"
+      class="erreurMsg">&nbsp;
+      <span *ngIf="addReginForm.hasError('required',['vpassword'])">{{'errors.required'|translate}}</span>
+      <span *ngIf="addReginForm.hasError('notEquivalent',['vpassword'])">{{'errors.pass_conform'|translate}}</span>
+      &nbsp;
+    </div>
+
+
+    <ion-button class="btnConfirm" (click)="userDataSubmit()" expand="full" slot="end" shape="round">
+      <ion-icon name="checkmark"></ion-icon>
+      <span *ngIf="!isProfile">{{'register.confirm'|translate}}</span>
+      <span *ngIf="isProfile">{{'register.update'|translate}}</span>
+    </ion-button>
+    <!-- <ion-button  *ngIf="!isProfile" class="btnFacebook" (click)="userDataSubmit()" expand="full" slot="end" shape="round" fill="clear">
+      <ion-icon slot="start" name="logo-facebook"></ion-icon>
+      <span *ngIf="!isProfile">{{'register.connect_facebook'|translate}}</span>
+      <span *ngIf="isProfile">{{'register.connect_facebook'|translate}}</span>
+    </ion-button>
+    <ion-button  *ngIf="!isProfile" class="btnGoogle" (click)="userDataSubmit()" expand="full" slot="end" shape="round" fill="clear">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      <span *ngIf="!isProfile">{{'register.connect_google'|translate}}</span>
+      <span *ngIf="isProfile">{{'register.connect_google'|translate}}</span>
+    </ion-button> -->
+  </form>
+
+</ion-content>

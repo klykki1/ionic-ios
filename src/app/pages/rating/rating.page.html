@@ -1,0 +1,11 @@
+<ion-content class="ion-padding">
+
+  <h3 *ngIf="services.isLoggedIn">{{'details.evaluation'|translate}}</h3>
+
+  <ion-rating [(ngModel)]="rate"
+          >
+  </ion-rating>
+
+  <ion-button *ngIf="services.isLoggedIn" shape="round" expand="block" (click)="confirm()" color="primary">{{'buttons.confirm'|translate}}</ion-button>
+
+</ion-content>

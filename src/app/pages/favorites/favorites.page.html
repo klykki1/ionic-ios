@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-menu-button></ion-menu-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{'favoris.Mes_favoris'|translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="rem">
+  <ion-searchbar [placeholder]="('favoris.Mes_favoris'|translate)"
+                 (ionInput)="filterItems($event)"></ion-searchbar>
+  <div *ngIf="filtred.length == 0" class="no-content">
+    <h4>{{'not_found.favoris'|translate}}</h4>
+  </div>
+  <ion-list class="chat-sliding-demo">
+    <ion-item-sliding  class='animated fadeIn'
+                      *ngFor="let product of filtred;let i=index;" #item>
+                   
+      <ion-item>
+        <ion-avatar class='animated fadeIn' slot="start">
+          <ion-img [src]="product.src" (click)="openViewer(product.src)"></ion-img>
+          <ion-icon class="fav-icon" name="star"></ion-icon>
+        </ion-avatar>
+        <!--        <ion-row>-->
+        <ion-row class="info-row" (click)="gotoDetails(product)">
+          <h2>{{product.title}}</h2>
+          <p>{{product.description}}</p>
+          <!--        </ion-row>-->
+          <ion-col size="3">
+            <ion-note *ngIf="product.price">
+              {{product.price}}
+              <span class="euro">{{'favoris.price_symbol'|translate}}</span>
+            </ion-note>
+          </ion-col>
+          <ion-col>
+            <ion-note>
+              <ion-icon ios="star" md="star">{{product.rate}}</ion-icon>
+            </ion-note>
+          </ion-col>
+          <ion-col size="4">
+            <ion-note>
+              <ion-icon ios="star" md="people">{{product.visitor}}</ion-icon>
+            </ion-note>
+          </ion-col>
+        </ion-row>
+        <ion-note slot="end">
+          {{ product.updated_at | timeAgo:'ar'}}
+        </ion-note>
+      </ion-item>
+  
+      <ion-item-options>
+        <ion-button class="btnDelete" color="danger" (click)="delete(product)">
+          <ion-icon name="trash"></ion-icon>
+          {{'favoris.delete'|translate}}
+        </ion-button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
+
+<!-- <app-footer></app-footer> -->

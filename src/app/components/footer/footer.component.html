@@ -1,0 +1,22 @@
+<ion-footer *ngIf="!(insideChat !== false || service.isLoggedIn !==true)">
+  <ion-row  class="animated fadeInDown add-custom-menue">
+    <ion-col  size="2" class="has-left-bar-footer contact-font " (click)="gotToProducts()">
+      <ion-icon name="home-sharp"></ion-icon>
+      <ion-badge id="notifications-badge" color="danger"></ion-badge>
+    </ion-col>
+    <ion-col  size="2" class="has-left-bar-footer contact-font "   (click)="gotToDiscussion()" clear>  
+      <ion-icon name="chatbox"></ion-icon>
+      <ion-badge id="notifications-badge" color="danger">{{messageNotificationBadge}}</ion-badge>
+    </ion-col>
+    <ion-col size="2" class="has-left-bar-footer contact-font " (click)="gotTofavorites()">
+      <ion-icon name="heart-sharp"></ion-icon>
+    </ion-col>
+    <ion-col size="2" class="has-left-bar-footer contact-font " (click)="gotToRecherche()">
+      <ion-icon name="search-sharp"></ion-icon>
+      <ion-badge id="notifications-badge" color="danger">{{productNotificationBadge}}</ion-badge>
+    </ion-col>
+    <ion-col size="2" class="has-left-bar-footer contact-font" (click)="gotToAddProduct()">
+      <ion-icon name="add-circle-sharp"></ion-icon>
+    </ion-col>
+  </ion-row>
+</ion-footer>

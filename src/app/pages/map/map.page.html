@@ -1,0 +1,51 @@
+<app-header [isProfile]="true" [isMenu]="true"></app-header>
+
+
+<ion-content>
+  <div class="container" #mainContainer>
+    <ion-col class="logo-container" size="col-12">
+      <img class="logo" src="../../../assets/imgs/icon.png" #logo/>
+    </ion-col>
+    <ion-row [class.rowupdatefocus]="focused" class="ion-justify-content-center">
+      <!-- <ion-col class="icon-col"  col-2>
+          <ion-icon class="locate-logo" name="md-search"></ion-icon>
+        </ion-col>
+      <ion-col class="text-col" col-8>
+        <ion-input (blur)="changePositionBlur($event)" (focus)="changePosition($event)" (input)="filterItems($event)" #chat_input [(ngModel)]="address" placeholder="On cherche Où ?"></ion-input>
+      </ion-col> -->
+      <ion-col class="icon2-col " size="col-8" id="send">
+        <!--(click)="gotoHome()"  [disabled]="!chosedRegion" -->
+        <ion-button (click)="gotoHome()">
+          <h4 class='animated text-btn' [class.bounceIn]="!chosedRegion">{{'map.Go'|translate}}</h4>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+  </div>
+  <ion-row *ngIf="autocomplete && focused " [class.rowupdatelist]="focused" class="autocomplete">
+
+    <ion-col size="col-8" class="ion-justify-content-center">
+      <ion-item (click)="choseRegion(filter)" *ngFor="let filter of filtred;let i=index;">
+        {{filter.name}}
+      </ion-item>
+    </ion-col>
+
+  </ion-row>
+  <img class="bg" src="../assets/imgs/maps.png">
+</ion-content>
+<!-- <ion-footer>
+  <ion-row class="menu-footer">
+    <ion-col (click)="openModal()">
+              <span class="footeralign leftside">
+                {{'map.CGV'|translate}}
+              </span>
+    </ion-col>
+    <ion-col (click)="openModal()">
+              <span class="footeralign rightside">
+             <ion-icon name="help-circle"></ion-icon>
+            </span>
+    </ion-col>
+  </ion-row>
+</ion-footer> -->
+

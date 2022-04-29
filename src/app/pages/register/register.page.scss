@@ -1,0 +1,135 @@
+.input-has-focus .item-inner {
+  border-bottom: none !important;
+  background: #f0b23e0e;
+  box-shadow: none !important;
+}
+
+ion-avatar {
+  width: 200px;
+  height: 50px;
+  position: relative;
+  top: 5% !important;
+  right: -50%;
+  -webkit-transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.8s;
+  transition: all 0.8s;
+}
+
+ion-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  position: relative;
+}
+
+ion-input {
+
+  border: 3px solid var(--ion-color-logo);
+  border-radius: 15px;
+}
+
+// .row{
+//     margin: 10px 2px;
+//     box-shadow: 1px 1px 9px -5px rgba(0, 0, 0, 0.9);
+// }
+
+.no-margin {
+  margin-bottom: 0px !important;
+}
+
+.custom-col {
+  margin: 10px 2px;
+  box-shadow: 1px 1px 9px -5px rgba(0, 0, 0, 0.9);
+}
+
+.item-md ion-icon[item-end] {
+  z-index: 999 !important;
+}
+
+.firstCHild {
+
+  position: relative;
+  //font-size: 1.6rem;
+  margin: 10px 2px;
+
+  font-weight: normal;
+  text-transform: none;
+  color: #000;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+}
+
+.firstCHild ion-col {
+  box-shadow: none;
+  margin-bottom: 0;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+ion-row:not(:first-child) {
+  position: relative;
+  //font-size: 1.6rem;
+  margin: 10px 2px;
+
+  font-weight: normal;
+  text-transform: none;
+  color: #000;
+  background-color: #fff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px;
+}
+
+.iconPassword {
+
+  margin: 9px 8px 9px 0;
+  align-content: center;
+  position: relative;
+
+  font-size: 1.5em;
+  line-height: 1;
+  display: block;
+}
+
+ion-title {
+  margin-left: -60px;
+  /* font-family: 'Poppins'; */
+  color: white !important;
+  letter-spacing: -0.2px;
+  padding: 4px 10px !important;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center !important;
+}
+
+.btnConfirm {
+
+}
+
+.colShowPassword {
+  margin-left: -50px;
+}
+
+.btnFacebook {
+  width: 300px;
+  margin: 35px auto 0;
+  --background: #3b5998;
+  color: #fff;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 1);
+  border-radius: 50px;
+
+}
+
+.btnGoogle {
+  width: 300px;
+  color: #000;
+  box-shadow: 1px 1px 3px 0 rgba(0, 0, 0, 1);
+  margin: 15px auto 0;
+  border-radius: 50px;
+
+}

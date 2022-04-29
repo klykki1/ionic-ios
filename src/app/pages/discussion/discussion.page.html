@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="true"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mes messages</ion-title>
+    <ion-buttons slot="primary">
+      <!-- <button ion-button>
+        <ion-icon name="search">
+        </ion-icon>
+      </button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="rem" padding>
+  <!-- <app-categories-slider></app-categories-slider> -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" pullingText="Pull to refresh"
+                           refreshingSpinner="circles" refreshingText="Loading...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="discussions.length==0" class="no-content">
+    <h4>{{'not_found.discussion'|translate}} </h4>
+    <!-- <h2>-&nbsp;{{region}}&nbsp;-</h2> -->
+  </div>
+  <ion-grid>
+    <ion-item-sliding  *ngFor="let discussion of discussions" class="row_messages">
+      <ion-item (click)="gotoChat(discussion)">
+      <ion-col size="3" class="col_avatar">
+        <ion-avatar>
+          <img [src]="discussion.product?.src">
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="8" class="col_details">
+        <h2> {{discussion.receiver?.name}}</h2>
+        <p class="touppercase ">{{discussion.product?.title}}</p>
+        <p class="touppercase">{{discussion.last_message?.created_at | date:'shortDate'}}</p>
+      </ion-col>
+      <ion-col size="1" class="ion-align-self-center col_setting">
+        <ng-container *ngIf="discussion.last_message.userId !== currentUser">
+          <ion-badge *ngIf="!discussion.last_message.isRead" id="notifications-badgee" color="danger"><span> </span></ion-badge>
+        </ng-container>
+      
+        <ion-icon *ngIf="discussion.last_message.isRead" name="ellipsis-vertical-sharp"></ion-icon>
+      </ion-col>
+    </ion-item>
+      <ion-item-options>
+        <ion-button class="btnDelete" color="danger" (click)="delete(discussion)">
+          <ion-icon name="trash"></ion-icon>
+          {{'favoris.delete'|translate}}
+        </ion-button>
+      </ion-item-options>
+    
+    </ion-item-sliding>
+  </ion-grid>
+</ion-content>
+<!-- <app-footer></app-footer> -->

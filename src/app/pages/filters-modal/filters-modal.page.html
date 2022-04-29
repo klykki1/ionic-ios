@@ -1,0 +1,45 @@
+<div class="modalFilter">
+  <!--<ion-content>-->
+  <ion-list>
+
+    <ion-item>
+      <ion-icon name="map-outline"></ion-icon>
+      <ion-label>{{'filter.par_distance'|translate}}</ion-label>
+      <ion-toggle (ionChange)="distanceSelect($event)" [(ngModel)]="filter.distance"></ion-toggle>
+    </ion-item>
+
+    <ion-item class="animated fadeIn" *ngIf="filter.distance">
+      <ion-range dualKnobs="true" pin="true" step="5" [(ngModel)]="structure" color="secondary" max="500">
+        <span range-left class="small">{{structure.lower}}</span>
+        <span range-right class="bolde">{{structure.upper}}</span>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="cash-outline"></ion-icon>
+      <ion-label>{{'filter.par_prix'|translate}}</ion-label>
+      <ion-toggle (ionChange)="priceSelect($event)" [(ngModel)]="filter.price"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-label>{{'filter.par_date'|translate}}</ion-label>
+      <ion-toggle (ionChange)="dateSelect($event)" [(ngModel)]="filter.date"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col size="6">
+      <ion-button (click)="filtred()" >
+        <ion-icon name="thumbs-up-outline"></ion-icon>
+        {{'filter.Filtrer'|translate}}
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button  (click)="dismiss()" >
+        <ion-icon name="arrow-undo-outline"></ion-icon>
+        {{'filter.Annuler'|translate}}
+      </ion-button>
+    </ion-col>
+  </ion-row>
+  <!--</ion-content>-->
+
+</div>

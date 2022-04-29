@@ -1,0 +1,7 @@
+{
+  "name": "onatrouveIo",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

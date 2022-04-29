@@ -1,0 +1,18 @@
+<ion-row class="ion-align-items-baseline ion-margin-horizontal rowCategories">
+  <ion-col size="9">
+    <!-- <p color="logo">Catégories</p> -->
+  </ion-col>
+  <ion-col size="3" class="colVoirTout">
+    <!-- <a (click)="goProducts()">Voir tout
+      <span>({{categories?.length}})</span>
+    </a> -->
+  </ion-col>
+</ion-row>
+<ion-slides class="slidesCategories" [options]="slideOpts">
+  <ion-slide *ngFor="let item of categories">
+    <ion-row class="itemSlide" (click)="showSubcategories(item)">
+      <ion-icon [name]="item?.icon" size="large"></ion-icon>
+      <p>{{item?.title}}</p>
+    </ion-row>
+  </ion-slide>
+</ion-slides>

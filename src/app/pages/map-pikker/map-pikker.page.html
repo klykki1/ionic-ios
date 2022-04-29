@@ -1,0 +1,26 @@
+
+<ion-content>
+  <agm-map
+    [latitude]="map.lat"
+    [longitude]="map.lng"
+    [zoom]="map.zoom"
+    [disableDefaultUI]="false"
+    [zoomControl]="false"
+    (mapClick)="mapClicked($event)">
+
+    <agm-marker
+      (markerClick)="clickedMarker(marker)"
+      [latitude]="marker.lat"
+      [longitude]="marker.lng"
+      [label]="marker.label"
+      [markerDraggable]="true"
+      (dragEnd)="markerDragEnd(marker, $event)">
+    </agm-marker>
+  </agm-map>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button  logo (click)="confirmAddress()">
+      <ion-icon name="checkmark"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

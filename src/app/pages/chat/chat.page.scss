@@ -1,0 +1,372 @@
+//var(--ion-color-secondary): $primary;
+//$toUserBackgroundColor: map-get($colors, secondary);
+
+ion-item-divider {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+ion-item-divider ion-label {
+  margin: 13px 0 !important;
+}
+
+ion-item-divider ion-label h3 {
+  display: inline-block;
+  padding: 5px;
+  font-size: 11px !important;
+  font-weight: 400 !important;
+  background: #c3dff7;
+  color: var(--ion-color-logo);
+  border-radius: 4px;
+}
+
+
+.line-breaker {
+  white-space: pre-line;
+}
+
+ion-avatar {
+  min-width: 40px;
+  min-height: 40px;
+  width: 55px;
+  height: 55px;
+}
+
+ion-avatar ion-img, ion-avatar img {
+  border-radius: .5rem;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.current_product {
+  width: -webkit-fill-available;
+  margin-bottom: 10px !important;
+  border-top: .5px solid var(--ion-color-logo);
+  border-bottom: .5px solid var(--ion-color-logo);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, .4);
+}
+
+.current_product .item-inner {
+  border: none !important;
+}
+
+
+.item-md.item-block .item-inner {
+  padding-bottom: 28px !important;
+}
+
+.is-typing-dots {
+  text-align: left;
+  padding: 10px 20px;
+}
+
+.is-typing-dots ion-spinner {
+  background: var(--ion-color-secondary);
+  border-radius: 10px;
+  width: 51px;
+}
+
+.is-typing-dots ion-spinner svg circle {
+  fill: #fff !important;
+}
+
+
+ion-footer ion-col {
+  padding: 0 !important;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+ion-footer button {
+  width: 100%;
+  height: 55px;
+  margin: 0;
+}
+
+ion-footer ion-textarea {
+  padding: 5px;
+}
+
+ion-footer ion-textarea {
+  margin: 5px;
+  --padding: 2px 10px !important;
+  max-height: 55px !important;
+  background: #eee !important;
+  border-radius: 10px !important;
+  width: 100% !important;
+
+  padding: 2px 10px !important;
+  padding-top: 7px !important;
+  min-height: 29px;
+}
+
+
+#send {
+  text-align: center;
+}
+
+#send ion-icon {
+  font-size: 35px !important;
+  padding: 0 !important;
+}
+
+#send button {
+  text-align: center;
+  //@include rtl() {
+  //  transform: scale(-1);
+  //}
+}
+
+
+.message-wrap {
+  padding: 0 10px;
+}
+
+.message-wrap .message {
+  position: relative;
+  padding: 7px 0;
+}
+
+.message-wrap .message .msg-detail {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.message-wrap .message .msg-detail .message p {
+  margin: 0;
+}
+
+.msg-info {
+  position: relative;
+  text-align: left;
+  clear: both;
+  direction: initial;
+  color: #bdbdbd;
+  font-size: 11px;
+}
+
+.msg-content {
+  position: relative;
+  margin-top: 5px;
+  border-radius: 8px;
+  padding: 8px;
+  /* padding-bottom: 8px; */
+  color: #fff;
+  min-width: 50px;
+  width: 15rem;
+  max-width: 80%;
+  overflow: hidden;
+  border: 1px solid #ddd;
+}
+
+.msg-content .username {
+  font-weight: bold;
+  margin-top: -5px;
+  padding: 8px;
+  text-decoration: underline;
+}
+
+.msg-content .text-msg {
+  padding: 0 8px;
+  margin: 0;
+}
+
+.msg-content .image-msg {
+  width: 100%;
+  max-width: 250px;
+}
+
+
+.msg-detail span.triangle {
+  background-color: #fff;
+  border-radius: 2px;
+  height: 8px;
+  width: 8px;
+  top: 22px;
+  display: block;
+  border-style: solid;
+  border-color: #ddd;
+  border-width: 1px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  z-index: 10;
+}
+
+
+.message.left .msg-content {
+  background-color: var(--ion-color-secondary);
+  float: left;
+  border-bottom: 2px solid #ce91b6;
+}
+
+.message.left .msg-content .msg-detail {
+  padding-left: 6px;
+}
+
+.message.left .msg-content .msg-detail .username {
+  color: #fff;
+}
+
+
+.message.left .user-img {
+  left: 0;
+}
+
+.message.left .msg-content {
+  color: #fff;
+  border-bottom-left-radius: 0;
+}
+
+.message.left span.triangle {
+  border-top-width: 0;
+  border-right-width: 0;
+  left: -2px;
+  background: var(--ion-color-secondary);
+}
+
+
+.message.right .msg-detail {
+  padding-right: 6px;
+}
+
+.message.right .msg-detail .msg-info {
+  text-align: right;
+}
+
+.message.right .msg-detail .username {
+  color: #fff;
+}
+
+
+.message.right .user-img {
+  right: 0;
+}
+
+.message.right ion-spinner {
+  position: absolute;
+  right: 10px;
+  top: 50px;
+}
+
+.message.right .msg-content {
+  background-color: var(--ion-color-logo);
+  text-align: end;
+  border-bottom-right-radius: 0;
+  margin: 0 0 0 auto;
+
+  // border-bottom: 2px solid #9c1462;
+}
+
+.message.right span.triangle {
+  background-color: var(--ion-color-secondary);
+  border-bottom-width: 0;
+  border-left-width: 0;
+  right: 2px;
+}
+
+
+.item-md ion-avatar ion-img, .item-md ion-avatar img {
+  border-radius: 4px;
+  overflow: hidden;
+  width: 87px;
+  height: 87px;
+  object-fit: cover;
+  // object-fit: cover;
+}
+
+ion-note {
+  color: var(--ion-color-logo);
+  font-weight: bolder;
+}
+
+.info-row {
+  z-index: 9999 !important;
+  width: 12%;
+  text-overflow: ellipsis;
+  justify-content: space-around;
+  //margin-left: 2%;
+  display: flex;
+  position: relative;
+}
+
+.info-row ion-col {
+  align-content: center;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+}
+
+.info-row ion-col ion-icon {
+  letter-spacing: 5px;
+}
+
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-center .day-label {
+  display: inline-block;
+  padding: 5px 15px;
+  border: 2px solid var(--ion-color-logo);
+  color: var(--ion-color-logo);
+  border-radius: 15px;
+  margin: 0 auto;
+  font-weight: bolder;
+  font-size: 16px;
+}
+
+
+.detailConversation {
+  margin-top: 5px;
+}
+
+.detailConversation h2,
+.detailConversation p {
+  margin: 0;
+  color: var(--ion-color-logo);
+  font-size: 2rem;
+}
+
+p {
+  display: block;
+  /* overflow: hidden; */
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.image_sender {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  margin-right: 14px;
+  align-self: center;
+}
+.col_button_options_send{
+  justify-content: center;
+}
+.col_button_options_send > ion-button {
+  --padding-start: unset;
+  --padding-end: unset;
+}
+.color-footer{
+  background-color: currentColor !important;
+}
+
+
+app-footer{
+  order: 1;
+  margin-top: 5px;
+}

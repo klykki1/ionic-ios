@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon class="header-search-logo" name="search"></ion-icon>
+      {{'app.name'|translate}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="animated fadeIn" [formGroup]='findProduct'>
+    <ion-item lines="none">
+      <ion-label color="logo" position="stacked" class="Mylabel">{{'addproduct.category'|translate}}</ion-label>
+      <ion-select (ionChange)="loadSubcategories($event)" [(ngModel)]="selectedC" formControlName="category"
+                  placeholder="{{'addproduct.placeHolders.category'|translate}}">
+        <ion-select-option *ngFor="let category of categorys;let i=index;" [value]="category">
+          {{category.title}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div *ngIf="(!findProduct.controls.category?.valid && (findProduct.controls.category?.dirty || submit))"
+         class="erreurMsg">{{'errors.required'|translate}}</div>
+
+    <ion-item lines="none">
+      <ion-label color="logo" position="stacked" class="Mylabel">{{'addproduct.subcategory'|translate}}</ion-label>
+      <ion-select (ionChange)="loadproperties($event)" formControlName="subcategory"
+                  placeholder="{{'addproduct.placeHolders.subcategory'|translate}}">
+        <ion-select-option *ngFor="let subcategory of subcategories;let i=index;" [value]="subcategory">
+          {{subcategory.title}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <div *ngIf="(!findProduct.controls.subcategory?.valid && (findProduct.controls.subcategory?.dirty || submit))"
+         class="erreurMsg">{{'errors.required'|translate}}</div>
+
+    <ion-item lines="none">
+      <ion-label color="logo" position="stacked" class="Mylabel">{{'suivi.find_key'|translate}} </ion-label>
+      <ion-input id="title" [(ngModel)]="suivi.name" maxLength="500" formControlName="title"
+                 placeholder="{{'suivi.what_search'|translate}}"></ion-input>
+    </ion-item>
+    <div *ngIf="(findProduct.hasError('required',['title'])) && submit" class="erreurMsg resizer"
+         slot="end">{{'errors.required'|translate}}</div>
+    <ion-row class="animated fadeIn" *ngIf="selectedSub.has_price" class="p5 pt5">
+      <ion-col class="color-map" color="logo">
+        {{'suivi.price'|translate}}
+      </ion-col>
+    </ion-row>
+    <ion-row class="animated fadeIn" *ngIf="selectedSub.has_price" class="p5">
+      <ion-col>
+        <ion-input placeholder="{{'suivi.Min'|translate}}" min='0' [max]="suivi.price_max" type="number"
+                   formControlName="price_min" [(ngModel)]="suivi.price_min"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-input placeholder="{{'suivi.Max'|translate}}" [min]='suivi.price_min' max="99999999" type="number"
+                   formControlName="price_max" [(ngModel)]="suivi.price_max"></ion-input>
+      </ion-col>
+    </ion-row>
+    <div
+      *ngIf="(findProduct.hasError('required',['price_min'])||findProduct.hasError('required',['price_max'])) && submit"
+      class="erreurMsg resizer" slot="end">{{'errors.required'|translate}}</div>
+    <ion-item lines="none">
+      <ion-icon name="locate-outline" color="danger"></ion-icon>
+      <ion-label>{{'suivi.ray'|translate}}</ion-label>
+      <ion-toggle [(ngModel)]="suivi.locate" formControlName="locate" color="secondary"></ion-toggle>
+    </ion-item>
+    <ion-item class="animated fadeIn" *ngIf="suivi.locate">
+      <ion-label>
+        <h3 class="Mylabel">{{'suivi.Distance'|translate}}</h3>
+      </ion-label>
+      <ion-select formControlName="range" style="    width: 23% !important;
+    margin-right: 25px;" [(ngModel)]="suivi.range" placeholder="00">
+        <ion-select-option value="{{number}}" *ngFor="let number of metre;">
+          {{number}}
+        </ion-select-option>
+      </ion-select>
+      <ion-label class="" class="color-map">{{'suivi.km'|translate}}</ion-label>
+      <div *ngIf="submit && findProduct.controls.locate.value==true && findProduct.controls.range.value==undefined "
+           class="erreurMsg">{{'errors.required'|translate}}</div>
+    </ion-item>
+    <ion-button (click)='suiviAnnonce()' expand="full" slot="start">
+      <ion-icon name="search"></ion-icon>
+      {{'suivi.suivi'|translate}}
+    </ion-button>
+  </form>
+</ion-content>
+<app-footer></app-footer>

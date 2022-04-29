@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="logo">
+    <ion-buttons slot="start" >
+      <ion-icon name="close-circle-sharp" [hidden]="!isModal" class="close" (click)="close()"></ion-icon>
+      <ion-menu-button [hidden]="!isMenu"></ion-menu-button>
+      <ion-back-button [hidden]="!isBack" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+      <ion-title [hidden]="!isLogo">
+        <ion-icon class="header-search-logo" name="search"></ion-icon>
+        {{'app.name'|translate}}
+      </ion-title>
+    <ion-searchbar [hidden]="!isSearch" [placeholder]="(category?.title || 'suivi.what_search'|translate)"
+                   (ionInput)="getdatfromdateBase($event)"></ion-searchbar>
+    <ion-buttons  slot="end">
+      <ion-button (click)="openfilter()" [hidden]="!isFiltered">
+        <ion-icon name="options">
+        </ion-icon>
+      </ion-button>
+<!--      <ion-button class="left-bar" (click)="openPopOver($event)"   [hidden]="!isProfile">-->
+<!--        <ion-icon name="person-sharp"></ion-icon>-->
+<!--      </ion-button>-->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

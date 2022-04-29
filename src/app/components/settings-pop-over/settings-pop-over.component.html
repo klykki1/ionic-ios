@@ -1,0 +1,35 @@
+<ion-content scrollY="false">
+  <ion-row (click)="goProfile()" *ngIf="services.isLoggedIn">
+    <ion-col size="3" class=" ion-align-self-center">
+      <ion-icon name="person"></ion-icon>
+    </ion-col>
+    <ion-col size="9">
+      <p class="loggedname">{{services?.current_user?.last_name}}</p>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="services.isLoggedIn">
+    <ion-col size="2" class="" (click)="fireMethod('logout')">
+      <ion-icon name="log-out-outline" color="primary"></ion-icon>
+    </ion-col>
+    <ion-col size="10">
+      <ion-label color="dark">{{'menu.Deconnexion'|translate}}</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!services.isLoggedIn" (click)="fireMethod('goto', 'login')">
+    <ion-col size="2" class="">
+      <ion-icon name="key-outline" color="primary"></ion-icon>
+    </ion-col>
+
+    <ion-col size="10">
+      <ion-label color="dark">{{'menu.identifier'|translate}}</ion-label>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="!services.isLoggedIn" (click)="fireMethod('goto', 'register')">
+    <ion-col size="2">
+      <ion-icon name="log-in" color="primary"></ion-icon>
+    </ion-col>
+    <ion-col size="10">
+      <ion-label color="dark">{{'menu.enregistrer'|translate}}</ion-label>
+    </ion-col>
+  </ion-row>
+</ion-content>
