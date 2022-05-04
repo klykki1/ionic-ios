@@ -143,5 +143,12 @@
     <plugin name="cordova-plugin-firebasex" spec="latest">
         <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
     </plugin>
-    <plugin name="@mauron85/cordova-plugin-background-geolocation" />
+    <plugin name="@mauron85/cordova-plugin-background-geolocation">
+       <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="11+" />
+  <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="26+" />
+  <variable name="ICON" value="@mipmap/icon" />
+  <variable name="SMALL_ICON" value="@mipmap/icon" />
+  <variable name="ALWAYS_USAGE_DESCRIPTION" value="App requires background tracking " />
+  <variable name="MOTION_USAGE_DESCRIPTION" value="App requires motion detection  for full functionality of certain app features." /> 
+</plugin>
 </widget>

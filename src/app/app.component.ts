@@ -507,9 +507,14 @@ increamentProductNumber(){
         config = this.backgroundGeolocation.getConfig();
         console.log('config', config, status);
         console.log('Inside location : ', location);
-        // this.sendGPS(location);
+    // if (JSON.parse(localStorage.getItem('deviceData'))== 'ios') {
+        //   this.backgroundGeolocation.finish()
+        // }
+
       });
-    });
+    }).catch((error) => {
+       this.backgroundGeolocation.finish(); // FOR IOS ONLY
+    });;
 
 
     this.backgroundGeolocation.start();
