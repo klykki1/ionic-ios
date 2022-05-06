@@ -5,6 +5,10 @@
     },
     "release": {
       "developmentTeam": "2627JXC4L7"
-    }
+      
+    },
+    "buildFlag": [
+      "-UseModernBuildSystem=0"
+    ]
   }
 }
