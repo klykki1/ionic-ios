@@ -101,6 +101,7 @@
     "cordova-plugin-dialogs": "^2.0.2",
     "cordova-plugin-email-composer": "^0.10.0",
     "cordova-plugin-facebook-connect": "^3.2.0",
+    "cordova-plugin-file": "^7.0.0",
     "cordova-plugin-file-transfer": "^1.7.1",
     "cordova-plugin-firebasex": "git+https://github.com/dpa99c/cordova-plugin-firebasex.git#751ba5a35fe7461731cde6a1ea5fd1b973941572",
     "cordova-plugin-foreground-service": "^1.1.3",
