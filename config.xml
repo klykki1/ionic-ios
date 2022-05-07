@@ -213,6 +213,7 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^5.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-file-transfer" spec="^2.0.0-dev" />
+    <plugin name="cordova-plugin-file" spec="^6.0.0" />
     <plugin name="cordova-plugin-camera" spec="^5.0.1" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.2" />
     <plugin name="cordova-plugin-badge" spec="^0.8.8" />
