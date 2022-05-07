@@ -22,6 +22,7 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
+    "@awesome-cordova-plugins/adjust": "^5.41.0",
     "@awesome-cordova-plugins/android-permissions": "^5.39.1",
     "@awesome-cordova-plugins/background-geolocation": "^5.39.1",
     "@awesome-cordova-plugins/badge": "^5.39.1",
@@ -90,6 +91,7 @@
     "@typescript-eslint/parser": "4.16.1",
     "branch-cordova-sdk": "^3.4.0",
     "call-number": "^1.0.1",
+    "com.adjust.sdk": "^4.29.1",
     "cordova-android-play-services-gradle-release": "^4.0.0",
     "cordova-browser": "^6.0.0",
     "cordova-plugin-advanced-http": "^3.2.2",
@@ -253,7 +255,8 @@
       "cordova-plugin-foreground-service": {},
       "cordova-plugin-file": {},
       "branch-cordova-sdk": {},
-      "cordova-plugin-file-transfer": {}
+      "cordova-plugin-file-transfer": {},
+      "com.adjust.sdk": {}
     },
     "platforms": []
   }

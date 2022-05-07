@@ -81,7 +81,7 @@ SOFTWARE.
     <framework src="SystemConfiguration.framework" />
     <framework src="CoreTelephony.framework" />
     <framework src="WebKit.framework" />
-    <framework src="AdServices.framework" weak="true" />
+    <framework src="AdServices.framework"/>
 
     <header-file src="src/ios/BranchNPM.h" />
     <header-file src="src/ios/BranchSDK.h" />

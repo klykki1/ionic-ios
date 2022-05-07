@@ -30,6 +30,7 @@ import { jsonpFactory } from '@angular/http/src/http_module';
 import { Notification, Subscription } from 'rxjs';
 import { BadgeService } from './services/badge-service/badge.service';
 import { ProductService } from './services/product/product.service';
+import { Adjust, AdjustConfig, AdjustEnvironment } from '@awesome-cordova-plugins/adjust/ngx';
 import 'rxjs/add/operator/filter';
 @Component({
   selector: 'app-root',
@@ -101,7 +102,7 @@ export class AppComponent {
     private backgroundGeolocation: BackgroundGeolocation,
     private firebase: FirebaseX,
     private badgeService: BadgeService,
-    
+    private adjust: Adjust
     
   ) {
     this.platform.ready().then(() => {
@@ -136,7 +137,13 @@ this.isLoggedIn=services.isLoggedIn;
       this.initLang();
       const user = JSON.parse(localStorage.getItem('onatrouvé_user'));
       const tokens = JSON.parse(localStorage.getItem('onatrouvé_token'))
-
+      const config = new AdjustConfig(tokens, AdjustEnvironment.Sandbox);
+      config.setUserAgent;
+      config.setSendInBackground;
+      config.setPreinstallTrackingEnabled;
+      config.setShouldLaunchDeeplink;
+      // Set other config properties.
+      adjust.create(config);
       if (user && tokens) {
         this.currentToken = tokens.token;
         this.services.current_user = user;

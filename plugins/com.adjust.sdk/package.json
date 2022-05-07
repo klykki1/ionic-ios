@@ -1,0 +1,56 @@
+{
+  "_from": "com.adjust.sdk",
+  "_id": "com.adjust.sdk@4.29.1",
+  "_inBundle": false,
+  "_integrity": "sha512-0wXj88JXHR5uspKe8ot0DrnfXuOdnVEmLxhV+trWVrZntG6WNG4ewYH2nWL4ACQ4NOKg+wPS9nw/FTy3OXifFQ==",
+  "_location": "/com.adjust.sdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "com.adjust.sdk",
+    "name": "com.adjust.sdk",
+    "escapedName": "com.adjust.sdk",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/com.adjust.sdk/-/com.adjust.sdk-4.29.1.tgz",
+  "_shasum": "e75f718c16e24aac6e96d281feae67650030bf91",
+  "_spec": "com.adjust.sdk",
+  "_where": "C:\\repo\\ONATROUVER\\ionicplatforme\\ios-ionic",
+  "bundleDependencies": false,
+  "cordova_name": "Adjust SDK Cordova Plugin",
+  "deprecated": false,
+  "description": "Cordova plugin for the Adjust SDK",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=3.0.0"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=4.0.0"
+    }
+  ],
+  "keywords": [
+    "adjust",
+    "sdk",
+    "ecosystem:cordova"
+  ],
+  "license": "MIT License",
+  "name": "com.adjust.sdk",
+  "platforms": [
+    "ios",
+    "android"
+  ],
+  "version": "4.29.1"
+}
