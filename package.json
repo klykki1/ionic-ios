@@ -51,6 +51,7 @@
     "@ionic/storage": "2.2.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@nutshellapps/cordova-plugin-file-transfer": "^2.0.0-dev",
     "@types/date-fns": "^2.6.0",
     "@types/hammerjs": "^2.0.40",
     "cordova": "^11.0.0",
