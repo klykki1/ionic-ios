@@ -11,6 +11,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+      <allow-navigation href="moodleappfs:*" />
+    <allow-navigation href="cdvfile:*" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -24,7 +26,14 @@
     <preference name="android-minSdkVersion" value="19" />
     <preference name="GradlePluginGoogleServicesVersion" value="4.3.8" />
     <preference name="loadUrlTimeoutValue" value="700000" />
+      <preference name="iosPersistentFileLocation" value="Compatibility" />
+    <preference name="iosScheme" value="moodleappfs" />
+    <preference name="WKWebViewOnly" value="true" />
+    <preference name="WKFullScreenEnabled" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+        <feature name="StatusBar">
+        <param name="ios-package" onload="true" value="CDVStatusBar" />
+    </feature>
     <platform name="android">
         <resource-file src="google-services.json" target="app/google-services.json" />
         <preference name="android-minSdkVersion" value="19" />
