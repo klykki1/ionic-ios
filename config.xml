@@ -62,6 +62,27 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+            <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>L'emplacement est obligatoire pour que nous puissions vous montrer les annonces à proximité.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysAndWhenInUseUsageDescription">
+            <string>Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
+            <string>Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSMotionUsageDescription">
+            <string>Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>L'accès à la caméra est nécessaire pour vous permettre de prendre les images de votre annonce.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+            <string>L'accès à la galerie est requis pour vous permettre de sélectionner les images de votre annonce dans la galerie / bibliothèque.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+            <string>L'accès à la galerie est requis pour vous permettre de sélectionner les images de votre annonce dans la galerie / bibliothèque.</string>
+        </edit-config>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
