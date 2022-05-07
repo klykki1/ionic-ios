@@ -1,0 +1,57 @@
+{
+  "_from": "branch-cordova-sdk@3.4.0",
+  "_id": "branch-cordova-sdk@3.4.0",
+  "_inBundle": false,
+  "_integrity": "sha512-4dBJJtMp78Yt2r/EfcwYQKCA5B3XHopZQ0BdWf/SFChUoi0fq4Co18xBvxR8WEG4WAi2iOOwc2kTtbLx20CpbA==",
+  "_location": "/branch-cordova-sdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "branch-cordova-sdk@3.4.0",
+    "name": "branch-cordova-sdk",
+    "escapedName": "branch-cordova-sdk",
+    "rawSpec": "3.4.0",
+    "saveSpec": null,
+    "fetchSpec": "3.4.0"
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/branch-cordova-sdk/-/branch-cordova-sdk-3.4.0.tgz",
+  "_shasum": "957d9c7d95a4a8c348f961465ee2a809b3079a4a",
+  "_spec": "branch-cordova-sdk@3.4.0",
+  "_where": "C:\\repo\\ONATROUVER\\ionicplatforme\\ios-ionic",
+  "bugs": {
+    "url": "https://github.com/BranchMetrics/cordova-ionic-phonegap-branch-deep-linking/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "glob": "^7.1.4",
+    "mkpath": "^1.0.0",
+    "node-version-compare": "^1.0.1",
+    "plist": "^3.0.1",
+    "request": "^2.85.0",
+    "shelljs": "^0.8.3",
+    "xcode": "^2.0.0",
+    "xml2js": "^0.4.19"
+  },
+  "deprecated": false,
+  "description": "Branch Metrics Cordova SDK",
+  "devDependencies": {},
+  "homepage": "https://github.com/BranchMetrics/cordova-ionic-phonegap-branch-deep-linking",
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "branch-cordova-sdk",
+  "platforms": [
+    "android",
+    "ios"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BranchMetrics/cordova-ionic-phonegap-branch-deep-linking.git"
+  },
+  "version": "3.4.0"
+}
