@@ -87,7 +87,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
-    "branch-cordova-sdk": "^5.0.2",
+    "branch-cordova-sdk": "^3.4.0",
     "call-number": "^1.0.1",
     "cordova-android-play-services-gradle-release": "^4.0.0",
     "cordova-browser": "^6.0.0",
@@ -138,7 +138,6 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-badge": {},
-      "branch-cordova-sdk": {},
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-device": {},
       "cordova-plugin-dialogs": {},
@@ -252,7 +251,8 @@
       "cordova-plugin-telerik-imagepicker": {},
       "cordova-plugin-foreground-service": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "branch-cordova-sdk": {}
     },
     "platforms": []
   }
