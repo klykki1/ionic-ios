@@ -1,6 +1,6 @@
 #import "BranchSDK.h"
 
-NSString * const pluginVersion = @"3.4.0";
+NSString * const pluginVersion = @"%BRANCH_PLUGIN_VERSION%";
 
 @interface BranchSDK()
 
@@ -58,6 +58,15 @@ NSString * const pluginVersion = @"3.4.0";
   return [NSNumber numberWithBool:[[Branch getInstance] handleDeepLink:url]];
 }
 
+- (id)handleDeepLinkWithNewSession:(CDVInvokedUrlCommand*)command
+{
+  NSString *arg = [command.arguments objectAtIndex:0];
+  NSURL *url = [NSURL URLWithString:arg];
+  self.deepLinkUrl = [url absoluteString];
+
+  return [NSNumber numberWithBool:[[Branch getInstance] handleDeepLinkWithNewSession:url]];
+}
+
 - (void)continueUserActivity:(CDVInvokedUrlCommand*)command
 {
 
@@ -76,6 +85,11 @@ NSString * const pluginVersion = @"3.4.0";
 
 #pragma mark - Public APIs
 #pragma mark - Branch Basic Methods
+
+- (void)enableTestMode:(CDVInvokedUrlCommand*)command
+{
+  [Branch setUseTestBranchKey:TRUE];
+}
 
 - (void)initSession:(CDVInvokedUrlCommand*)command
 {
@@ -281,101 +295,25 @@ NSString * const pluginVersion = @"3.4.0";
         else if ([key isEqualToString:@"description"]) {
             event.eventDescription = [metadata objectForKey:key];
         }
+        else if ([key isEqualToString:@"customerEventAlias"]) {
+            event.alias = [metadata objectForKey:key];
+        }
         else if ([key isEqualToString:@"customData"] && [[metadata objectForKey:key] isKindOfClass:[NSMutableDictionary class]]) {
             event.customData = [metadata objectForKey:key];
         }
-        else if ([key isEqualToString:@"customerEventAlias"]) {
-            event.alias = [metadata objectForKey:key];
+        else if ([key isEqualToString:@"contentMetadata"]){
+             NSMutableArray *mArray = [[NSMutableArray alloc]init];
+
+             for (NSDictionary *dataDictionary in [metadata objectForKey:key]){
+                 BranchUniversalObject *contentItem = [BranchUniversalObject objectWithDictionary:(dataDictionary)];
+                 [mArray addObject:contentItem];
+             }
+             event.contentItems = [mArray copy];
         }
     }
     [event logEvent];
 }
 
-- (void)sendCommerceEvent:(CDVInvokedUrlCommand*)command
-{
-  NSDictionary *data = [command.arguments objectAtIndex:0];
-  NSDictionary *metadata;
-  BNCCommerceEvent *commerce = [[BNCCommerceEvent alloc] init];
-  NSArray *categories = [NSArray arrayWithObjects:BNCProductCategoryAnimalSupplies, BNCProductCategoryApparel, BNCProductCategoryArtsEntertainment, BNCProductCategoryBabyToddler, BNCProductCategoryBusinessIndustrial, BNCProductCategoryCamerasOptics, BNCProductCategoryElectronics, BNCProductCategoryFoodBeverageTobacco, BNCProductCategoryFurniture, BNCProductCategoryHardware, BNCProductCategoryHealthBeauty, BNCProductCategoryHomeGarden, BNCProductCategoryLuggageBags, BNCProductCategoryMature, BNCProductCategoryMedia, BNCProductCategoryOfficeSupplies, BNCProductCategoryReligious, BNCProductCategorySoftware, BNCProductCategorySportingGoods, BNCProductCategoryToysGames, BNCProductCategoryVehiclesParts, nil];
-  NSArray *currencies = [NSArray arrayWithObjects:@"AED", @"AFN", @"ALL", @"AMD", @"ANG", @"AOA", @"ARS", @"AUD", @"AWG", @"AZN", @"BAM", @"BBD", @"BDT", @"BGN", @"BHD", @"BIF", @"BMD", @"BND", @"BOB", @"BOV", @"BRL", @"BSD", @"BTN", @"BWP", @"BYN", @"BYR", @"BZD", @"CAD", @"CDF", @"CHE", @"CHF", @"CHW", @"CLF", @"CLP", @"CNY", @"COP", @"COU", @"CRC", @"CUC", @"CUP", @"CVE", @"CZK", @"DJF", @"DKK", @"DOP", @"DZD", @"EGP", @"ERN", @"ETB", @"EUR", @"FJD", @"FKP", @"GBP", @"GEL", @"GHS", @"GIP", @"GMD", @"GNF", @"GTQ", @"GYD", @"HKD", @"HNL", @"HRK", @"HTG", @"HUF", @"IDR", @"ILS", @"INR", @"IQD", @"IRR", @"ISK", @"JMD", @"JOD", @"JPY", @"KES", @"KGS", @"KHR", @"KMF", @"KPW", @"KRW", @"KWD", @"KYD", @"KZT", @"LAK", @"LBP", @"LKR", @"LRD", @"LSL", @"LYD", @"MAD", @"MDL", @"MGA", @"MKD", @"MMK", @"MNT", @"MOP", @"MRO", @"MUR", @"MVR", @"MWK", @"MXN", @"MXV", @"MYR", @"MZN", @"NAD", @"NGN", @"NIO", @"NOK", @"NPR", @"NZD", @"OMR", @"PAB", @"PEN", @"PGK", @"PHP", @"PKR", @"PLN", @"PYG", @"QAR", @"RON", @"RSD", @"RUB", @"RWF", @"SAR", @"SBD", @"SCR", @"SDG", @"SEK", @"SGD", @"SHP", @"SLL", @"SOS", @"SRD", @"SSP", @"STD", @"SYP", @"SZL", @"THB", @"TJS", @"TMT", @"TND", @"TOP", @"TRY", @"TTD", @"TWD", @"TZS", @"UAH", @"UGX", @"USD", @"USN", @"UYI", @"UYU", @"UZS", @"VEF", @"VND", @"VUV", @"WST", @"XAF", @"XAG", @"XAU", @"XBA", @"XBB", @"XBC", @"XBD", @"XCD", @"XDR", @"XFU", @"XOF", @"XPD", @"XPF", @"XPT", @"XSU", @"XTS", @"XUA", @"XXX", @"YER", @"ZAR", @"ZMW", nil];
-
-  if ([command.arguments count] == 2) {
-    metadata = [command.arguments objectAtIndex:1];
-  }
-
-  for (id key in data) {
-    if ([key isEqualToString:@"revenue"]) {
-      NSString *value = ([[data objectForKey:key] isKindOfClass:[NSString class]]) ? [data objectForKey:key] : [[data objectForKey:key] stringValue];
-      commerce.revenue = [NSDecimalNumber decimalNumberWithString:value];
-    }
-    else if ([key isEqualToString:@"currency"]) {
-      NSString *value = ([[data objectForKey:key] isKindOfClass:[NSString class]]) ? [data objectForKey:key] : [[data objectForKey:key] stringValue];
-      commerce.currency = [currencies objectAtIndex:[value intValue]];
-    }
-    else if ([key isEqualToString:@"transactionID"]) {
-      commerce.transactionID = [data objectForKey:key];
-    }
-    else if ([key isEqualToString:@"shipping"]) {
-      NSString *value = ([[data objectForKey:key] isKindOfClass:[NSString class]]) ? [data objectForKey:key] : [[data objectForKey:key] stringValue];
-      commerce.shipping = [NSDecimalNumber decimalNumberWithString:value];
-    }
-    else if ([key isEqualToString:@"tax"]) {
-      NSString *value = ([[data objectForKey:key] isKindOfClass:[NSString class]]) ? [data objectForKey:key] : [[data objectForKey:key] stringValue];
-      commerce.tax = [NSDecimalNumber decimalNumberWithString:value];
-    }
-    else if ([key isEqualToString:@"coupon"]) {
-      commerce.coupon = [data objectForKey:key];
-    }
-    else if ([key isEqualToString:@"affiliation"]) {
-      commerce.affiliation = [data objectForKey:key];
-    }
-    else if ([key isEqualToString:@"products"] && [[data objectForKey:key] isKindOfClass:[NSArray class]]) {
-      NSMutableArray *products = [[NSMutableArray alloc] init];
-      NSArray *dataProducts = [data objectForKey:key];
-      for (NSDictionary *dataDictionary in dataProducts) {
-        BNCProduct *product = [[BNCProduct alloc] init];
-        for (id key in dataDictionary) {
-          if ([key isEqualToString:@"sku"]) {
-            product.sku = [dataDictionary objectForKey:key];
-          }
-          else if ([key isEqualToString:@"name"]) {
-            product.name = [dataDictionary objectForKey:key];
-          }
-          else if ([key isEqualToString:@"price"]) {
-            NSString *value = ([[dataDictionary objectForKey:key] isKindOfClass:[NSString class]]) ? [dataDictionary objectForKey:key] : [[dataDictionary objectForKey:key] stringValue];
-            product.price = [NSDecimalNumber decimalNumberWithString:value];
-          }
-          else if ([key isEqualToString:@"quantity"]) {
-            NSString *value = ([[dataDictionary objectForKey:key] isKindOfClass:[NSString class]]) ? [dataDictionary objectForKey:key] : [[dataDictionary objectForKey:key] stringValue];
-            product.quantity = [NSNumber numberWithInt:[value intValue]];
-          }
-          else if ([key isEqualToString:@"brand"]) {
-            product.brand = [dataDictionary objectForKey:key];
-          }
-          else if ([key isEqualToString:@"category"]) {
-            NSString *value = ([[dataDictionary objectForKey:key] isKindOfClass:[NSString class]]) ? [dataDictionary objectForKey:key] : [[dataDictionary objectForKey:key] stringValue];
-            product.category = [categories objectAtIndex:[value intValue]];
-          }
-          else if ([key isEqualToString:@"variant"]) {
-            product.variant = [dataDictionary objectForKey:key];
-          }
-        }
-        [products addObject:product];
-      }
-      commerce.products = products;
-    }
-  }
-
-  [[Branch getInstance] sendCommerceEvent:commerce metadata:metadata withCompletion:^(NSDictionary *response, NSError *error) {
-    CDVPluginResult *pluginResult = nil;
-    if (!error) {
-      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: @"Success"];
-    } else {
-      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[error localizedDescription]];
-    }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-  }];
-}
 
 - (void)logout:(CDVInvokedUrlCommand*)command
 {
@@ -402,92 +340,6 @@ NSString * const pluginVersion = @"3.4.0";
   CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:enabled];
 
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-}
-
-#pragma mark - Branch Referral Reward System
-
-- (void)loadRewards:(CDVInvokedUrlCommand*)command
-{
-  Branch *branch = [self getInstance];
-  NSString *bucket = @"";
-
-  if ([command.arguments count] == 1) {
-    bucket = [command.arguments objectAtIndex:0];
-  }
-
-  [branch loadRewardsWithCallback:^(BOOL changed, NSError *error) {
-
-    CDVPluginResult* pluginResult = nil;
-    if(!error) {
-      int credits = 0;
-
-      if ([bucket length]) {
-        credits = (int)[branch getCreditsForBucket:bucket];
-      } else {
-        credits = (int)[branch getCredits];
-      }
-
-      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:credits];
-    }
-    else {
-      NSLog(@"Load Rewards Error: %@", [error localizedDescription]);
-      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[error localizedDescription]];
-    }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-  }];
-}
-
-- (void)redeemRewards:(CDVInvokedUrlCommand*)command
-{
-
-  NSInteger amount = ((NSNumber *)[command.arguments objectAtIndex:0]).integerValue;
-  Branch *branch = [self getInstance];
-
-  if ([command.arguments count] == 2) {
-
-    NSString *bucket = [command.arguments objectAtIndex:1];
-
-    [branch redeemRewards:(NSInteger)amount forBucket:(NSString *)bucket callback:^(BOOL changed, NSError *error) {
-      CDVPluginResult* pluginResult = nil;
-      if (!error) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:changed];
-      }
-      else {
-        NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[error localizedDescription]];
-      }
-      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-  } else {
-    [branch redeemRewards:amount callback:^(BOOL changed, NSError *error) {
-      CDVPluginResult* pluginResult = nil;
-      if (!error) {
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:changed];
-      }
-      else {
-        NSLog(@"Redeem Rewards Error: %@", [error localizedDescription]);
-        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[error localizedDescription]];
-      }
-      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }];
-  }
-}
-
-- (void)getCreditHistory:(CDVInvokedUrlCommand*)command
-{
-  Branch *branch = [self getInstance];
-
-  [branch getCreditHistoryWithCallback:^(NSArray *list, NSError *error) {
-    CDVPluginResult* pluginResult = nil;
-    if (!error) {
-      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsArray:list];
-    }
-    else {
-      NSLog(@"Credit History Error: %@", [error localizedDescription]);
-      pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[error localizedDescription]];
-    }
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-  }];
 }
 
 #pragma mark - Branch Universal Object Methods
@@ -782,7 +634,7 @@ NSString * const pluginVersion = @"3.4.0";
   NSMutableDictionary *json = [NSMutableDictionary new];
 
   Branch *branch = [self getInstance];
-  [branch lastAttributedTouchDataWithAttributionWindow:30 completion:^(BranchLastAttributedTouchData * _Nullable latd) {
+  [branch lastAttributedTouchDataWithAttributionWindow:30 completion:^(BranchLastAttributedTouchData * _Nullable latd, NSError * _Nullable error) {
     CDVPluginResult* pluginResult = nil;
     if (latd) {
       [json setObject:latd.attributionWindow forKey:@"attribution_window"];

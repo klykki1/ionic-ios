@@ -1,16 +1,15 @@
 package io.branch;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.annotation.TargetApi;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.PluginResult;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,16 +19,16 @@ import java.util.Iterator;
 
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
-import io.branch.referral.BranchUtil;
 import io.branch.referral.BranchError;
 import io.branch.referral.BranchViewHandler;
+import io.branch.referral.ServerRequestGetCPID.BranchCrossPlatformIdListener;
+import io.branch.referral.ServerRequestGetLATD.BranchLastAttributedTouchDataListener;
 import io.branch.referral.SharingHelper;
 import io.branch.referral.util.BRANCH_STANDARD_EVENT;
+import io.branch.referral.util.BranchCPID;
 import io.branch.referral.util.BranchEvent;
-import io.branch.referral.util.CommerceEvent;
+import io.branch.referral.util.ContentMetadata;
 import io.branch.referral.util.CurrencyType;
-import io.branch.referral.util.Product;
-import io.branch.referral.util.ProductCategory;
 import io.branch.referral.util.ShareSheetStyle;
 
 public class BranchSDK extends CordovaPlugin {
@@ -39,12 +38,14 @@ public class BranchSDK extends CordovaPlugin {
 
     // Standard Debugging Variables
     private static final String LCAT = "CordovaBranchSDK";
-        // todo pick up plugin version dynamically
-    private static final String BRANCH_PLUGIN_VERSION = "3.4.0";
+
+    private static final String BRANCH_PLUGIN_TYPE = "CordovaIonic";
+    private static final String BRANCH_PLUGIN_VERSION = "%BRANCH_PLUGIN_VERSION%";
 
     // Private Method Properties
     private ArrayList<BranchUniversalObjectWrapper> branchObjectWrappers;
     private Activity activity;
+    private Branch instance;
     private String deepLinkUrl;
 
     /**
@@ -53,6 +54,7 @@ public class BranchSDK extends CordovaPlugin {
     public BranchSDK() {
 
         this.activity = null;
+        this.instance = null;
         this.branchObjectWrappers = new ArrayList<BranchUniversalObjectWrapper>();
 
     }
@@ -62,12 +64,13 @@ public class BranchSDK extends CordovaPlugin {
      */
     @Override
     protected void pluginInitialize() {
-        this.activity = this.cordova.getActivity();
-        BranchUtil.setPluginType(BranchUtil.PluginType.CordovaIonic);
-        BranchUtil.setPluginVersion(BRANCH_PLUGIN_VERSION);
-        Branch.disableInstantDeepLinking(true);
-        Branch.getAutoInstance(this.activity.getApplicationContext());
 
+        this.activity = this.cordova.getActivity();
+        Branch.disableInstantDeepLinking(true);
+        Branch.registerPlugin(BRANCH_PLUGIN_TYPE, BRANCH_PLUGIN_VERSION);
+        if (this.instance == null) {
+            this.instance = Branch.getAutoInstance(this.activity.getApplicationContext());
+        }
     }
 
     /**
@@ -108,36 +111,31 @@ public class BranchSDK extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
 
+        Log.d(LCAT, "Execute: " + action);
+
         Runnable r = new RunnableThread(action, args, callbackContext);
 
-        if (action.equals("setCookieBasedMatching")) {
+        if (action.equals("setDebug")) {
+            cordova.getActivity().runOnUiThread(r);
+            return true;
+        } else if (action.equals("setCookieBasedMatching")) {
+            cordova.getActivity().runOnUiThread(r);
+            return true;
+       } else if (action.equals("disableTracking")) {
+            cordova.getActivity().runOnUiThread(r);
+            return true;
+        } else if (action.equals("initSession")) {
+            cordova.getActivity().runOnUiThread(r);
+            return true;
+        } else if (action.equals("setRequestMetadata")) {
             cordova.getActivity().runOnUiThread(r);
             return true;
         } else {
-            if (Branch.getInstance() != null) {
-                if (action.equals("setDebug")) {
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("disableTracking")) {
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("initSession")) {
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("setRequestMetadata")) {
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("setIdentity")) {
+            if (this.instance != null) {
+                if (action.equals("setIdentity")) {
                     cordova.getActivity().runOnUiThread(r);
                     return true;
                 } else if (action.equals("userCompletedAction")) {
-                    if (args.length() < 1 && args.length() > 2) {
-                        callbackContext.error(String.format("Parameter mismatched. 1-2 is required but %d is given", args.length()));
-                        return false;
-                    }
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("sendCommerceEvent")) {
                     if (args.length() < 1 && args.length() > 2) {
                         callbackContext.error(String.format("Parameter mismatched. 1-2 is required but %d is given", args.length()));
                         return false;
@@ -160,19 +158,6 @@ public class BranchSDK extends CordovaPlugin {
                 } else if (action.equals("logout")) {
                     cordova.getActivity().runOnUiThread(r);
                     return true;
-                } else if (action.equals("loadRewards")) {
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("redeemRewards")) {
-                    if (args.length() < 1 && args.length() > 2) {
-                        callbackContext.error(String.format("Parameter mismatched. 1-2 is required but %d is given", args.length()));
-                        return false;
-                    }
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
-                } else if (action.equals("getCreditHistory")) {
-                    cordova.getActivity().runOnUiThread(r);
-                    return true;
                 } else if (action.equals("createBranchUniversalObject")) {
                     if (args.length() != 1) {
                         callbackContext.error(String.format("Parameter mismatched. 1 is required but %d is given", args.length()));
@@ -180,6 +165,15 @@ public class BranchSDK extends CordovaPlugin {
                     }
                     cordova.getActivity().runOnUiThread(r);
                     return true;
+
+                } else if (action.equals("crossPlatformIds")) {
+                    cordova.getActivity().runOnUiThread(r);
+                    return true;
+
+                } else if (action.equals("lastAttributedTouchData")) {
+                    cordova.getActivity().runOnUiThread(r);
+                    return true; 
+
                 } else if (action.equals(("generateShortUrl"))) {
                     if (args.length() != 3) {
                         callbackContext.error(String.format("Parameter mismatched. 3 is required but %d is given", args.length()));
@@ -234,14 +228,21 @@ public class BranchSDK extends CordovaPlugin {
                 return true;
 
             } else {
-                callbackContext.error("Branch instance not set. Ensure plugin is initialized.");
+                callbackContext.error("Branch instance not set. Please execute initSession() first.");
             }
         }
 
         return false;
 
     }
+    
+    public void crossPlatformIds(CallbackContext callbackContext) {
+        this.instance.getCrossPlatformIds(new BranchCPIDListener(callbackContext));
+    }
 
+    public void lastAttributedTouchData(CallbackContext callbackContext) {
+        this.instance.getLastAttributedTouchData(new BranchLATDListener(callbackContext), 30);
+    }
 
     //////////////////////////////////////////////////
     //----------- CLASS PRIVATE METHODS ------------//
@@ -263,8 +264,7 @@ public class BranchSDK extends CordovaPlugin {
             this.deepLinkUrl = data.toString();
         }
 
-        Branch.getInstance().initSession(new SessionListener(callbackContext), data, activity);
-
+        this.instance.initSession(new SessionListener(callbackContext), data, activity);
     }
 
     /**
@@ -276,65 +276,7 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void logout(CallbackContext callbackContext) {
 
-        Branch.getInstance().logout(new LogoutStatusListener(callbackContext));
-
-    }
-
-    /**
-     * <p>Redeems the specified number of credits from the "default" bucket, if there are sufficient
-     * credits within it. If the number to redeem exceeds the number available in the bucket, all of
-     * the available credits will be redeemed instead.</p>
-     *
-     * @param value           An {@link Integer} specifying the number of credits to attempt to redeem from
-     *                        the bucket.
-     * @param callbackContext A callback to execute at the end of this method
-     */
-    private void redeemRewards(final int value, CallbackContext callbackContext) {
-
-        Branch.getInstance().redeemRewards(value, new RedeemRewardsListener(callbackContext));
-
-    }
-
-    /**
-     * <p>Redeems the specified number of credits from the "default" bucket, if there are sufficient
-     * credits within it. If the number to redeem exceeds the number available in the bucket, all of
-     * the available credits will be redeemed instead.</p>
-     *
-     * @param value           An {@link Integer} specifying the number of credits to attempt to redeem from
-     *                        the bucket.
-     * @param bucket          The name of the bucket to remove the credits from.
-     * @param callbackContext A callback to execute at the end of this method
-     */
-    private void redeemRewards(int value, String bucket, CallbackContext callbackContext) {
-
-        Branch.getInstance().redeemRewards(bucket, value, new RedeemRewardsListener(callbackContext));
-
-    }
-
-    /**
-     * <p>Retrieves rewards for the current session, with a callback to perform a predefined
-     * action following successful report of state change. You'll then need to call getCredits
-     * in the callback to update the credit totals in your UX.</p>
-     *
-     * @param callbackContext A callback to execute at the end of this method
-     * @param bucket          Load reward of a specific bucket
-     */
-    private void loadRewards(String bucket, CallbackContext callbackContext) {
-
-        Branch.getInstance().loadRewards(new LoadRewardsListener(bucket, callbackContext, Branch.getInstance()));
-
-    }
-
-    /**
-     * <p>Retrieves rewards for the current session, with a callback to perform a predefined
-     * action following successful report of state change. You'll then need to call getCredits
-     * in the callback to update the credit totals in your UX.</p>
-     *
-     * @param callbackContext A callback to execute at the end of this method
-     */
-    private void loadRewards(CallbackContext callbackContext) {
-
-        Branch.getInstance().loadRewards(new LoadRewardsListener(callbackContext, Branch.getInstance()));
+        this.instance.logout(new LogoutStatusListener(callbackContext));
 
     }
 
@@ -351,7 +293,7 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void getLatestReferringParams(CallbackContext callbackContext) {
 
-        JSONObject sessionParams = Branch.getInstance().getLatestReferringParams();
+        JSONObject sessionParams = this.instance.getLatestReferringParams();
 
         if (sessionParams == null || sessionParams.length() == 0) {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, /* send boolean: false as the data */ false));
@@ -373,7 +315,7 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void getFirstReferringParams(CallbackContext callbackContext) {
 
-        JSONObject installParams = Branch.getInstance().getFirstReferringParams();
+        JSONObject installParams = this.instance.getFirstReferringParams();
 
         if (installParams == null || installParams.length() == 0) {
             callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, /* send boolean: false as the data */ false));
@@ -545,6 +487,8 @@ public class BranchSDK extends CordovaPlugin {
 
         branchUniversalWrapper.branchUniversalObj.registerView(new RegisterViewStatusListener(callbackContext));
 
+        callbackContext.success("Success");
+
     }
 
     /**
@@ -591,7 +535,7 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void setDebug(boolean isEnable, CallbackContext callbackContext) {
         this.activity = this.cordova.getActivity();
-        Branch.getInstance().setDebug();
+        Branch.enableDebugMode();
         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, isEnable));
     }
 
@@ -605,7 +549,8 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void disableTracking(boolean isEnable, CallbackContext callbackContext) {
         this.activity = this.cordova.getActivity();
-        Branch.getInstance().disableTracking(isEnable);
+
+        this.instance.disableTracking(isEnable);
         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, isEnable));
     }
 
@@ -618,7 +563,7 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void setIdentity(String newIdentity, CallbackContext callbackContext) {
 
-        Branch.getInstance().setIdentity(newIdentity, new SetIdentityListener(callbackContext));
+        this.instance.setIdentity(newIdentity, new SetIdentityListener(callbackContext));
 
     }
 
@@ -646,7 +591,7 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void userCompletedAction(String action, CallbackContext callbackContext) {
 
-        Branch.getInstance().userCompletedAction(action);
+        this.instance.userCompletedAction(action);
 
         callbackContext.success("Success");
 
@@ -664,95 +609,24 @@ public class BranchSDK extends CordovaPlugin {
      */
     private void userCompletedAction(String action, JSONObject metaData, CallbackContext callbackContext) {
 
-        Branch.getInstance().userCompletedAction(action, metaData);
+        this.instance.userCompletedAction(action, metaData);
 
         callbackContext.success("Success");
 
     }
 
-    /**
-     * <p>A void call to indicate that the user has performed a specific commerce event and for that to be
-     * reported to the Branch API.</p>
-     *
-     * @param action          A {@link String} value to be passed as an commerce event that the user has
-     *                        carried out.
-     * @param metaData        A {@link JSONObject} containing app-defined meta-data to be attached to a
-     *                        user action that has just been completed.
-     * @param callbackContext A callback to execute at the end of this method
-     */
-    private void sendCommerceEvent(JSONObject action, JSONObject metaData, CallbackContext callbackContext) throws JSONException {
+    public void sendBranchEvent(String eventName, CallbackContext callbackContext) throws JSONException {
 
-        CommerceEvent commerce = new CommerceEvent();
-        Iterator<String> keys = action.keys();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            String val;
-            try {
-                val = action.getString(key);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                callbackContext.error("Invalid key-value for " + key);
-                return;
-            }
-            if (key.equals("revenue")) {
-                commerce.setRevenue(Double.parseDouble(val));
-            } else if (key.equals("currency")) {
-                commerce.setCurrencyType(CurrencyType.values()[Integer.parseInt(val)]);
-            } else if (key.equals("transactionID")) {
-                commerce.setTransactionID(val);
-            } else if (key.equals("coupon")) {
-                commerce.setCoupon(val);
-            } else if (key.equals("shipping")) {
-                commerce.setShipping(Double.parseDouble(val));
-            } else if (key.equals("tax")) {
-                commerce.setTax(Double.parseDouble(val));
-            } else if (key.equals("affiliation")) {
-                commerce.setAffiliation(val);
-            } else if (key.equals("products")) {
-                JSONArray products = new JSONArray();
-                try {
-                    products = action.getJSONArray(key);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    callbackContext.error("Invalid key-value for " + key);
-                    return;
-                }
-                for (int i = 0; i < products.length(); ++i) {
-                    Product product = new Product();
-                    JSONObject item = products.getJSONObject(i);
-                    keys = item.keys();
-                    while (keys.hasNext()) {
-                        key = keys.next();
-                        try {
-                            val = item.getString(key);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            callbackContext.error("Invalid key-value for product for " + key);
-                            return;
-                        }
-                        if (key.equals("sku")) {
-                            product.setSku(val);
-                        } else if (key.equals("name")) {
-                            product.setName(val);
-                        } else if (key.equals("price")) {
-                            product.setPrice(Double.parseDouble(val));
-                        } else if (key.equals("quantity")) {
-                            product.setQuantity(Integer.parseInt(val));
-                        } else if (key.equals("brand")) {
-                            product.setBrand(val);
-                        } else if (key.equals("category")) {
-                            product.setCategory(ProductCategory.values()[Integer.parseInt(val)]);
-                        } else if (key.equals("variant")) {
-                            product.setVariant(val);
-                        }
-                    }
-                    commerce.addProduct(product);
-                }
-            }
+        BranchEvent event;
+        try {
+            BRANCH_STANDARD_EVENT standardEvent = BRANCH_STANDARD_EVENT.valueOf(eventName);
+            event = new BranchEvent(standardEvent);
+        } catch(IllegalArgumentException e) {
+            event = new BranchEvent(eventName);
         }
 
-        Branch.getInstance().sendCommerceEvent(commerce, metaData, new BranchViewEventsListener(callbackContext));
-
+        event.logEvent(this.activity);
+        //callbackContext.success();
     }
 
     public void sendBranchEvent(String eventName, JSONObject metaData, CallbackContext callbackContext) throws JSONException {
@@ -793,13 +667,22 @@ public class BranchSDK extends CordovaPlugin {
                 event.setDescription(metaData.getString("description"));
             } else if (key.equals("searchQuery")) {
                 event.setSearchQuery(metaData.getString("searchQuery"));
+            } else if (key.equals("customerEventAlias")) {
+                event.setCustomerEventAlias(metaData.getString("customerEventAlias"));
             } else if (key.equals("customData")) {
                 JSONObject customData = metaData.getJSONObject("customData");
-                keys = customData.keys();
+                Iterator<String> customDataKeys = customData.keys();
 
-                while (keys.hasNext()) {
-                    String keyValue = (String) keys.next();
+                while (customDataKeys.hasNext()) {
+                    String keyValue = (String) customDataKeys.next();
                     event.addCustomDataProperty(keyValue, customData.getString(keyValue));
+                }
+            } else if (key.equals("contentMetadata")) {
+                JSONArray contentMetadata = metaData.getJSONArray("contentMetadata");
+                for (int i = 0; i < contentMetadata.length(); i++) {
+                    JSONObject item = contentMetadata.getJSONObject(i);
+                    BranchUniversalObject universalObject =  this.getContentItem(item);
+                    event.addContentItems(universalObject);
                 }
             }
 
@@ -808,16 +691,45 @@ public class BranchSDK extends CordovaPlugin {
         //callbackContext.success();
     }
 
-    /**
-     * <p>Gets the credit history of the specified bucket and triggers a callback to handle the
-     * response.</p>
-     *
-     * @param callbackContext A callback to execute at the end of this method
-     */
-    private void getCreditHistory(CallbackContext callbackContext) {
+    private BranchUniversalObject getContentItem(JSONObject item) throws JSONException {
+        BranchUniversalObject universalObject = new BranchUniversalObject();
+        ContentMetadata contentMetadata = new ContentMetadata();
+        Iterator<String> keys = item.keys();
+        while (keys.hasNext()) {
+            String key = keys.next();
 
-        Branch.getInstance().getCreditHistory(new CreditHistoryListener(callbackContext));
+            switch (key) {
+                case "quantity":
+                    contentMetadata.setQuantity(Double.parseDouble(item.getString(key)));
+                    break;
+                case "price":
+                    contentMetadata.price = Double.parseDouble(item.getString(key));
+                    break;
+                case "currency":
+                    String currencyString = item.getString(key);
+                    CurrencyType currency = CurrencyType.getValue(currencyString);
+                    if (currency != null) {
+                        contentMetadata.currencyType = currency;
+                    }
+                    break;
+                case "productName":
+                    contentMetadata.setProductName(item.getString(key));
+                    break;
+                case "productBrand":
+                    contentMetadata.setProductBrand(item.getString(key));
+                    break;
+                case "sku":
+                    contentMetadata.setSku(item.getString(key));
+                    break;
+                default:
+                    contentMetadata.addCustomMetadata(key, item.getString(key));
+                    break;
+            }
+        }
 
+        universalObject.setContentMetadata(contentMetadata);
+
+        return universalObject;
     }
 
     /**
@@ -849,6 +761,60 @@ public class BranchSDK extends CordovaPlugin {
     //////////////////////////////////////////////////
     //----------- INNER CLASS LISTENERS ------------//
     //////////////////////////////////////////////////
+
+    protected class BranchCPIDListener implements BranchCrossPlatformIdListener {
+        private CallbackContext _callbackContext;
+
+        public BranchCPIDListener(CallbackContext callbackContext) {
+            this._callbackContext = callbackContext;
+        }
+
+        @Override
+        public void onDataFetched(BranchCPID branchCPID, BranchError error) {
+            if (error != null) {
+                Log.d(LCAT, "CPID unavailable");
+                this._callbackContext.error("CPID unavailable");
+            } else {
+
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("developer_identity", branchCPID.getDeveloperIdentity());
+                    jsonObject.put("cross_platform_id", branchCPID.getCrossPlatformID());
+                    jsonObject.put("past_cross_platform_ids", branchCPID.getPastCrossPlatformIds());
+                    jsonObject.put("prob_cross_platform_ids", branchCPID.getProbabilisticCrossPlatformIds());
+                } catch (JSONException e) {
+                    // just send back and empty object on json error
+                    jsonObject = new JSONObject();
+                }
+
+                Log.d(LCAT, jsonObject.toString());
+
+                PluginResult result = new PluginResult(PluginResult.Status.OK, jsonObject);
+                this._callbackContext.sendPluginResult(result);
+            }
+        }
+    }
+
+    protected class BranchLATDListener implements BranchLastAttributedTouchDataListener {
+        private CallbackContext _callbackContext;
+
+        public BranchLATDListener(CallbackContext callbackContext) {
+            this._callbackContext = callbackContext;
+        }
+
+        @Override
+        public void onDataFetched(JSONObject jsonObject, BranchError error) {
+            if (error != null) {
+                Log.d(LCAT, "LATD unavailable");
+                this._callbackContext.error("LATD unavailable");
+            } else {
+                Log.d(LCAT, jsonObject.toString());
+
+                PluginResult result = new PluginResult(PluginResult.Status.OK, jsonObject);
+                this._callbackContext.sendPluginResult(result);
+            }
+        }
+    }
 
     protected class BranchViewEventsListener implements BranchViewHandler.IBranchViewEvents {
 
@@ -988,78 +954,6 @@ public class BranchSDK extends CordovaPlugin {
 
             if (error == null) {
                 this._callbackContext.success("Success");
-            } else {
-
-                String errorMessage = error.getMessage();
-
-                Log.d(LCAT, errorMessage);
-
-                this._callbackContext.error(errorMessage);
-            }
-        }
-    }
-
-    protected class LoadRewardsListener implements Branch.BranchReferralStateChangedListener {
-        private CallbackContext _callbackContext;
-        private Branch _instance;
-        private String _bucket;
-
-        public LoadRewardsListener(String bucket, CallbackContext callbackContext, Branch instance) {
-            this._callbackContext = callbackContext;
-            this._instance = instance;
-            this._bucket = bucket;
-        }
-
-        public LoadRewardsListener(CallbackContext callbackContext, Branch instance) {
-            this._callbackContext = callbackContext;
-            this._instance = instance;
-            this._bucket = "";
-        }
-
-        // Listener that implements BranchReferralStateChangedListener for loadRewards
-        @Override
-        public void onStateChanged(boolean changed, BranchError error) {
-            if (error == null) {
-
-                int credits = 0;
-
-                if (this._bucket.length() > 0) {
-                    credits = this._instance.getCreditsForBucket(this._bucket);
-                } else {
-                    credits = this._instance.getCredits();
-                }
-
-                this._callbackContext.success(credits);
-
-            } else {
-
-                String errorMessage = error.getMessage();
-
-                Log.d(LCAT, errorMessage);
-
-                this._callbackContext.error(errorMessage);
-
-            }
-
-        }
-    }
-
-    protected class RedeemRewardsListener implements Branch.BranchReferralStateChangedListener {
-        private CallbackContext _callbackContext;
-
-        // Constructor that takes in a required callbackContext object
-        public RedeemRewardsListener(CallbackContext callbackContext) {
-            this._callbackContext = callbackContext;
-        }
-
-        // Listener that implements BranchReferralStateChangedListener for redeemRewards
-        @Override
-        public void onStateChanged(boolean changed, BranchError error) {
-
-            if (error == null) {
-
-                this._callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, /* send boolean: is changed */ changed));
-
             } else {
 
                 String errorMessage = error.getMessage();
@@ -1244,64 +1138,6 @@ public class BranchSDK extends CordovaPlugin {
         }
     }
 
-    protected class CreditHistoryListener implements Branch.BranchListResponseListener {
-        private CallbackContext _callbackContext;
-
-        // Constructor that takes in a required callbackContext object
-        public CreditHistoryListener(CallbackContext callbackContext) {
-            this._callbackContext = callbackContext;
-        }
-
-        // Listener that implements BranchListResponseListener for getCreditHistory()
-        @Override
-        public void onReceivingResponse(JSONArray list, BranchError error) {
-
-            ArrayList<String> errors = new ArrayList<String>();
-
-            if (error == null) {
-
-                JSONArray data = new JSONArray();
-
-                if (list != null) {
-
-                    for (int i = 0, limit = list.length(); i < limit; ++i) {
-
-                        JSONObject entry;
-
-                        try {
-                            entry = list.getJSONObject(i);
-                            data.put(entry);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            errors.add(e.getMessage());
-                        }
-
-                    }
-
-                }
-
-                if (errors.size() > 0) {
-                    StringBuilder sb = new StringBuilder();
-                    for (String s : errors) {
-                        sb.append(s);
-                        sb.append("\n");
-                    }
-                    this._callbackContext.error(sb.toString());
-                } else {
-                    this._callbackContext.success(data);
-                }
-            } else {
-
-                String errorMessage = error.getMessage();
-
-                Log.d(LCAT, errorMessage);
-
-                this._callbackContext.error(errorMessage);
-
-            }
-        }
-    }
-
     protected class RunnableThread implements Runnable {
 
         private String action;
@@ -1316,6 +1152,8 @@ public class BranchSDK extends CordovaPlugin {
 
         public void run() {
             try {
+                Log.d(LCAT, "Runnable: " + this.action);
+
                 if (this.action.equals("setDebug")) {
                     setDebug(this.args.getBoolean(0), this.callbackContext);
                 } else if (this.action.equals("setCookieBasedMatching")) {
@@ -1335,32 +1173,24 @@ public class BranchSDK extends CordovaPlugin {
                         } else if (this.args.length() == 1) {
                             userCompletedAction(this.args.getString(0), this.callbackContext);
                         }
-                    } else if (this.action.equals("sendCommerceEvent")) {
-                        sendCommerceEvent(this.args.getJSONObject(0), this.args.getJSONObject(1), this.callbackContext);
                     } else if (this.action.equals("sendBranchEvent")) {
-                        sendBranchEvent(this.args.getString(0), this.args.getJSONObject(1), this.callbackContext);
+                        if (this.args.length() == 2) {
+                            sendBranchEvent(this.args.getString(0), this.args.getJSONObject(1), this.callbackContext);
+                        } else if (this.args.length() == 1) {
+                            sendBranchEvent(this.args.getString(0), this.callbackContext);
+                        }
                     } else if (this.action.equals("getFirstReferringParams")) {
                         getFirstReferringParams(this.callbackContext);
                     } else if (this.action.equals("getLatestReferringParams")) {
                         getLatestReferringParams(this.callbackContext);
                     } else if (this.action.equals("logout")) {
                         logout(this.callbackContext);
-                    } else if (this.action.equals("loadRewards")) {
-                        if (this.args.length() == 1) {
-                            loadRewards(this.args.getString(0), this.callbackContext);
-                        } else {
-                            loadRewards(this.callbackContext);
-                        }
-                    } else if (this.action.equals("redeemRewards")) {
-                        if (this.args.length() == 1) {
-                            redeemRewards(this.args.getInt(0), this.callbackContext);
-                        } else if (this.args.length() == 2) {
-                            redeemRewards(this.args.getInt(0), this.args.getString(1), this.callbackContext);
-                        }
-                    } else if (this.action.equals("getCreditHistory")) {
-                        getCreditHistory(this.callbackContext);
                     } else if (this.action.equals("createBranchUniversalObject")) {
                         createBranchUniversalObject(this.args.getJSONObject(0), this.callbackContext);
+                    } else if (this.action.equals("crossPlatformIds")) {
+                        crossPlatformIds(this.callbackContext);
+                    } else if (this.action.equals("lastAttributedTouchData")) {
+                        lastAttributedTouchData(this.callbackContext);
                     } else if (this.action.equals(("generateShortUrl"))) {
                         generateShortUrl(this.args.getInt(0), this.args.getJSONObject(1), this.args.getJSONObject(2), this.callbackContext);
                     } else if (this.action.equals("registerView")) {

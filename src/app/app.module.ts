@@ -48,6 +48,7 @@ import {Media} from '@awesome-cordova-plugins/media/ngx';
 import {ComponentModule} from './components/components.module';
 import {JWTInterceptor} from './shared/interceptors/JWTInterceptor';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
+import { Adjust } from '@awesome-cordova-plugins/adjust/ngx';
 const config: SocketIoConfig = { url: 'http://vps-6496d4c1.vps.ovh.net:3001/chat', options:  {
   reconnection: true,
   reconnectionDelay: 1000,
@@ -94,6 +95,7 @@ export function createTranslateLoader(http: HttpClient) {
     File,
     Camera,
     Device,
+    Adjust,
    // Push,
        BackgroundGeolocation,
    ImagePicker,

@@ -143,7 +143,7 @@ this.isLoggedIn=services.isLoggedIn;
       config.setPreinstallTrackingEnabled;
       config.setShouldLaunchDeeplink;
       // Set other config properties.
-      adjust.create(config);
+      this.adjust.create(config);
       if (user && tokens) {
         this.currentToken = tokens.token;
         this.services.current_user = user;

@@ -1,7 +1,7 @@
 var exec = require("cordova/exec");
 var deviceVendor =
   typeof window.clientInformation != "undefined" &&
-    typeof window.clientInformation.vendor != "undefined"
+  typeof window.clientInformation.vendor != "undefined"
     ? window.clientInformation.vendor
     : "unknownVendor";
 
@@ -15,22 +15,28 @@ const standardEvent = {
   STANDARD_EVENT_INITIATE_PURCHASE: "INITIATE_PURCHASE",
   STANDARD_EVENT_ADD_PAYMENT_INFO: "ADD_PAYMENT_INFO",
   STANDARD_EVENT_PURCHASE: "PURCHASE",
-  STANDARD_EVENT_SPEND_CREDITS: "SPEND_CREDITS",
   STANDARD_EVENT_SEARCH: "SEARCH",
   STANDARD_EVENT_VIEW_ITEM: "VIEW_ITEM",
   STANDARD_EVENT_VIEW_ITEMS: "VIEW_ITEMS",
   STANDARD_EVENT_RATE: "RATE",
   STANDARD_EVENT_SHARE: "SHARE",
+  STANDARD_EVENT_INITIATE_STREAM: "INITIATE_STREAM",
+  STANDARD_EVENT_COMPLETE_STREAM: "COMPLETE_STREAM",
   STANDARD_EVENT_COMPLETE_REGISTRATION: "COMPLETE_REGISTRATION",
   STANDARD_EVENT_COMPLETE_TUTORIAL: "COMPLETE_TUTORIAL",
   STANDARD_EVENT_ACHIEVE_LEVEL: "ACHIEVE_LEVEL",
-  STANDARD_EVENT_UNLOCK_ACHIEVEMENT: "UNLOCK_ACHIEVEMENT"
+  STANDARD_EVENT_UNLOCK_ACHIEVEMENT: "UNLOCK_ACHIEVEMENT",
+  STANDARD_EVENT_INVITE: "INVITE",
+  STANDARD_EVENT_LOGIN: "LOGIN",
+  STANDARD_EVENT_SUBSCRIBE: "SUBSCRIBE",
+  STANDARD_EVENT_START_TRIAL: "START_TRIAL"
 }
 
 // Branch prototype
 var Branch = function Branch() {
   this.debugMode = false;
   this.trackingDisabled = false;
+  this.sessionInitialized = false;
 };
 
 // JavsSript to SDK wrappers
@@ -39,7 +45,7 @@ function execute(method, params) {
 
   if (method == "getStandardEvents") {
     return new Promise(function promise(resolve, reject) {
-      resolve(standardEvent);
+      resolve(standardEvent);  
     });
   }
 
@@ -85,7 +91,15 @@ Branch.prototype.disableTracking = function disableTracking(isEnabled) {
   return execute("disableTracking", [value]);
 };
 
+Branch.prototype.enableTestMode = function initSession() {
+  if (this.sessionInitialized) {
+    return executeReject("[enableTestMode] should be called before [initSession]");
+  }
+  return execute("enableTestMode");
+};
+
 Branch.prototype.initSession = function initSession() {
+  this.sessionInitialized = true;
   return execute("initSession");
 };
 
@@ -114,22 +128,18 @@ Branch.prototype.setCookieBasedMatching = function setCookieBasedMatching(
     : null;
 };
 
+//DEPRECATED
 Branch.prototype.delayInitToCheckForSearchAds = function delayInitToCheckForSearchAds(
   isEnabled
 ) {
-  var value = typeof isEnabled !== "boolean" ? false : isEnabled;
-
-  return execute("delayInitToCheckForSearchAds", [value]);
-};
-
-Branch.prototype.setAppleSearchAdsDebugMode = function setAppleSearchAdsDebugMode(
-  isEnabled
-) {
-  // This function no longer exists in the SDK but we don't want
-  // to break any apps still using the 3.x releases.
+  // stub call from known issue calling it from JS
   return new Promise(function promise(resolve, reject) {
     resolve(false);
   });
+
+  // var value = typeof isEnabled !== "boolean" ? false : isEnabled;
+
+  // return execute("delayInitToCheckForSearchAds", [value]);
 };
 
 Branch.prototype.getFirstReferringParams = function getFirstReferringParams() {
@@ -288,22 +298,12 @@ Branch.prototype.createBranchUniversalObject = function createBranchUniversalObj
   });
 };
 
-Branch.prototype.loadRewards = function loadRewards(bucket) {
-  var output = !bucket ? "" : bucket;
-  return execute("loadRewards", [output]);
+Branch.prototype.crossPlatformIds = function crossPlatformIds() {
+  return execute("crossPlatformIds");
 };
 
-Branch.prototype.redeemRewards = function redeemRewards(value, bucket) {
-  var params = [value];
-  if (bucket) {
-    params.push(bucket);
-  }
-
-  return execute("redeemRewards", params);
-};
-
-Branch.prototype.creditHistory = function creditHistory() {
-  return execute("getCreditHistory");
+Branch.prototype.lastAttributedTouchData = function lastAttributedTouchData() {
+  return execute("lastAttributedTouchData");
 };
 
 // export Branch object

@@ -89,7 +89,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
-    "branch-cordova-sdk": "^3.4.0",
+    "branch-cordova-sdk": "^5.0.2",
     "call-number": "^1.0.1",
     "com.adjust.sdk": "^4.29.1",
     "cordova-android-play-services-gradle-release": "^4.0.0",
@@ -254,9 +254,9 @@
       "cordova-plugin-telerik-imagepicker": {},
       "cordova-plugin-foreground-service": {},
       "cordova-plugin-file": {},
-      "branch-cordova-sdk": {},
       "cordova-plugin-file-transfer": {},
-      "com.adjust.sdk": {}
+      "com.adjust.sdk": {},
+      "branch-cordova-sdk": {}
     },
     "platforms": []
   }

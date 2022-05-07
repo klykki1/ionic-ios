@@ -287,14 +287,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "branch-cordova-sdk": {
-    "source": {
-      "type": "registry",
-      "id": "branch-cordova-sdk@3.4.0"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-file-transfer": {
     "source": {
       "type": "registry",
@@ -307,6 +299,14 @@
     "source": {
       "type": "registry",
       "id": "com.adjust.sdk"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "branch-cordova-sdk": {
+    "source": {
+      "type": "registry",
+      "id": "branch-cordova-sdk"
     },
     "is_top_level": true,
     "variables": {}
