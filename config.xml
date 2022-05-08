@@ -73,6 +73,7 @@
     <platform name="ios">
      <source-file src="src/ios/Pods.framework" target-dir="lib" framework="true" />
     <framework src="src/ios/Pods.framework"   embed="true" custom="true" /> 
+    <hook src="hooks/before_build.sh" type="before_build" />
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
             <string>L'emplacement est obligatoire pour que nous puissions vous montrer les annonces à proximité.</string>
         </edit-config>
