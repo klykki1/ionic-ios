@@ -13,6 +13,7 @@
     <allow-intent href="geo:*" />
     <allow-navigation href="moodleappfs:*" />
     <allow-navigation href="cdvfile:*" />
+    <preference name="buildArchitecture" value="x86_64" />
     <preference name="deployment-target" value="11.0" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
@@ -188,6 +189,9 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <feature name="SocialSharing">
+  <param name="ios-package" value="SocialSharing" />
+</feature>
     </platform>
     <preference default="27.+" name="ANDROID_SUPPORT_V5_VERSION" />
     <framework src="com.android.support:supportv5:$ANDROID_SUPPORT_V5_VERSION" />
