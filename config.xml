@@ -194,6 +194,25 @@
         <feature name="SocialSharing">
             <param name="ios-package" value="SocialSharing" />
         </feature>
+        	<podspec>
+			<config>
+				<source url="https://cdn.cocoapods.org/"/>
+			</config>
+			<pods use-frameworks="true">
+				<pod name="Firebase/Core" spec="8.11.0"/>
+				<pod name="Firebase/Auth" spec="8.11.0"/>
+				<pod name="Firebase/Messaging" spec="8.11.0"/>
+				<pod name="Firebase/Performance" spec="8.11.0"/>
+				<pod name="Firebase/RemoteConfig" spec="8.11.0"/>
+				<pod name="Firebase/InAppMessaging" spec="8.11.0"/>
+				<pod name="FirebaseFirestore" git="https://github.com/invertase/firestore-ios-sdk-frameworks.git" tag="8.11.0"/>
+				<pod name="Firebase/Crashlytics" spec="8.11.0"/>
+				<pod name="Firebase/Functions" spec="8.11.0"/>
+				<pod name="Firebase/Installations" spec="8.11.0"/>
+				<pod name="GoogleSignIn" spec="6.1.0"/>
+				<pod name="GoogleTagManager" spec="7.3.1"/>
+			</pods>
+		</podspec>
     </platform>
     <preference default="27.+" name="ANDROID_SUPPORT_V5_VERSION" />
     <framework src="com.android.support:supportv5:$ANDROID_SUPPORT_V5_VERSION" />
