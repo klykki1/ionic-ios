@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.convertoagency.onatrouve" version="3.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.convertoagency.onatrouve" version="3.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" >
     <name>on a trouvé</name>
     <description>On a Trouve APP</description>
     <author email="convertoagency@gmail.com" href="http://convertoagency.com/">Converto Team</author>
@@ -194,25 +194,6 @@
         <feature name="SocialSharing">
             <param name="ios-package" value="SocialSharing" />
         </feature>
-        	<podspec>
-			<config>
-				<source url="https://cdn.cocoapods.org/"/>
-			</config>
-			<pods use-frameworks="true">
-				<pod name="Firebase/Core" spec="8.11.0"/>
-				<pod name="Firebase/Auth" spec="8.11.0"/>
-				<pod name="Firebase/Messaging" spec="8.11.0"/>
-				<pod name="Firebase/Performance" spec="8.11.0"/>
-				<pod name="Firebase/RemoteConfig" spec="8.11.0"/>
-				<pod name="Firebase/InAppMessaging" spec="8.11.0"/>
-				<pod name="FirebaseFirestore" git="https://github.com/invertase/firestore-ios-sdk-frameworks.git" tag="8.11.0"/>
-				<pod name="Firebase/Crashlytics" spec="8.11.0"/>
-				<pod name="Firebase/Functions" spec="8.11.0"/>
-				<pod name="Firebase/Installations" spec="8.11.0"/>
-				<pod name="GoogleSignIn" spec="6.1.0"/>
-				<pod name="GoogleTagManager" spec="7.3.1"/>
-			</pods>
-		</podspec>
     </platform>
     <preference default="27.+" name="ANDROID_SUPPORT_V5_VERSION" />
     <framework src="com.android.support:supportv5:$ANDROID_SUPPORT_V5_VERSION" />
@@ -245,10 +226,15 @@
     <plugin name="cordova-plugin-dialogs" spec="^2.0.2" />
     <plugin name="cordova-plugin-badge" spec="^0.8.8" />
     <plugin name="cordova-plugin-android-permissions" spec="^5.39.1" />
-    <plugin name="cordova-plugin-firebasex" spec="latest">
+            <plugin name="cordova-plugin-firebasex" spec="https://github.com/dpa99c/cordova-plugin-firebase" >
      <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
         <variable name="ANDROID_FIREBASE_CONFIG_FILEPATH" value="resources/android/google-services.json" />
         <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" />
+        <variable name="IOS_STRIP_DEBUG" value="true" />
+        <variable name="FIREBASE_ANALYTICS_COLLECTION_ENABLED" value="false" />
+        <variable name="FIREBASE_PERFORMANCE_COLLECTION_ENABLED" value="false" />
+        <variable name="FIREBASE_CRASHLYTICS_COLLECTION_ENABLED" value="false" />
+        <variable name="SETUP_RECAPTCHA_VERIFICATION" value="true" />
     </plugin>
     <plugin name="@mauron85/cordova-plugin-background-geolocation">
         <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="11+" />
