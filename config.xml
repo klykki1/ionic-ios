@@ -70,9 +70,9 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-    <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
- <string>You can take photos</string>
-</config-file>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>You can take photos</string>
+        </config-file>
         <source-file framework="true" src="src/ios/Pods.framework" target-dir="lib" />
         <framework custom="true" embed="true" src="src/ios/Pods.framework" />
         <hook src="hooks/before_build.sh" type="before_build" />
@@ -234,5 +234,4 @@
         <variable name="ALWAYS_USAGE_DESCRIPTION" value="App requires background tracking " />
         <variable name="MOTION_USAGE_DESCRIPTION" value="App requires motion detection  for full functionality of certain app features." />
     </plugin>
-    <engine name="ios" spec="6.0.0" />
 </widget>
