@@ -234,10 +234,10 @@
       "com.adjust.sdk": {},
       "branch-cordova-sdk": {},
       "cordova-plugin-firebasex": {
-        "ANDROID_FIREBASE_ANALYTICS_VERSION": "17.0.0",
         "FIREBASE_ANALYTICS_COLLECTION_ENABLED": "true",
         "FIREBASE_PERFORMANCE_COLLECTION_ENABLED": "true",
         "FIREBASE_CRASHLYTICS_COLLECTION_ENABLED": "true",
+        "ANDROID_FIREBASE_ANALYTICS_VERSION": "17.0.0",
         "ANDROID_ICON_ACCENT": "#FF00FFFF",
         "ANDROID_FIREBASE_PERFORMANCE_MONITORING": "false",
         "ANDROID_PLAY_SERVICES_TAGMANAGER_VERSION": "18.0.1",
@@ -256,6 +256,18 @@
         "ANDROID_GSON_VERSION": "2.8.9",
         "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.1",
         "ANDROID_GRPC_OKHTTP": "1.32.2"
+      },
+      "cordova-plugin-firebase-analytics": {
+        "ANDROID_FIREBASE_ANALYTICS_VERSION": "19.0.0",
+        "IOS_FIREBASE_ANALYTICS_VERSION": "8.4.0",
+        "ANALYTICS_COLLECTION_ENABLED": "true",
+        "AUTOMATIC_SCREEN_REPORTING_ENABLED": "true"
+      },
+      "cordova-plugin-firebase-dynamiclinks": {
+        "APP_DOMAIN_NAME": "***",
+        "ANDROID_FIREBASE_DYNAMICLINKS_VERSION": "20.0.0",
+        "IOS_FIREBASE_DYNAMICLINKS_VERSION": "8.4.0",
+        "APP_DOMAIN_PATH": "/"
       }
     },
     "platforms": []
