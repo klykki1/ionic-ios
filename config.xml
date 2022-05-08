@@ -11,8 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="moodleappfs:*" />
-    <allow-navigation href="cdvfile:*" />
+    <preference name="xwalk64bit" value="true" />
     <preference name="buildArchitecture" value="x86_64" />
     <preference name="deployment-target" value="11.0" />
     <preference name="ScrollEnabled" value="false" />
