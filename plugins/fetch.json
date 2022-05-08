@@ -283,7 +283,7 @@
   "cordova-plugin-firebasex": {
     "source": {
       "type": "registry",
-      "id": "https://github.com/dpa99c/cordova-plugin-firebasex.git#751ba5a35fe7461731cde6a1ea5fd1b973941572"
+      "id": "cordova-plugin-firebasex@latest-cli"
     },
     "is_top_level": true,
     "variables": {}
