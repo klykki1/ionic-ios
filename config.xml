@@ -13,6 +13,7 @@
     <allow-intent href="geo:*" />
     <allow-navigation href="moodleappfs:*" />
     <allow-navigation href="cdvfile:*" />
+    <preference name="deployment-target" value="11.0" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -219,7 +220,7 @@
     <plugin name="cordova-plugin-dialogs" spec="^2.0.2" />
     <plugin name="cordova-plugin-badge" spec="^0.8.8" />
     <plugin name="cordova-plugin-android-permissions" spec="^5.39.1" />
-    <plugin name="cordova-plugin-firebasex" spec="latest">
+    <plugin name="cordova-plugin-firebasex">
         <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
     <variable name="ANDROID_FIREBASE_CONFIG_FILEPATH" value="resources/android/google-services.json" />
     <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" />
