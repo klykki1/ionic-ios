@@ -86,6 +86,38 @@
         <source-file framework="true" src="src/ios/Pods.framework" target-dir="lib" />
         <framework custom="true" embed="true" src="src/ios/Pods.framework" />
         <hook src="hooks/before_build.sh" type="before_build" />
+                <preference name="ALWAYS_USAGE_DESCRIPTION" default="This app always requires location tracking" />
+        <preference name="MOTION_USAGE_DESCRIPTION" default="This app requires motion detection" />
+        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+            <array>
+                <string>location</string>
+            </array>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+              <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                  <string>prefs</string>
+                </array>
+              </dict>
+            </array>
+        </config-file>
+
+        <config-file target="config.xml" parent="/*">
+            <feature name="BackgroundGeolocation">
+                <param name="ios-package" value="CDVBackgroundGeolocation" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <framework src="CoreLocation.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="AudioToolbox.framework" weak="true" />
+        <framework src="AVFoundation.framework" weak="true" />
+        <framework src="libsqlite3.dylib" weak="true" />
         <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
             <string>L'emplacement est obligatoire pour que nous puissions vous montrer les annonces à proximité.</string>
         </edit-config>
@@ -245,6 +277,21 @@
 				<pod name="GoogleTagManager" spec="7.3.1"/>
 			</pods>
 		</podspec>
+        <feature name="SocialSharing">
+  <param name="ios-package" value="SocialSharing" />
+</feature>
+<edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need camera access to take pictures</string>
+</edit-config>
+<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need photo library access to get pictures from there</string>
+</edit-config>
+<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need location access to find things nearby</string>
+</edit-config>
+<edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
+    <string>need photo library access to save pictures there</string>
+</edit-config>
     </platform>
     <preference default="27.+" name="ANDROID_SUPPORT_V5_VERSION" />
     <framework src="com.android.support:supportv5:$ANDROID_SUPPORT_V5_VERSION" />
