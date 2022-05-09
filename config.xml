@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.convertoagency.onatrouve" version="3.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0" >
+<widget id="com.convertoagency.onatrouve" version="3.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>on a trouvé</name>
     <description>On a Trouve APP</description>
     <author email="convertoagency@gmail.com" href="http://convertoagency.com/">Converto Team</author>
@@ -12,17 +12,14 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="xwalk64bit" value="true" />
-   
-    
-	<engines>
-		<engine name="cordova" version=">=9" />
-		<engine name="cordova-android" version=">=8" />
-		<engine name="cordova-ios" version=">=5" />
-	</engines>
-
-	<preference name="FIREBASE_ANALYTICS_COLLECTION_ENABLED" default="true" />
-	<preference name="FIREBASE_PERFORMANCE_COLLECTION_ENABLED" default="true" />
-	<preference name="FIREBASE_CRASHLYTICS_COLLECTION_ENABLED" default="true" />
+    <engines>
+        <engine name="cordova" version="&gt;=9" />
+        <engine name="cordova-android" version="&gt;=8" />
+        <engine name="cordova-ios" version="&gt;=5" />
+    </engines>
+    <preference default="true" name="FIREBASE_ANALYTICS_COLLECTION_ENABLED" />
+    <preference default="true" name="FIREBASE_PERFORMANCE_COLLECTION_ENABLED" />
+    <preference default="true" name="FIREBASE_CRASHLYTICS_COLLECTION_ENABLED" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -86,28 +83,26 @@
         <source-file framework="true" src="src/ios/Pods.framework" target-dir="lib" />
         <framework custom="true" embed="true" src="src/ios/Pods.framework" />
         <hook src="hooks/before_build.sh" type="before_build" />
-                <preference name="ALWAYS_USAGE_DESCRIPTION" default="This app always requires location tracking" />
-        <preference name="MOTION_USAGE_DESCRIPTION" default="This app requires motion detection" />
-        <config-file target="*-Info.plist" parent="UIBackgroundModes">
+        <preference default="This app always requires location tracking" name="ALWAYS_USAGE_DESCRIPTION" />
+        <preference default="This app requires motion detection" name="MOTION_USAGE_DESCRIPTION" />
+        <config-file parent="UIBackgroundModes" target="*-Info.plist">
             <array>
                 <string>location</string>
             </array>
         </config-file>
-
-        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+        <config-file parent="CFBundleURLTypes" target="*-Info.plist">
             <array>
-              <dict>
-                <key>CFBundleTypeRole</key>
-                <string>Editor</string>
-                <key>CFBundleURLSchemes</key>
-                <array>
-                  <string>prefs</string>
-                </array>
-              </dict>
+                <dict>
+                    <key>CFBundleTypeRole</key>
+                    <string>Editor</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>prefs</string>
+                    </array>
+                </dict>
             </array>
         </config-file>
-
-        <config-file target="config.xml" parent="/*">
+        <config-file parent="/*" target="config.xml">
             <feature name="BackgroundGeolocation">
                 <param name="ios-package" value="CDVBackgroundGeolocation" />
                 <param name="onload" value="true" />
@@ -234,64 +229,60 @@
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
         <js-module name="FirebasePlugin" src="www/firebase.js">
-			<clobbers target="FirebasePlugin" />
-		</js-module>
-		<config-file target="config.xml" parent="/*">
-			<feature name="FirebasePlugin">
-				<param name="ios-package" value="FirebasePlugin" />
-				<param name="onload" value="true" />
-			</feature>
-		</config-file>
-
-		<config-file target="*/Entitlements-Debug.plist" parent="aps-environment">
-			<string>development</string>
-		</config-file>
-		<config-file target="*/Entitlements-Release.plist" parent="aps-environment">
-			<string>production</string>
-		</config-file>
-
-
-		<config-file target="*-Info.plist" parent="UIBackgroundModes">
-			<array>
-				<string>remote-notification</string>
-			</array>
-		</config-file>
-		<framework src="AuthenticationServices.framework" />
-
-		<podspec>
-			<config>
-				<source url="https://cdn.cocoapods.org/"/>
-			</config>
-			<pods use-frameworks="true">
-				<pod name="Firebase/Core" spec="8.11.0"/>
-				<pod name="Firebase/Auth" spec="8.11.0"/>
-				<pod name="Firebase/Messaging" spec="8.11.0"/>
-				<pod name="Firebase/Performance" spec="8.11.0"/>
-				<pod name="Firebase/RemoteConfig" spec="8.11.0"/>
-				<pod name="Firebase/InAppMessaging" spec="8.11.0"/>
-				<pod name="FirebaseFirestore" git="https://github.com/invertase/firestore-ios-sdk-frameworks.git" tag="8.11.0"/>
-				<pod name="Firebase/Crashlytics" spec="8.11.0"/>
-				<pod name="Firebase/Functions" spec="8.11.0"/>
-				<pod name="Firebase/Installations" spec="8.11.0"/>
-				<pod name="GoogleSignIn" spec="6.1.0"/>
-				<pod name="GoogleTagManager" spec="7.3.1"/>
-			</pods>
-		</podspec>
+            <clobbers target="FirebasePlugin" />
+        </js-module>
+        <config-file parent="/*" target="config.xml">
+            <feature name="FirebasePlugin">
+                <param name="ios-package" value="FirebasePlugin" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+        <config-file parent="aps-environment" target="*/Entitlements-Debug.plist">
+            <string>development</string>
+        </config-file>
+        <config-file parent="aps-environment" target="*/Entitlements-Release.plist">
+            <string>production</string>
+        </config-file>
+        <config-file parent="UIBackgroundModes" target="*-Info.plist">
+            <array>
+                <string>remote-notification</string>
+            </array>
+        </config-file>
+        <framework src="AuthenticationServices.framework" />
+        <podspec>
+            <config>
+                <source url="https://cdn.cocoapods.org/" />
+            </config>
+            <pods use-frameworks="true">
+                <pod name="Firebase/Core" spec="8.11.0" />
+                <pod name="Firebase/Auth" spec="8.11.0" />
+                <pod name="Firebase/Messaging" spec="8.11.0" />
+                <pod name="Firebase/Performance" spec="8.11.0" />
+                <pod name="Firebase/RemoteConfig" spec="8.11.0" />
+                <pod name="Firebase/InAppMessaging" spec="8.11.0" />
+                <pod git="https://github.com/invertase/firestore-ios-sdk-frameworks.git" name="FirebaseFirestore" tag="8.11.0" />
+                <pod name="Firebase/Crashlytics" spec="8.11.0" />
+                <pod name="Firebase/Functions" spec="8.11.0" />
+                <pod name="Firebase/Installations" spec="8.11.0" />
+                <pod name="GoogleSignIn" spec="6.1.0" />
+                <pod name="GoogleTagManager" spec="7.3.1" />
+            </pods>
+        </podspec>
         <feature name="SocialSharing">
-  <param name="ios-package" value="SocialSharing" />
-</feature>
-<edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
-    <string>need camera access to take pictures</string>
-</edit-config>
-<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
-    <string>need photo library access to get pictures from there</string>
-</edit-config>
-<edit-config target="NSLocationWhenInUseUsageDescription" file="*-Info.plist" mode="merge">
-    <string>need location access to find things nearby</string>
-</edit-config>
-<edit-config target="NSPhotoLibraryAddUsageDescription" file="*-Info.plist" mode="merge">
-    <string>need photo library access to save pictures there</string>
-</edit-config>
+            <param name="ios-package" value="SocialSharing" />
+        </feature>
+        <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>need camera access to take pictures</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+            <string>need photo library access to get pictures from there</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>need location access to find things nearby</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+            <string>need photo library access to save pictures there</string>
+        </edit-config>
     </platform>
     <preference default="27.+" name="ANDROID_SUPPORT_V5_VERSION" />
     <framework src="com.android.support:supportv5:$ANDROID_SUPPORT_V5_VERSION" />
@@ -304,11 +295,11 @@
         <android-scheme value="http" />
         <ios-team-release value="2627JXC4L7" />
     </branch-config>
-                <plugin name="cordova-plugin-firebasex" spec="14.0.0-cli" >
-     <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
+    <plugin name="cordova-plugin-firebasex" spec="14.0.0-cli">
+        <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
         <variable name="ANDROID_FIREBASE_CONFIG_FILEPATH" value="resources/android/google-services.json" />
         <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" />
-        <variable name="IOS_STRIP_DEBUG" value="true" />>
+        <variable name="IOS_STRIP_DEBUG" value="true" />
     </plugin>
     <plugin name="cordova-plugin-media" spec="^5.0.4">
         <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO" />
@@ -328,9 +319,7 @@
     <plugin name="cordova-plugin-file" spec="^6.0.0" />
     <plugin name="cordova-plugin-camera" spec="^5.0.1" />
     <plugin name="cordova-plugin-dialogs" spec="^2.0.2" />
-    <plugin name="cordova-plugin-badge" spec="^0.8.8" />
     <plugin name="cordova-plugin-android-permissions" spec="^5.39.1" />
-
     <plugin name="@mauron85/cordova-plugin-background-geolocation">
         <variable name="GOOGLE_PLAY_SERVICES_VERSION" value="11+" />
         <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="26+" />

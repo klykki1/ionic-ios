@@ -17,14 +17,6 @@
     "is_top_level": false,
     "variables": {}
   },
-  "cordova-plugin-badge": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-badge@^0.8.8"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "call-number": {
     "source": {
       "type": "registry",
@@ -284,6 +276,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-firebasex@latest-cli"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-badge": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-badge"
     },
     "is_top_level": true,
     "variables": {}

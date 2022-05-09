@@ -140,7 +140,6 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-badge": {},
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-device": {},
       "cordova-plugin-dialogs": {},
@@ -256,8 +255,8 @@
         "ANDROID_GSON_VERSION": "2.8.9",
         "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.1",
         "ANDROID_GRPC_OKHTTP": "1.32.2"
-      }
-      
+      },
+      "cordova-plugin-badge": {}
     },
     "platforms": []
   }
