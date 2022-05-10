@@ -2,7 +2,7 @@
   "_args": [
     [
       "cordova-plugin-ionic-webview@5.0.0",
-      "C:\\repo\\ONATROUVER\\onatrouveIO5"
+      "C:\\repo\\ONATROUVER\\ionicplatforme\\ios-ionic"
     ]
   ],
   "_from": "cordova-plugin-ionic-webview@5.0.0",
@@ -26,7 +26,7 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-ionic-webview/-/cordova-plugin-ionic-webview-5.0.0.tgz",
   "_spec": "5.0.0",
-  "_where": "C:\\repo\\ONATROUVER\\onatrouveIO5",
+  "_where": "C:\\repo\\ONATROUVER\\ionicplatforme\\ios-ionic",
   "author": {
     "name": "Ionic Team"
   },

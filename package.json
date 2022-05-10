@@ -56,7 +56,6 @@
     "@types/hammerjs": "^2.0.40",
     "cordova": "^11.0.0",
     "cordova-plugin-build-architecture": "^1.0.6",
-    "cordova-plugin-ionic-webview": "^5.0.0",
     "date-fns": "^2.27.0",
     "hammerjs": "^2.0.8",
     "ionic-rating": "^2.0.0",
@@ -98,6 +97,7 @@
     "cordova-plugin-android-permissions": "^1.1.3",
     "cordova-plugin-androidx": "^3.0.0",
     "cordova-plugin-androidx-adapter": "^1.1.3",
+    "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-camera": "^5.0.1",
     "cordova-plugin-device": "^2.0.3",
     "cordova-plugin-dialogs": "^2.0.2",
@@ -157,7 +157,6 @@
       "cordova-plugin-advanced-http": {
         "ANDROIDBLACKLISTSECURESOCKETPROTOCOLS": "SSLv3,TLSv1"
       },
-      "cordova-plugin-ionic-webview": {},
       "cordova-plugin-androidx-adapter": {},
       "cordova-android-play-services-gradle-release": {
         "PLAY-SERVICES-ADS": "18.0.0",
@@ -254,7 +253,9 @@
         "ANDROID_GSON_VERSION": "2.8.9",
         "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.1",
         "ANDROID_GRPC_OKHTTP": "1.32.2"
-      }
+      },
+      "cordova-plugin-badge": {},
+      "cordova-plugin-ionic-webview": {}
     },
     "platforms": []
   }
