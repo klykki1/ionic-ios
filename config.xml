@@ -278,6 +278,9 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
             <string>need photo library access to save pictures there</string>
         </edit-config>
+         <preference  name="WKWebViewOnly" value='true' />
+         <preference  name="scheme" value='cdv' />
+         <preference  name="hostname" value='onatrouve' />
     </platform>
     <preference default="27.+" name="ANDROID_SUPPORT_V5_VERSION" />
     <framework src="com.android.support:supportv5:$ANDROID_SUPPORT_V5_VERSION" />
