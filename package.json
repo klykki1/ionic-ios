@@ -254,8 +254,7 @@
         "ANDROID_FIREBASE_PERF_GRADLE_PLUGIN_VERSION": "1.4.1",
         "ANDROID_GRPC_OKHTTP": "1.32.2"
       },
-      "cordova-plugin-badge": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-badge": {}
     },
     "platforms": []
   }
