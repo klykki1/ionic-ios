@@ -5,8 +5,8 @@
     <author email="convertoagency@gmail.com" href="http://convertoagency.com/">Converto Team</author>
     <content src="index.html" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
+    <allow-navigation href="ionic://*/*" />
+    <allow-navigation href="httpsionic://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
