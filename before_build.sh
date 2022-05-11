@@ -13,3 +13,4 @@ VALID_ARCHS = arm64
 #Overwrite the configurations files of Cordova    
 cp "hooks/build/ios/build-debug.xcconfig" "platforms/ios/cordova/";
 cp "hooks/build/ios/build-release.xcconfig" "platforms/ios/cordova/";
+# cp ./GoogleService-info.plist platforms/ios/ 
