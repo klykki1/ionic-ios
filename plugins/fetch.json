@@ -287,5 +287,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-firebase-dynamiclinks": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-firebase-dynamiclinks"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }
