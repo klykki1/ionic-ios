@@ -113,7 +113,7 @@
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-media": "^5.0.4",
-    "cordova-plugin-splashscreen": "^6.0.0",
+    "cordova-plugin-splashscreen": "^6.0.1",
     "cordova-plugin-statusbar": "^3.0.0",
     "cordova-plugin-telerik-imagepicker": "^2.3.3",
     "cordova-plugin-whitelist": "^1.3.5",
@@ -154,7 +154,6 @@
         "PHOTO_LIBRARY_ADD_USAGE_DESCRIPTION": "This app requires photo library access to function properly.",
         "PHOTO_LIBRARY_USAGE_DESCRIPTION": "This app requires photo library access to function properly."
       },
-      "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-advanced-http": {
@@ -258,7 +257,8 @@
         "ANDROID_GRPC_OKHTTP": "1.32.2"
       },
       "cordova-plugin-badge": {},
-      "cordova-plugin-ionic-webview": {}
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-splashscreen": {}
     },
     "platforms": []
   }
