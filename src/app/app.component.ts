@@ -270,7 +270,7 @@ this.isLoggedIn=services.isLoggedIn;
       splashScreen.hide();
       setTimeout(() => {
         this.branchInit();
-      }, 3000);
+      }, 2000);
     });
 
     this.platform.resume.subscribe(() => {
