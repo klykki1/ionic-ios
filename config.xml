@@ -11,6 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+  <allow-navigation href="*"/>
     <preference name="xwalk64bit" value="true" />
     <preference default="true" name="FIREBASE_ANALYTICS_COLLECTION_ENABLED" />
     <preference default="true" name="FIREBASE_PERFORMANCE_COLLECTION_ENABLED" />
@@ -18,7 +19,7 @@
     <preference name="ScrollEnabled" value="false" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="FadeSplashScreenDuration" value="0" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
