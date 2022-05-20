@@ -40,6 +40,8 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+env(safe-area-inset-top)
 @font-face {
   font-family: 'droid';
   src: url(./assets/font/Droid.ttf) format('truetype')
