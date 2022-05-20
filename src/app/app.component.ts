@@ -111,7 +111,10 @@ export class AppComponent {
           statusBar.overlaysWebView(true);
           statusBar.backgroundColorByHexString('hsl(209deg 71% 28%)');
           statusBar.styleDefault();
-          splashScreen.hide();
+           navigator.splashscreen.show();
+  window.setTimeout(function () {
+      navigator.splashscreen.hide();
+  }, 2000);
           console.log('we Are inside Events now');
           this.initLocation();
         })
@@ -267,7 +270,6 @@ this.isLoggedIn=services.isLoggedIn;
  
      
       statusBar.backgroundColorByHexString('hsl(209deg 71% 28%)');
-      splashScreen.hide();
       setTimeout(() => {
         this.branchInit();
       }, 2000);
