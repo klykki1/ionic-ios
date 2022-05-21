@@ -86,7 +86,7 @@ export class AppComponent {
   constructor(private platform: Platform,
     private zone: NgZone,
     statusBar: StatusBar,
-    splashScreen: SplashScreen,
+   private splashScreen: SplashScreen,
     private router: Router,
     private services: ApiServices,
     private productService:ProductService,
@@ -111,9 +111,9 @@ export class AppComponent {
           statusBar.overlaysWebView(true);
           statusBar.backgroundColorByHexString('hsl(209deg 71% 28%)');
           statusBar.styleDefault();
-           navigator.splashscreen.show();
+       this.splashScreen
   window.setTimeout(function () {
-      navigator.splashscreen.hide();
+      this.splashscreen.hide();
   }, 2000);
           console.log('we Are inside Events now');
           this.initLocation();
