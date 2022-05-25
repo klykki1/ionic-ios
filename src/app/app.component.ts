@@ -32,6 +32,7 @@ import { BadgeService } from './services/badge-service/badge.service';
 import { ProductService } from './services/product/product.service';
 import { Adjust, AdjustConfig, AdjustEnvironment } from '@awesome-cordova-plugins/adjust/ngx';
 import 'rxjs/add/operator/filter';
+declare let window:any;
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -77,19 +78,19 @@ export class AppComponent {
   showPushNotification = false;
   notifTimeout;
   currentConversationId;
- notificationProductNumber:number = 0;
- notificationMessageNumber:number = 0;
- subscription:Subscription;
- isLoggedIn:boolean;
- currentRoute: string;
- suiviIdNotif:Array<number>=[]
+  notificationProductNumber: number = 0;
+  notificationMessageNumber: number = 0;
+  subscription: Subscription;
+  isLoggedIn: boolean;
+  currentRoute: string;
+  suiviIdNotif: Array<number> = []
   constructor(private platform: Platform,
     private zone: NgZone,
     statusBar: StatusBar,
-   private splashScreen: SplashScreen,
+    private splashScreen: SplashScreen,
     private router: Router,
     private services: ApiServices,
-    private productService:ProductService,
+    private productService: ProductService,
     public modalCtrl: ModalController,
     public menu: MenuController,
     private device: Device,
@@ -103,7 +104,7 @@ export class AppComponent {
     private firebase: FirebaseX,
     private badgeService: BadgeService,
     private adjust: Adjust
-    
+
   ) {
     this.platform.ready().then(() => {
       if (this.platform.is('cordova')) {
@@ -111,33 +112,33 @@ export class AppComponent {
           statusBar.overlaysWebView(true);
           statusBar.backgroundColorByHexString('hsl(209deg 71% 28%)');
           statusBar.styleDefault();
-       this.splashScreen
-  window.setTimeout(function () {
-      this.splashscreen.hide();
-  }, 2000);
-  this.askTrackingPermission();
-  this.readTrackingPermission();
+          this.splashScreen
+          window.setTimeout(function () {
+            this.splashscreen.hide();
+          }, 2000);
+          this.askTrackingPermission();
+          this.readTrackingPermission();
           this.initLocation();
         })
       };
-      
+
 
       // this.subscription= this.badgeService.clearBadgesMessage();
-    
+
     });
 
-    this.subscription= this.badgeService.resetBadgeMessage().subscribe(()=>{this.notificationMessageNumber=0});
-    this.subscription= this.badgeService.resetBadgeProduct().subscribe(()=>{this.notificationProductNumber=0});
+    this.subscription = this.badgeService.resetBadgeMessage().subscribe(() => { this.notificationMessageNumber = 0 });
+    this.subscription = this.badgeService.resetBadgeProduct().subscribe(() => { this.notificationProductNumber = 0 });
     router.events.filter(event => event instanceof NavigationEnd)
-    .subscribe(event => 
-     {;
-       if (event['url'] == '/chat') {
-        this.badgeService.insideChat(true);
-       } else{
-        this.badgeService.insideChat(false);
-       }
-     });
-this.isLoggedIn=services.isLoggedIn;
+      .subscribe(event => {
+        ;
+        if (event['url'] == '/chat') {
+          this.badgeService.insideChat(true);
+        } else {
+          this.badgeService.insideChat(false);
+        }
+      });
+    this.isLoggedIn = services.isLoggedIn;
     const self = this;
     platform.ready().then(() => {
       this.initLang();
@@ -169,24 +170,24 @@ this.isLoggedIn=services.isLoggedIn;
           };
           this.services.device_data = deviceData;
           localStorage.setItem('deviceData', JSON.stringify(deviceData));
-        }) 
+        })
         .catch(error => console.error('Error getting token', error));
 
       this.firebase.onMessageReceived()
         .subscribe((notification) => {
           if (notification.data) {
             router.events.filter(event => event instanceof NavigationEnd)
-            .subscribe(event => 
-             {;
-               if (event['url'] !== '/discussion') {
-                this.badgeService.clearBadgesMessage();
-               }else if (event['url'] !== '/finders') {
-                this.badgeService.clearBadges();
-               } else {
-                 console.log(event);
-                 
-               }
-             });
+              .subscribe(event => {
+                ;
+                if (event['url'] !== '/discussion') {
+                  this.badgeService.clearBadgesMessage();
+                } else if (event['url'] !== '/finders') {
+                  this.badgeService.clearBadges();
+                } else {
+                  console.log(event);
+
+                }
+              });
             notification.data = JSON.parse(notification.data);
             const { conversation, ischat, isproduct, foreground } = notification.data;
             if (ischat) {
@@ -194,41 +195,41 @@ this.isLoggedIn=services.isLoggedIn;
               this.notify.target = 'discussion';
               this.notify.product.description = notification.message;
               this.notify.product.src = notification.image;
-              this.notify.conversation = conversation;        
+              this.notify.conversation = conversation;
               this.zone.run(() => {
                 this.notifys.push(this.notify);
               });
             } else if (isproduct) {
-             
-                this.notify.product = notification.data;
-                  this.notify.target = 'finders';
-                  this.notify.conversation = null;
-                  // Promise.resolve().then(() => {
-                  //   this.zone.run(() => {
-                  //     this.notifys.push(this.notify);
-                  //   });
-                  // })
-                  setTimeout(() => {
-                    this.zone.run(() => {
-                      this.suiviIdNotif.push(notification.data.suivi);
-                      this.notifys.push(this.notify);
-                    });
-                  }, 10);
-            } 
+
+              this.notify.product = notification.data;
+              this.notify.target = 'finders';
+              this.notify.conversation = null;
+              // Promise.resolve().then(() => {
+              //   this.zone.run(() => {
+              //     this.notifys.push(this.notify);
+              //   });
+              // })
+              setTimeout(() => {
+                this.zone.run(() => {
+                  this.suiviIdNotif.push(notification.data.suivi);
+                  this.notifys.push(this.notify);
+                });
+              }, 10);
+            }
             if (notification.tap == "background") {
               this.firebeep();
               Promise.resolve().then(() => {
                 this.gotoTarget(this.notify);
                 this.firebase.clearAllNotifications();
               })
-              
-            }else{
+
+            } else {
               if (ischat) {
-                  this.badgeService.sendBadgeMessageNumber(this.increamentMessageNumber());
-            }else if (isproduct) {
-              badgeService.sendSuivisNotificationId(this.suiviIdNotif)
-              this.badgeService.sendBadgeProductNumber(this.increamentProductNumber());
-        }
+                this.badgeService.sendBadgeMessageNumber(this.increamentMessageNumber());
+              } else if (isproduct) {
+                badgeService.sendSuivisNotificationId(this.suiviIdNotif)
+                this.badgeService.sendBadgeProductNumber(this.increamentProductNumber());
+              }
             }
           }
         });
@@ -270,8 +271,8 @@ this.isLoggedIn=services.isLoggedIn;
       //     applicationServerKey: '586038491325'
       //   }
       // };
- 
-     
+
+
       statusBar.backgroundColorByHexString('hsl(209deg 71% 28%)');
       setTimeout(() => {
         this.branchInit();
@@ -304,7 +305,7 @@ this.isLoggedIn=services.isLoggedIn;
     }
   }
 
-readTrackingPermission() {
+  readTrackingPermission() {
 
     if (this.platform.is('cordova') && this.platform.is('ios')) {
 
@@ -336,14 +337,14 @@ readTrackingPermission() {
       });
     }, 500);
   }
-increamentProductNumber(){
-  this.notificationProductNumber += 1;
-  return this.notificationProductNumber;
-}
- increamentMessageNumber(){
-  this.notificationMessageNumber += 1;
-  return this.notificationMessageNumber;
-}
+  increamentProductNumber() {
+    this.notificationProductNumber += 1;
+    return this.notificationProductNumber;
+  }
+  increamentMessageNumber() {
+    this.notificationMessageNumber += 1;
+    return this.notificationMessageNumber;
+  }
 
   // Branch initialization
   branchInit() {
@@ -437,18 +438,18 @@ increamentProductNumber(){
       this.increamentMessageNumber()
       this.badgeService.sendBadgeMessageNumber(this.increamentMessageNumber())
       this.router.navigateByUrl(notify.target, { state: { conversation } })
-      
+
     } else if (notify.target === 'finders') {
       const natification = {
         notif: notify,
         comefromnotif: true
-      } 
+      }
       this.increamentProductNumber()
-      this.badgeService.sendBadgeProductNumber(this.increamentProductNumber())     
-      this.router.navigateByUrl(notify.target ,{ state: { natification }});
-    }else{
+      this.badgeService.sendBadgeProductNumber(this.increamentProductNumber())
+      this.router.navigateByUrl(notify.target, { state: { natification } });
+    } else {
       console.log("route undefinned");
-      
+
     }
   }
 
@@ -551,13 +552,13 @@ increamentProductNumber(){
         config = this.backgroundGeolocation.getConfig();
         console.log('config', config, status);
         console.log('Inside location : ', location);
-    // if (JSON.parse(localStorage.getItem('deviceData'))== 'ios') {
+        // if (JSON.parse(localStorage.getItem('deviceData'))== 'ios') {
         //   this.backgroundGeolocation.finish()
         // }
 
       });
     }).catch((error) => {
-       this.backgroundGeolocation.finish(); // FOR IOS ONLY
+      this.backgroundGeolocation.finish(); // FOR IOS ONLY
     });;
 
 
