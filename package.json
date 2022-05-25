@@ -110,6 +110,7 @@
     "cordova-plugin-firebasex": "14.0.0-cli",
     "cordova-plugin-foreground-service": "^1.1.3",
     "cordova-plugin-geolocation": "^4.1.0",
+    "cordova-plugin-idfa": "^2.0.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
     "cordova-plugin-media": "^5.0.4",
@@ -258,7 +259,8 @@
       },
       "cordova-plugin-badge": {},
       "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-idfa": {}
     },
     "platforms": []
   }

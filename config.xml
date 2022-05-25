@@ -78,6 +78,9 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+    <edit-config target="NSUserTrackingUsageDescription" file="*-Info.plist" mode="merge">
+        <string> Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité </string>
+    </edit-config>
         <resource-file src="GoogleService-Info.plist" target="app/GoogleService-Info.plist" />
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
             <string>You can take photos</string>

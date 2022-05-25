@@ -115,10 +115,13 @@ export class AppComponent {
   window.setTimeout(function () {
       this.splashscreen.hide();
   }, 2000);
-          console.log('we Are inside Events now');
+  this.askTrackingPermission();
+  this.readTrackingPermission();
           this.initLocation();
         })
-      }
+      };
+      
+
       // this.subscription= this.badgeService.clearBadgesMessage();
     
     });
@@ -284,7 +287,39 @@ this.isLoggedIn=services.isLoggedIn;
       e.preventDefault();
     });
   }
+  askTrackingPermission() {
+    if (this.platform.is('cordova') && this.platform.is('ios')) {
 
+      if (window.cordova) {
+        console.log('trying to request permission ');
+        window.cordova.exec(win, fail, 'idfa', "requestPermission", []);
+      }
+    }
+
+    function win(res) {
+      console.log('success ' + JSON.stringify(res));
+    }
+    function fail(res) {
+      console.log('fail ' + JSON.stringify(res));
+    }
+  }
+
+readTrackingPermission() {
+
+    if (this.platform.is('cordova') && this.platform.is('ios')) {
+
+      if (window.cordova) {
+        window.cordova.exec(win, fail, 'idfa', "getInfo", []);
+      }
+    }
+
+    function win(res) {
+      console.log('success  ' + JSON.stringify(res));
+    }
+    function fail(res) {
+      console.log('fail ' + JSON.stringify(res));
+    }
+  }
   showNotification() {
     this.firebeep();
     if (this.notifTimeout) {
