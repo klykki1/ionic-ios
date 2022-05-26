@@ -38,6 +38,7 @@
     "pass_conform": "Illegal password",
     "min-length": {
       "8": "Minimum 8 characters",
+      "3": "Minimum 3 characters",
       "10": "Minimum 10 characters",
       "3pic": "You can only add 3 photos",
       "notConform": "Illegal password"

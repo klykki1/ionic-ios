@@ -40,6 +40,7 @@
     "pass_conform": "Mot de passe non conforme",
     "min-length": {
       "8": "Minimum 8 caractères",
+      "3": "Minimum 3 caractères",
       "10": "Minimum 10 caractères",
       "3pic": "Vous ne pouvez ajouter que 3 photos",
       "notConform": "Mot de passe Non Conforme"

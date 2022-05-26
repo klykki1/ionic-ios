@@ -127,7 +127,6 @@ export class RegisterPage implements OnInit {
 
   userDataSubmit() {
     this.submitReg = true;
-    console.log(this.addReginForm.valid);
     if (this.addReginForm.valid) {
       if (this.isProfile) {
         this.user.id = this.services.current_user.id;
@@ -182,7 +181,7 @@ export class RegisterPage implements OnInit {
         localStorage.setItem('onatrouvé_token', JSON.stringify(tokens));
         this.router.navigateByUrl('/products');
       } else {
-        console.log("update");
+       this.ngOnInit()
         
       }
     },err => {
@@ -211,6 +210,7 @@ export class RegisterPage implements OnInit {
     }
     this.translate.use(this.appConfig.userSettings.language);
     // this.events.publish('languageChange', true);
+    this.ngOnInit()
   }
 
 

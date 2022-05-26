@@ -40,13 +40,15 @@
     <div
       *ngIf="(addReginForm.hasError('required',['name'])||addReginForm.hasError('required',['last_name'])) && submitReg"
       class="erreurMsg resizer" item-end>{{'errors.required'|translate}}</div>
+      <span *ngIf="addReginForm.hasError('minlength',['name'])" style="color: red;">{{'errors.min-length.3'|translate}}</span>
+      <span *ngIf="addReginForm.hasError('minlength',['last_name'])" style="color: red;">{{'errors.min-length.3'|translate}}</span>
     <ion-row class="custom-col">
       <ion-col>
         <ion-input formControlName="email" [(ngModel)]="user.email" type="email" placeholder="Email"></ion-input>
       </ion-col>
     </ion-row>
     <div *ngIf="(!addReginForm.controls.email.valid && (addReginForm.controls.email.dirty || submitReg))"
-         class="erreurMsg">
+         class="erreurMsg" style="color: red;">
       <span>{{'errors.email_validation'|translate}}</span>
     </div>
 <!--
@@ -60,8 +62,8 @@
     <div
       *ngIf="(!addReginForm.controls.password?.valid && (addReginForm.controls.password?.dirty || submitReg) && !isProfile)"
       class="erreurMsg">&nbsp;
-      <span *ngIf="addReginForm.hasError('minlength',['password'])">{{'errors.min-length.8'|translate}}</span>
-      <span *ngIf="addReginForm.hasError('required',['password'])">{{'errors.required'|translate}}</span>
+      <span *ngIf="addReginForm.hasError('minlength',['password'])" style="color: red;">{{'errors.min-length.8'|translate}}</span>
+      <span *ngIf="addReginForm.hasError('required',['password'])" style="color: red;">{{'errors.required'|translate}}</span>
       &nbsp;
     </div>
     <ion-row *ngIf="!isProfile" class="custom-col">
@@ -79,9 +81,9 @@
     </ion-row>
     <div
       *ngIf="(!addReginForm.controls.vpassword?.valid && (addReginForm.controls.vpassword?.dirty || submitReg)&& !isProfile)"
-      class="erreurMsg">&nbsp;
-      <span *ngIf="addReginForm.hasError('required',['vpassword'])">{{'errors.required'|translate}}</span>
-      <span *ngIf="addReginForm.hasError('notEquivalent',['vpassword'])">{{'errors.pass_conform'|translate}}</span>
+      class="erreurMsg" style="color: red;">&nbsp;
+      <span *ngIf="addReginForm.hasError('required',['vpassword'])" style="color: red;">{{'errors.required'|translate}}</span>
+      <span *ngIf="addReginForm.hasError('notEquivalent',['vpassword'])" style="color: red;">{{'errors.pass_conform'|translate}}</span>
       &nbsp;
     </div>
 
