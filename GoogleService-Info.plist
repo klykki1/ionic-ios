@@ -36,6 +36,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+  <key>NSUserTrackingUsageDescription</key>
+<string>Your data will be used to track your orders using your postition.</string>
 	<key>CLIENT_ID</key>
 	<string>586038491325-t85nl31dt2m6ohl4b7tqot2qbd5csvb3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
