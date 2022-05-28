@@ -141,10 +141,12 @@ export class RegisterPage implements OnInit {
       }else{
         this.firebase.getToken()
         .then(token => {
+          alert("token"+token)
           const deviceData = {
             reg_id: token,
             os: this.device.platform
           };
+         
           this.services.device_data = deviceData;
           localStorage.setItem('deviceData', JSON.stringify(deviceData));
           this.user.platform = deviceData.os;

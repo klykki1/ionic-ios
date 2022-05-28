@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.convertoagency.onatrouve" version="1.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.convertoagency.onatrouve" version="1.1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>on a trouve</name>
     <description>On a Trouve APP</description>
     <author email="convertoagency@gmail.com" href="http://convertoagency.com/">Converto Team</author>
@@ -11,7 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-  <allow-navigation href="*"/>
+    <allow-navigation href="*" />
     <preference name="xwalk64bit" value="true" />
     <preference default="true" name="FIREBASE_ANALYTICS_COLLECTION_ENABLED" />
     <preference default="true" name="FIREBASE_PERFORMANCE_COLLECTION_ENABLED" />
@@ -23,8 +23,8 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-        <preference name="ShowSplashScreenSpinner" value="false" />
-  <preference name="FadeSplashScreen" value="false"/>
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="FadeSplashScreen" value="false" />
     <preference name="android-targetSdkVersion" value="30" />
     <preference name="AndroidXEnabled" value="false" />
     <preference name="GradlePluginGoogleServicesEnabled" value="false" />
@@ -33,9 +33,9 @@
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="iosPersistentFileLocation" value="Compatibility" />
     <feature name="CDVWKWebViewEngine">
-<param name="ios-package" value="CDVWKWebViewEngine" />
-</feature>
-<preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+        <param name="ios-package" value="CDVWKWebViewEngine" />
+    </feature>
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <preference name="WKFullScreenEnabled" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <feature name="StatusBar">
@@ -78,9 +78,9 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
-    <edit-config target="NSUserTrackingUsageDescription" file="*-Info.plist" mode="merge">
-        <string> Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité .</string>
-    </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSUserTrackingUsageDescription">
+            <string> Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité .</string>
+        </edit-config>
         <resource-file src="GoogleService-Info.plist" target="app/GoogleService-Info.plist" />
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
             <string>You can take photos</string>
@@ -278,7 +278,7 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.5" />
     <plugin name="cordova-plugin-statusbar" spec="2.4.2" />
     <plugin name="cordova-plugin-device" spec="2.0.2" />
-    <plugin name="cordova-plugin-splashscreen"/>
+    <plugin name="cordova-plugin-splashscreen" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-file-transfer" spec="^2.0.0-dev" />
     <plugin name="cordova-plugin-file" spec="^6.0.0" />
