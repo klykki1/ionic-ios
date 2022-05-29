@@ -1,6 +1,6 @@
 import {Component, NgZone, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {ModalController, NavParams, Platform} from '@ionic/angular';
+import {ModalController, NavParams, Platform, ToastController} from '@ionic/angular';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ApiServices} from '../../services/api-services/api-services';
 import {UiService} from '../../services/ui/ui';
@@ -37,7 +37,8 @@ export class RegisterPage implements OnInit {
               private storage: StorageService,
               private zone: NgZone,
               private device: Device,
-              private firebase:FirebaseX
+              private firebase:FirebaseX,
+              private toastController: ToastController,
   ) {
     this.isProfile = this.router.getCurrentNavigation().extras.state?.profile ? true : false;
     console.log(this.isProfile);
@@ -124,9 +125,24 @@ export class RegisterPage implements OnInit {
     console.log(this.showpassword);
   }
 
-
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 10000
+    });
+    toast.present();
+  }
   userDataSubmit() {
+    this.firebase.getToken()
+    .then(token => {
+      this.presentToast(token)
+      const deviceData = {
+        reg_id: token,
+        os: this.device.platform
+      }})
+   
     this.submitReg = true;
+    alert("token"+JSON.parse(localStorage.getItem('deviceData')));
     if (this.addReginForm.valid) {
       if (this.isProfile) {
         this.user.id = this.services.current_user.id;
@@ -135,6 +151,7 @@ export class RegisterPage implements OnInit {
       // this.ui.loading();
       const deviceData = JSON.parse(localStorage.getItem('deviceData'));
       if (deviceData) {
+        alert("token"+deviceData)
         this.user.platform = deviceData.os;
         this.user.deviceid = deviceData.reg_id;
         this.submitRegistration()
@@ -161,7 +178,7 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  submitRegistration(){
+   submitRegistration(){
     this.services.register(this.user).subscribe(async (res: any) => {
       // this.ui.unLoading();
       this.submitReg = false;

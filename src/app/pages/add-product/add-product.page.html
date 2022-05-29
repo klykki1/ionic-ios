@@ -55,9 +55,9 @@
                    placeholder="{{'addproduct.placeHolders.telephone'|translate}}"></ion-input>
       </ion-item>
       <div
-        *ngIf="(!addProducts.controls.price?.valid && (addProducts.controls.price?.dirty || addProduct) && selectedC.title!='EMPLOI')"
+        *ngIf="(!addProducts.controls.phone?.valid && (addProducts.controls.phone?.dirty || addProduct))"
         class="animated fadeIn erreurMsg">{{'errors.required'|translate}}</div>
-        
+        <!-- <span *ngIf="addReginForm.hasError('minlength',['phone'])" style="color: red;">{{'errors.min-length.8'|translate}}</span> -->
         <ion-item lines="none">
         <!-- <div  class="progress blue" (click)="playAudio()"  item-start top center>
                 <span class="progress-left">

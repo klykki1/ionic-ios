@@ -76,7 +76,16 @@ ion-slides {
 .swiper-slide {
   height: 200px;
 }
+.erreurMsg {
+  --margin-left: 20px;
 
+  //@include rtl() {
+  //  margin-right: 20px !important;
+  //  margin-left: 0px !important;
+  //}
+
+  --color: red;
+}
 .slide-zoom  {
   overflow: hidden;
 }

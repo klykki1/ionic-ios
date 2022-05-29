@@ -39,7 +39,7 @@
     </ion-row>
     <div
       *ngIf="(addReginForm.hasError('required',['name'])||addReginForm.hasError('required',['last_name'])) && submitReg"
-      class="erreurMsg resizer" item-end>{{'errors.required'|translate}}</div>
+      class="erreurMsg resizer" item-end  style="color: red;">{{'errors.required'|translate}}</div>
       <span *ngIf="addReginForm.hasError('minlength',['name'])" style="color: red;">{{'errors.min-length.3'|translate}}</span>
       <span *ngIf="addReginForm.hasError('minlength',['last_name'])" style="color: red;">{{'errors.min-length.3'|translate}}</span>
     <ion-row class="custom-col">
@@ -72,10 +72,12 @@
                    placeholder="{{'register.confirm_pass'|translate}}"></ion-input>
       </ion-col>
       <ion-col class="colShowPassword">
-        <ion-icon class="iconPassword" *ngIf="!showpassword" (click)="cahngepasswordView()" color="primary" name="eye">
+        <ion-icon class="iconPassword" *ngIf="!showpassword"  color="primary" name="eye">
+          <ion-button (click)="cahngepasswordView()"></ion-button>
         </ion-icon>
         <ion-icon class="iconPassword" *ngIf="showpassword" (click)="cahngepasswordView()" color="primary"
                   name="eye-off">
+                  <ion-button (click)="cahngepasswordView()"></ion-button>
         </ion-icon>
       </ion-col>
     </ion-row>
