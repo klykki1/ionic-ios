@@ -118,6 +118,7 @@ export class AppComponent {
           }, 2000);
           this.askTrackingPermission();
           this.readTrackingPermission();
+          this.askNotificationPermission;
           this.initLocation();
         })
       };
@@ -161,6 +162,7 @@ export class AppComponent {
           })
         }
       }
+
 
       this.firebase.getToken()
         .then(token => {
@@ -287,6 +289,12 @@ export class AppComponent {
       $(this).parent().parent().parent().siblings().slideToggle(120);
       e.preventDefault();
     });
+  }
+  askNotificationPermission(){
+    if (this.platform.is('cordova') && this.platform.is('ios')) {
+    this.firebase.grantPermission().then(function(hasPermission){
+      console.log("Permission was " + (hasPermission ? "granted" : "denied"));
+  })}
   }
   askTrackingPermission() {
     if (this.platform.is('cordova') && this.platform.is('ios')) {
