@@ -135,7 +135,8 @@ export class RegisterPage implements OnInit {
   userDataSubmit() {
     this.firebase.getToken()
     .then(token => {
-      this.presentToast(token)
+      alert(token)
+     // this.presentToast(token)
       const deviceData = {
         reg_id: token,
         os: this.device.platform
