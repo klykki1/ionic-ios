@@ -150,7 +150,13 @@ export class RegisterPage implements OnInit {
         this.user.deviceid = deviceData.reg_id;
         this.submitRegistration()
       }else{
-        this.firebase.getAPNSToken()
+        this.firebase.getAPNSToken(
+        function(apnsToken) {
+    alert(apnsToken);
+}, function(error) {
+    alert(error);
+}
+        )
         .then(token => {
           alert("token"+token)
           const deviceData = {
