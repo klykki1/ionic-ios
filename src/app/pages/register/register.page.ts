@@ -151,7 +151,7 @@ export class RegisterPage implements OnInit {
         this.submitRegistration()
       }else{
         this.firebase.getAPNSToken()
-        .subscribe(token => {
+        .then(token => {
           alert("token"+token)
           const deviceData = {
             reg_id: token,
