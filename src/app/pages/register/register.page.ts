@@ -133,7 +133,7 @@ export class RegisterPage implements OnInit {
     toast.present();
   }
   userDataSubmit() {
-    this.firebase.getToken()
+    this.firebase.getAPNSToken()
     .then(token => {
       alert(token)
      // this.presentToast(token)
