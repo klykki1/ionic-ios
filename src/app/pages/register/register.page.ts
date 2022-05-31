@@ -133,17 +133,10 @@ export class RegisterPage implements OnInit {
     toast.present();
   }
   userDataSubmit() {
-    this.firebase.getAPNSToken()
-    .then(token => {
-      alert(token)
-     // this.presentToast(token)
-      const deviceData = {
-        reg_id: token,
-        os: this.device.platform
-      }})
+
    
     this.submitReg = true;
-    alert("token"+JSON.parse(localStorage.getItem('deviceData')));
+
     if (this.addReginForm.valid) {
       if (this.isProfile) {
         this.user.id = this.services.current_user.id;
@@ -152,12 +145,12 @@ export class RegisterPage implements OnInit {
       // this.ui.loading();
       const deviceData = JSON.parse(localStorage.getItem('deviceData'));
       if (deviceData) {
-        alert("token"+deviceData)
+
         this.user.platform = deviceData.os;
         this.user.deviceid = deviceData.reg_id;
         this.submitRegistration()
       }else{
-        this.firebase.getToken()
+        this.firebase.getAPNSToken()
         .then(token => {
           alert("token"+token)
           const deviceData = {
