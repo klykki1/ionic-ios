@@ -165,7 +165,7 @@ export class AppComponent {
 
 
       this.firebase.onApnsTokenReceived()
-        .then(token => {
+        .subscribe(token => {
           const deviceData = {
             reg_id: token,
             os: this.device.platform
