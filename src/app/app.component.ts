@@ -118,7 +118,7 @@ export class AppComponent {
           }, 2000);
           this.askTrackingPermission();
           this.readTrackingPermission();
-          this.askNotificationPermission;
+          this.askNotificationPermission();
           this.initLocation();
         })
       };
