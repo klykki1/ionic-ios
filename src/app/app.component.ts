@@ -173,7 +173,7 @@ export class AppComponent {
           this.services.device_data = deviceData;
           localStorage.setItem('deviceData', JSON.stringify(deviceData));
         })
-        .catch(error => console.error('Error getting token', error));
+
 
       this.firebase.onMessageReceived()
         .subscribe((notification) => {
