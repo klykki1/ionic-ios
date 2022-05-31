@@ -164,7 +164,7 @@ export class AppComponent {
       }
 
 
-      this.firebase.getToken()
+      this.firebase.onApnsTokenReceived()
         .then(token => {
           const deviceData = {
             reg_id: token,
