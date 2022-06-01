@@ -132,11 +132,14 @@ export class RegisterPage implements OnInit {
     });
     toast.present();
   }
+  token:any;
   userDataSubmit() {
-alert( this.firebase.getAPNSToken()
+ this.firebase.getAPNSToken()
     .then(token => {
-      alert("token"+token)}))
-   
+      this.token=token
+      alert("token"+token)
+    })
+   alert(this.token)
     this.submitReg = true;
 
     if (this.addReginForm.valid) {
@@ -211,6 +214,7 @@ alert( this.firebase.getAPNSToken()
   }
 
   ngOnInit(): void {
+    this.firebase.getAPNSToken().then(token=>alert(token))
   }
   async changeDirection() {
     const userSettings = await this.storage.get('userSettings');

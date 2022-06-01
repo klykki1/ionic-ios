@@ -5,6 +5,7 @@ import {UiService} from '../../services/ui/ui';
 import {Router} from '@angular/router';
 import {ApiServices} from '../../services/api-services/api-services';
 import {Device} from '@awesome-cordova-plugins/device/ngx';
+import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginPage implements OnInit {
   private user: any = {};
   private showMessagebox = false;
   public submitReg = false;
-
+token:any
   constructor(public router: Router,
               public navParams: NavParams,
               private formBuilder: FormBuilder,
@@ -26,10 +27,12 @@ export class LoginPage implements OnInit {
               private ui: UiService,
               public plt: Platform,
               private toastController: ToastController,
+              private fire:FirebaseX,
               private device: Device) {
   }
 
   ngOnInit(): void {
+    this.fire.getToken().then(token=>this.token=token)
     this.createForm();
   }
 
@@ -43,6 +46,8 @@ export class LoginPage implements OnInit {
   }
 
   userLogin() {
+alert(this.token)
+
     this.submitReg = true;
     if (this.loginForm.valid) {
       this.ui.loading();
