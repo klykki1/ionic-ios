@@ -228,18 +228,18 @@ export class AppComponent {
           }
         });
 
-      this.firebase.onTokenRefresh()
-        .subscribe(token => {
-          localStorage.setItem('com.onatrouve-regId', (token));
-          const deviceData = {
+//       this.firebase.onTokenRefresh()
+//         .subscribe(token => {
+//           localStorage.setItem('com.onatrouve-regId', (token));
+//           const deviceData = {
 
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            reg_id: token,
-            os: this.device.platform
-          };
-          this.services.device_data = deviceData;
-          localStorage.setItem('deviceData', JSON.stringify(deviceData));
-        });
+//             // eslint-disable-next-line @typescript-eslint/naming-convention
+//             reg_id: token,
+//             os: this.device.platform
+//           };
+//           this.services.device_data = deviceData;
+//           localStorage.setItem('deviceData', JSON.stringify(deviceData));
+//         });
 
 
       // const options: PushOptions = {
