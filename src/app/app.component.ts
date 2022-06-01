@@ -286,7 +286,7 @@ export class AppComponent {
     if (this.platform.is('cordova') && this.platform.is('ios')) {
     this.firebase.grantPermission().then(function(hasPermission){
       console.log("Permission was " + (hasPermission ? "granted" : "denied"));
-  }).finally(()=>      
+  }).finally(()=>{      
         this.firebase.onApnsTokenReceived()
         .subscribe(token => {
           const deviceData = {
@@ -295,7 +295,7 @@ export class AppComponent {
           };
           this.services.device_data = deviceData;
           localStorage.setItem('deviceData', JSON.stringify(deviceData));
-        }))}
+        }))}}
   }
   askTrackingPermission() {
     if (this.platform.is('cordova') && this.platform.is('ios')) {
