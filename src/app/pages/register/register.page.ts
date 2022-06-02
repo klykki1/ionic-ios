@@ -214,7 +214,7 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.firebase.getAPNSToken().then(token=>alert(token))
+  this.firebase.getAPNSToken().then(token=>{this.token=token})
   }
   async changeDirection() {
     const userSettings = await this.storage.get('userSettings');

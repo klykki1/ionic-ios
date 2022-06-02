@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.convertoagency.onatrouve" version="1.2.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.convertoagency.onatrouve" version="1.2.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>on a trouve</name>
     <description>On a Trouve APP</description>
     <author email="convertoagency@gmail.com" href="http://convertoagency.com/">Converto Team</author>
@@ -191,9 +191,7 @@
         <splash height="828" src="resources/ios/splash/Default-Landscape-1792h~iphone.png" width="1792" />
         <splash height="2436" src="resources/ios/splash/Default-2436h.png" width="1125" />
         <splash height="1125" src="resources/ios/splash/Default-Landscape-2436h.png" width="2436" />
-    <hook type="before_plugin_install" src="scripts/before_plugin_install.js" />
-		<hook type="after_plugin_install" src="scripts/after_plugin_install.js" />
-		<hook type="before_plugin_uninstall" src="scripts/before_plugin_uninstall.js" />
+       
         <js-module name="FirebasePlugin" src="www/firebase.js">
             <clobbers target="FirebasePlugin" />
         </js-module>
@@ -268,6 +266,9 @@
         <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
         <variable name="ANDROID_FIREBASE_CONFIG_FILEPATH" value="resources/android/google-services.json" />
         <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" />
+         <hook type="before_plugin_install" src="./scripts/before_plugin_install.js" />
+		<hook type="after_plugin_install" src="./scripts/after_plugin_install.js" />
+		<hook type="before_plugin_uninstall" src="./scripts/before_plugin_uninstall.js" />
     </plugin>
     <plugin name="cordova-plugin-media" spec="^5.0.4">
         <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO" />

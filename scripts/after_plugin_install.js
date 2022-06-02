@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var helper = require("./helper");
 
 module.exports = function(context) {

@@ -1,6 +1,4 @@
-/**
- * Utilities and shared functionality for the build hooks.
- */
+#!/usr/bin/env node
  var fs = require('fs');
  var path = require("path");
  var parser = require('xml-js');
