@@ -6,10 +6,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ionic serve --port=8104",
+    "prebuild":"./scripts/before_plugin_install.js",
     "build": "ng build",
+    "postbuild":"./scripts/after_plugin_install.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
+    
   },
   "private": true,
   "dependencies": {
