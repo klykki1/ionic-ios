@@ -139,7 +139,7 @@ export class RegisterPage implements OnInit {
       this.token=token
       alert("token"+token)
     })
-   alert(this.token)
+   alert(JSON.stringify(this.token))
     this.submitReg = true;
 
     if (this.addReginForm.valid) {
