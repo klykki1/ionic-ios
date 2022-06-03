@@ -1,4 +1,5 @@
-
+#!/usr/bin/env node
+'use strict';
 var execSync = require('child_process').execSync;
 var semver = require('semver');
 
