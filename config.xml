@@ -199,13 +199,7 @@
                 <param name="ios-package" value="FirebasePlugin" />
                 <param name="onload" value="true" />
             </feature>
-        </config-file>
-        <config-file parent="aps-environment" target="*/Entitlements-Debug.plist">
-            <string>development</string>
-        </config-file>
-        <config-file parent="aps-environment" target="*/Entitlements-Release.plist">
-            <string>production</string>
-        </config-file>
+        </config-file>>
         <config-file parent="UIBackgroundModes" target="*-Info.plist">
             <array>
                 <string>remote-notification</string>
