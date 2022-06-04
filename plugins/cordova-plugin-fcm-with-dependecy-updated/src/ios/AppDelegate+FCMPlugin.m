@@ -212,7 +212,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 + (void)deleteInstanceId:(void (^)(NSError *error))handler {
-    [[FIRInstanceID instanceID] deleteIDWithHandler:handler];
+    [[FIRInstallations instanceID] deleteIDWithHandler:handler];
 }
 
 + (void)hasPushPermission:(void (^)(NSNumber* yesNoOrNil))block {
