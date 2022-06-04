@@ -8,7 +8,7 @@
     "start": "ionic serve --port=8104",
     "build": "ng build",
     "preinsatallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/before_plugin_install.js",
-    "insatallfirebasex":" cordova-plugin-firebasex",
+    "insatallfirebasex":"cordova plugin add cordova-plugin-firebasex",
     "postinstallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_install.js",
     "uninstallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_uninstall.js",
     "test": "ng test",
