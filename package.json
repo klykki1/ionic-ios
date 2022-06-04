@@ -7,10 +7,10 @@
     "ng": "ng",
     "start": "ionic serve --port=8104",
     "build": "ng build",
-    "preinsatall":"chmod +x cordova-plugin-firebasex ./scripts/before_plugin_install.js",
-    "insatall":"chmod +x cordova-plugin-firebasex",
-    "postinstall":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_install.js",
-    "uninstall":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_uninstall.js",
+    "preinsatallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/before_plugin_install.js",
+    "insatallfirebasex":" cordova-plugin-firebasex",
+    "postinstallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_install.js",
+    "uninstallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_uninstall.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -147,12 +147,6 @@
   },
   "description": "An Ionic project",
   "cordova": {
-    "scripts": {
-      "preinsatall":"chmod +x cordova-plugin-firebasex ./scripts/before_plugin_install.js",
-      "insatall":"chmod +x cordova-plugin-firebasex",
-      "postinstall":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_install.js",
-      "uninstall":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_uninstall.js",
-    },
     "plugins": {
       "mx.ferreyra.callnumber": {},
       "cordova-plugin-device": {},
