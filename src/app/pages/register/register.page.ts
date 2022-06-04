@@ -9,6 +9,7 @@ import { AppConfigService } from 'src/app/services/app-config/app-config';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from 'src/app/services/storage/storage';
 import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
+import { FCM } from '@awesome-cordova-plugins/fcm/ngx';
 
 @Component({
   selector: 'app-register',
@@ -39,6 +40,7 @@ export class RegisterPage implements OnInit {
               private device: Device,
               private firebase:FirebaseX,
               private toastController: ToastController,
+              private fcm:FCM
   ) {
     this.isProfile = this.router.getCurrentNavigation().extras.state?.profile ? true : false;
     console.log(this.isProfile);
@@ -134,12 +136,7 @@ export class RegisterPage implements OnInit {
   }
   token:any;
   userDataSubmit() {
- this.firebase.getAPNSToken()
-    .then(token => {
-      this.token=token
-      alert("token"+token)
-    })
-   alert(JSON.stringify(this.token))
+   alert(this.token)
     this.submitReg = true;
 
     if (this.addReginForm.valid) {
@@ -155,7 +152,7 @@ export class RegisterPage implements OnInit {
         this.user.deviceid = deviceData.reg_id;
         this.submitRegistration()
       }else{
-        this.firebase.getAPNSToken()
+        this.fcm.getAPNSToken()
         .then(token => {
           const deviceData = {
             reg_id: token,
@@ -214,7 +211,7 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit(): void {
-  this.firebase.getAPNSToken().then(token=>{this.token=token})
+  this.fcm.getAPNSToken().then(token=>{this.token=token})
   }
   async changeDirection() {
     const userSettings = await this.storage.get('userSettings');

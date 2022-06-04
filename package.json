@@ -7,14 +7,9 @@
     "ng": "ng",
     "start": "ionic serve --port=8104",
     "build": "ng build",
-    "preinsatallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/before_plugin_install.js",
-    "insatallfirebasex":"cordova plugin add cordova-plugin-firebasex",
-    "postinstallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_install.js",
-    "uninstallfirebasex":"chmod +x cordova-plugin-firebasex ./scripts/after_plugin_uninstall.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
-    
   },
   "private": true,
   "dependencies": {
@@ -38,6 +33,7 @@
     "@awesome-cordova-plugins/device": "^5.39.1",
     "@awesome-cordova-plugins/dialogs": "^5.39.1",
     "@awesome-cordova-plugins/email-composer": "^5.39.1",
+    "@awesome-cordova-plugins/fcm": "^5.43.0",
     "@awesome-cordova-plugins/file": "^5.39.1",
     "@awesome-cordova-plugins/file-transfer": "^5.41.0",
     "@awesome-cordova-plugins/firebase-dynamic-links": "^5.41.0",
@@ -265,7 +261,14 @@
       "cordova-plugin-badge": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-splashscreen": {},
-      "cordova-plugin-idfa": {}
+      "cordova-plugin-idfa": {},
+      "cordova-plugin-fcm-with-dependecy-updated": {
+        "ANDROID_DEFAULT_NOTIFICATION_ICON": "@mipmap/ic_launcher",
+        "ANDROID_FIREBASE_BOM_VERSION": "26.0.0",
+        "ANDROID_GOOGLE_SERVICES_VERSION": "4.3.4",
+        "ANDROID_GRADLE_TOOLS_VERSION": "4.1.0",
+        "IOS_FIREBASE_MESSAGING_VERSION": "~> 7.4.0"
+      }
     },
     "platforms": []
   }
