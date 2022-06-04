@@ -255,12 +255,12 @@
         <android-scheme value="http" />
         <ios-team-release value="2627JXC4L7" />
     </branch-config>
-    <plugin name="cordova-plugin-firebasex" spec="14.0.0-cli">
+    <!-- <plugin name="cordova-plugin-firebasex" spec="14.0.0-cli">
         <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
         <variable name="ANDROID_FIREBASE_CONFIG_FILEPATH" value="resources/android/google-services.json" />
         <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" />
         <variable name="IOS_STRIP_DEBUG" value="true" />
-    </plugin>
+    </plugin> -->
     <plugin name="cordova-plugin-media" spec="^5.0.4">
         <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO" />
     </plugin>
