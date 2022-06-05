@@ -31,9 +31,8 @@ import { Notification, Subscription } from 'rxjs';
 import { BadgeService } from './services/badge-service/badge.service';
 import { ProductService } from './services/product/product.service';
 import { Adjust, AdjustConfig, AdjustEnvironment } from '@awesome-cordova-plugins/adjust/ngx';
-import { FCM } from '@awesome-cordova-plugins/fcm/ngx';
 import 'rxjs/add/operator/filter';
-declare let window: any;
+declare let window:any;
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -104,8 +103,7 @@ export class AppComponent {
     private backgroundGeolocation: BackgroundGeolocation,
     private firebase: FirebaseX,
     private badgeService: BadgeService,
-    private adjust: Adjust,
-    private fcm: FCM
+    private adjust: Adjust
 
   ) {
     this.platform.ready().then(() => {
@@ -166,32 +164,17 @@ export class AppComponent {
       }
 
 
-      // this.firebase.onApnsTokenReceived()
-      //ios 
-          // ac37e019-09c2-4870-a059-9b3fe724548d
-      //   .subscribe(token => {
-      //     const deviceData = {
-      //       reg_id: token,
-      //       os: this.device.platform
-      //     };
-      //     this.services.device_data = deviceData;
-      //     localStorage.setItem('deviceData', JSON.stringify(deviceData));
-      //   })
-      this.fcm.getAPNSToken().then(
-        token => {
+      this.firebase.onApnsTokenReceived()
+        .subscribe(token => {
           const deviceData = {
             reg_id: token,
             os: this.device.platform
           };
           this.services.device_data = deviceData;
           localStorage.setItem('deviceData', JSON.stringify(deviceData));
-        }
-      )
-      this.fcm.hasPermission().then(hasPermission => {
-        if (hasPermission) {
-          console.log("Has permission!");
-        }
-      })
+        })
+
+
       this.firebase.onMessageReceived()
         .subscribe((notification) => {
           if (notification.data) {
@@ -307,21 +290,11 @@ export class AppComponent {
       e.preventDefault();
     });
   }
-  askNotificationPermission() {
+  askNotificationPermission(){
     if (this.platform.is('cordova') && this.platform.is('ios')) {
-      // this.firebase.grantPermission().then(function (hasPermission) {
-      //   console.log("Permission was " + (hasPermission ? "granted" : "denied"));
-      // })
-      this.fcm.requestPushPermissionIOS()
-      .then(function (didIt) {
-          if (didIt) {
-              // Do nothing
-          }
-      })
-      .catch(function (error) {
-          alert('Error occurred: '+error)
-      });
-    }
+    this.firebase.grantPermission().then(function(hasPermission){
+      console.log("Permission was " + (hasPermission ? "granted" : "denied"));
+  })}
   }
   askTrackingPermission() {
     if (this.platform.is('cordova') && this.platform.is('ios')) {

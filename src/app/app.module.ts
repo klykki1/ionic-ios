@@ -49,7 +49,6 @@ import { ComponentModule } from './components/components.module';
 import { JWTInterceptor } from './shared/interceptors/JWTInterceptor';
 import { ImagePicker } from '@awesome-cordova-plugins/image-picker/ngx';
 import { Adjust } from '@awesome-cordova-plugins/adjust/ngx';
-import { FCM } from 'plugins/cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 
 const config: SocketIoConfig = {
   url: 'http://vps-6496d4c1.vps.ovh.net:3001/chat', options: {
@@ -119,7 +118,6 @@ export function createTranslateLoader(http: HttpClient) {
     FormBuilder,
     Geolocation,
     NavParams,
-    FCM,
     { provide: HAMMER_GESTURE_CONFIG, useClass: IonicGestureConfig },
     { provide: ErrorHandler },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

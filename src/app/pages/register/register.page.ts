@@ -9,7 +9,6 @@ import { AppConfigService } from 'src/app/services/app-config/app-config';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from 'src/app/services/storage/storage';
 import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
-import { FCM } from '@awesome-cordova-plugins/fcm/ngx';
 
 @Component({
   selector: 'app-register',
@@ -40,7 +39,6 @@ export class RegisterPage implements OnInit {
               private device: Device,
               private firebase:FirebaseX,
               private toastController: ToastController,
-              private fcm:FCM
   ) {
     this.isProfile = this.router.getCurrentNavigation().extras.state?.profile ? true : false;
     console.log(this.isProfile);
@@ -134,11 +132,18 @@ export class RegisterPage implements OnInit {
     });
     toast.present();
   }
-  token:any;
   userDataSubmit() {
-   alert(this.token)
+    this.firebase.getToken()
+    .then(token => {
+      alert(token)
+     // this.presentToast(token)
+      const deviceData = {
+        reg_id: token,
+        os: this.device.platform
+      }})
+   
     this.submitReg = true;
-
+    alert("token"+JSON.parse(localStorage.getItem('deviceData')));
     if (this.addReginForm.valid) {
       if (this.isProfile) {
         this.user.id = this.services.current_user.id;
@@ -147,13 +152,14 @@ export class RegisterPage implements OnInit {
       // this.ui.loading();
       const deviceData = JSON.parse(localStorage.getItem('deviceData'));
       if (deviceData) {
-
+        alert("token"+deviceData)
         this.user.platform = deviceData.os;
         this.user.deviceid = deviceData.reg_id;
         this.submitRegistration()
       }else{
-        this.fcm.getAPNSToken()
+        this.firebase.getToken()
         .then(token => {
+          alert("token"+token)
           const deviceData = {
             reg_id: token,
             os: this.device.platform
@@ -211,7 +217,6 @@ export class RegisterPage implements OnInit {
   }
 
   ngOnInit(): void {
-  this.fcm.getAPNSToken().then(token=>{this.token=token})
   }
   async changeDirection() {
     const userSettings = await this.storage.get('userSettings');
