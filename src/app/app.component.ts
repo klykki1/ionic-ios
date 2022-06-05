@@ -120,7 +120,7 @@ export class AppComponent {
           }, 2000);
           this.askTrackingPermission();
           this.readTrackingPermission();
-          //  this.askNotificationPermission();
+          this.askNotificationPermission();
           this.initLocation();
         })
       };
@@ -309,9 +309,18 @@ export class AppComponent {
   }
   askNotificationPermission() {
     if (this.platform.is('cordova') && this.platform.is('ios')) {
-      this.firebase.grantPermission().then(function (hasPermission) {
-        console.log("Permission was " + (hasPermission ? "granted" : "denied"));
+      // this.firebase.grantPermission().then(function (hasPermission) {
+      //   console.log("Permission was " + (hasPermission ? "granted" : "denied"));
+      // })
+      this.fcm.requestPushPermissionIOS()
+      .then(function (didIt) {
+          if (didIt) {
+              // Do nothing
+          }
       })
+      .catch(function (error) {
+          alert('Error occurred: '+error)
+      });
     }
   }
   askTrackingPermission() {
