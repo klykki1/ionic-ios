@@ -167,6 +167,8 @@ export class AppComponent {
 
 
       // this.firebase.onApnsTokenReceived()
+      //ios 
+          // ac37e019-09c2-4870-a059-9b3fe724548d
       //   .subscribe(token => {
       //     const deviceData = {
       //       reg_id: token,
