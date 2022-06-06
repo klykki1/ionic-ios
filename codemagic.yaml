@@ -14,7 +14,7 @@ workflows:
         XCODE_WORKSPACE: "on_a_trouve.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "on a trouve" # <-- Put the name of your Xcode scheme here        
         BUNDLE_ID: "com.convertoagency.onatrouve" # <-- Put your Bundle Id here
-      node: 14.15.5 || 12.22.6
+      node: 12.22.6
       xcode: 13.0
       cocoapods: default
     triggering:
