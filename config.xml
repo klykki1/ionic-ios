@@ -81,7 +81,8 @@
         <edit-config file="*-Info.plist" mode="merge" target="NSUserTrackingUsageDescription">
             <string> Le tracking d'emplacement est obligatoire pour que nous puissions vous notifier des annonces à proximité .</string>
         </edit-config>
-        <resource-file src="GoogleService-Info.plist" target="app/GoogleService-Info.plist" />
+    
+      <resource-file src="GoogleService-Info.plist" />
         <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
             <string>You can take photos</string>
         </config-file>
@@ -267,7 +268,7 @@
     <plugin name="cordova-plugin-firebasex" spec="14.0.0-cli">
         <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
         <variable name="ANDROID_FIREBASE_CONFIG_FILEPATH" value="resources/android/google-services.json" />
-<!--         <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" /> -->
+        <variable name="IOS_FIREBASE_CONFIG_FILEPATH" value="resources/ios/GoogleService-Info.plist" />
     </plugin>
     <plugin name="cordova-plugin-media" spec="^5.0.4">
         <variable name="KEEP_AVAUDIOSESSION_ALWAYS_ACTIVE" value="NO" />
