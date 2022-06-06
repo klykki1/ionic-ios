@@ -27,7 +27,7 @@ workflows:
     scripts:
       - name: Install npm dependencies for Ionic Cordova project and update to Cordova version 9
         script: |
-          npm ci # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
+          npm ci --unsafe-perm -g node-sass # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
           cvm install 9.0.0
           cvm use 9.0.0          
       - name: Setup Cordova iOS platform
@@ -40,7 +40,6 @@ workflows:
           cvm use 9.0.0
       - name: Add iOS platform
         script: |
-          npm install --unsafe-perm -g node-sass
           set -e # exit on first failed command
 
           cordova platform remove ios --nosave
