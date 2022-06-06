@@ -1,32 +1,87 @@
 workflows:
-  my-workflow:
+  ionic-cordova-ios-workflow:
+    name: Ionic Cordova iOS Workflow
+    max_build_duration: 120
+    instance_type: mac_mini
     environment:
-      xcode: 12.5
-      cocoapods: 1.10.2
-      node: "^12.14.1 || >=14.0.0"
-      npm: "^6.11.0 || ^7.5.6"
-      xcode: 12.5
-workflows:
-  my-workflow:
+      groups:
+        # - manual_code_signing # <-- (Includes CM_CERTIFICATE, CM_CERTIFICATE_PASSWORD, CM_PROVISIONING_PROFILE)
+        # Automatic Code Signing
+        # https://appstoreconnect.apple.com/access/api
+        - app_store_credentials # <-- (Includes APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY, CERTIFICATE_PRIVATE_KEY)
+      # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
+      vars:
+        XCODE_WORKSPACE: "on_a_trouve.xcworkspace" # <-- Put the name of your Xcode workspace here
+        XCODE_SCHEME: "on a trouve" # <-- Put the name of your Xcode scheme here        
+        BUNDLE_ID: "com.convertoagency.onatrouve"" # <-- Put your Bundle Id here
+      node: latest
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: develop
+          include: true
+          source: true
     scripts:
-      - name: Install dependencies
-        script: sudo npm install --unsafe-perm -g node-sass 
-      - name: Switch to a specific version of Cordova
+      - name: Install npm dependencies for Ionic Cordova project and update to Cordova version 9
         script: |
-          set -e # exit on first failed command
-          
+          npm ci # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
           cvm install 9.0.0
-          cvm use 9.0.0
-      - name: Add iOS platform
+          cvm use 9.0.0          
+      - name: Setup Cordova iOS platform
+          script: |
+            ionic cordova platform remove ios --nosave
+            ionic cordova platform add ios --confirm --no-interactive --noresources            
+      - name: Cocoapods installation
         script: |
-          set -e # exit on first failed command
-
-          cordova platform remove ios --nosave
-          cordova platform add ios --confirm --no-interactive --noresources --save
-      - name: Build iOS release
+                    cd platforms/ios && pod install
+      - name: Set up keychain to be used for code signing using Codemagic CLI 'keychain' command
         script: |
-          set -e # exit on first failed command
-
-          cordova build ios --no-interactive
-
-
+                    keychain initialize
+      # - name: Set up Provisioning profiles from environment variables (Use with manual code signing)
+      #   script: |
+      #     PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
+      #     mkdir -p "$PROFILES_HOME"
+      #     PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
+      #     echo ${CM_PROVISIONING_PROFILE} | base64 --decode > "$PROFILE_PATH"
+      #     echo "Saved provisioning profile $PROFILE_PATH"
+      - name: Fetch signing files
+        script: |
+          # app-store-connect fetch-signing-files "com.nevercode.ncionicapp" --type IOS_APP_STORE --create
+          app-store-connect fetch-signing-files $(xcode-project detect-bundle-id) --type IOS_APP_STORE --create          
+      - name: Add certificates to keychain
+        script: |
+                    keychain add-certificates
+      - name: Increment build number
+        script: |
+          #!/bin/sh
+          set -e
+          set -x
+          cd $CM_BUILD_DIR/platforms/ios
+          agvtool new-version -all $(($BUILD_NUMBER +1))          
+      - name: Set up code signing settings on Xcode project
+        script: |
+                    xcode-project use-profiles
+      - name: Build ipa for distribution
+        script: |
+                    xcode-project build-ipa --workspace "$XCODE_WORKSPACE" --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      app_store_connect:
+          api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key
+          key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER    # Alphanumeric value that identifies the API key
+          issuer_id: $APP_STORE_CONNECT_ISSUER_ID      # Alphanumeric value that identifies who created the API key
+          submit_to_testflight: true        # Optional boolean, defaults to false. Whether or not to submit the uploaded build to TestFlight to automatically enroll your build to beta testers. 
+      email:
+        recipients:
+          - user_one@example.com
+          - user_two@example.com
+        notify:
+          success: false     # To not receive a notification when a build succeeds
+          failure: false     # To not receive a notification when a build fails
