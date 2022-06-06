@@ -87,7 +87,7 @@
         </config-file>
         <source-file framework="true" src="src/ios/Pods.framework" target-dir="lib" />
         <framework custom="true" embed="true" src="src/ios/Pods.framework" />
-        <hook src="hooks/before_build.sh" type="before_build" />
+<!--         <hook src="hooks/before_build.sh" type="before_build" /> -->
         <preference default="This app always requires location tracking" name="ALWAYS_USAGE_DESCRIPTION" />
         <preference default="This app requires motion detection" name="MOTION_USAGE_DESCRIPTION" />
         <config-file parent="UIBackgroundModes" target="*-Info.plist">
