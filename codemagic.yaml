@@ -10,7 +10,7 @@ workflows:
   my-workflow:
     scripts:
       - name: Install dependencies
-        script: npm install
+        script: sudo npm install --unsafe-perm -g node-sass 
       - name: Switch to a specific version of Cordova
         script: |
           set -e # exit on first failed command
