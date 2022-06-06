@@ -14,8 +14,8 @@ workflows:
         XCODE_WORKSPACE: "on_a_trouve.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "on a trouve" # <-- Put the name of your Xcode scheme here        
         BUNDLE_ID: "com.convertoagency.onatrouve" # <-- Put your Bundle Id here
-      node: latest
-      xcode: latest
+      node: 14.15.5 || 12.22.6
+      xcode: 13.0
       cocoapods: default
     triggering:
       events:
@@ -27,7 +27,7 @@ workflows:
     scripts:
       - name: Install npm dependencies for Ionic Cordova project and update to Cordova version 9
         script: |
-          npm ci --unsafe-perm -g node-sass # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
+          npm ci  # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
           cvm install 9.0.0
           cvm use 9.0.0          
       - name: Setup Cordova iOS platform
