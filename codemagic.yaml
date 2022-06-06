@@ -31,7 +31,7 @@ workflows:
           cvm install 9.0.0
           cvm use 9.0.0          
       - name: Setup Cordova iOS platform
-        script: npm install --unsafe-perm -g node-sass
+        script:  npm ci 
       - name: Switch to a specific version of Cordova
         script: |
           set -e # exit on first failed command
