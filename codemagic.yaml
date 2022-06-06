@@ -13,7 +13,7 @@ workflows:
       vars:
         XCODE_WORKSPACE: "on_a_trouve.xcworkspace" # <-- Put the name of your Xcode workspace here
         XCODE_SCHEME: "on a trouve" # <-- Put the name of your Xcode scheme here        
-        BUNDLE_ID: "com.convertoagency.onatrouve"" # <-- Put your Bundle Id here
+        BUNDLE_ID: "com.convertoagency.onatrouve" # <-- Put your Bundle Id here
       node: latest
       xcode: latest
       cocoapods: default
@@ -31,7 +31,26 @@ workflows:
           cvm install 9.0.0
           cvm use 9.0.0          
       - name: Setup Cordova iOS platform
-          script: |
+        script: npm install --unsafe-perm -g node-sass
+      - name: Switch to a specific version of Cordova
+        script: |
+          set -e # exit on first failed command
+          
+          cvm install 9.0.0
+          cvm use 9.0.0
+      - name: Add iOS platform
+        script: |
+          set -e # exit on first failed command
+
+          cordova platform remove ios --nosave
+          cordova platform add ios --confirm --no-interactive --noresources --save
+      - name: Build iOS release
+        script: |
+          set -e # exit on first failed command
+
+          cordova build ios --no-interactive
+
+            
             ionic cordova platform remove ios --nosave
             ionic cordova platform add ios --confirm --no-interactive --noresources            
       - name: Cocoapods installation
