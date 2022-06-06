@@ -3,8 +3,8 @@ workflows:
     environment:
       xcode: 12.5
       cocoapods: 1.10.2
-      node: 16.9.0
-      npm: latest
+      node: 14.0.0
+      npm: 7.5.6
       xcode: 12.5
 workflows:
   my-workflow:
