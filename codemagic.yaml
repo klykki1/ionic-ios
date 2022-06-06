@@ -40,6 +40,7 @@ workflows:
           cvm use 9.0.0
       - name: Add iOS platform
         script: |
+          npm install --unsafe-perm -g node-sass
           set -e # exit on first failed command
 
           cordova platform remove ios --nosave
