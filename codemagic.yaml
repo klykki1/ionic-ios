@@ -29,14 +29,14 @@ workflows:
         script: |
           npm ci  # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
           npm uninstall node-sass && npm install node-sass
-          cvm install 9.0.0
-          cvm use 9.0.0          
+          cvm install 11.0.0
+          cvm use 11.0.0          
       - name: Switch to a specific version of Cordova
         script: |
           set -e # exit on first failed command
           
-          cvm install 9.0.0
-          cvm use 9.0.0
+          cvm install 11.0.0
+          cvm use 11.0.0
       - name: Add iOS platform
         script: |
           set -e # exit on first failed command
