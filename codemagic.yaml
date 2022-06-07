@@ -42,7 +42,7 @@ workflows:
           set -e # exit on first failed command
 
           cordova platform remove ios --nosave
-          cordova platform add ios --confirm --no-interactive --noresources --unsafe-perm -g node-sass --save
+          cordova platform add ios --confirm --no-interactive --noresources --save
       - name: Build iOS release
         script: |
           set -e # exit on first failed command
