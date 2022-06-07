@@ -28,7 +28,7 @@ workflows:
       - name: Install npm dependencies for Ionic Cordova project and update to Cordova version 9
         script: |
           npm ci  # equivalent of npm install for CI systems. Requires package-lock.json or npm-shrinkwrap.json to be present
-          npm install --save-dev  --unsafe-perm node-sass
+          npm install --save-dev  --unsafe-perm node-sass@4.12+
           cvm install 9.0.0
           cvm use 9.0.0          
       - name: Switch to a specific version of Cordova
