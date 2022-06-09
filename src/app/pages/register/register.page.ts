@@ -145,7 +145,7 @@ export class RegisterPage implements OnInit {
       }})
    
     this.submitReg = true;
-    alert("token",x);
+    alert("token"+x);
     if (this.addReginForm.valid) {
       if (this.isProfile) {
         this.user.id = this.services.current_user.id;
