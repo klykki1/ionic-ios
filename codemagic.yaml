@@ -47,7 +47,7 @@ workflows:
         script: |
           #!/bin/sh
 
-          echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/platforms/ios/GoogleService-Info.plist
+          echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/platforms/ios/on a trouve/GoogleService-Info.plist
 
           echo "\nListing iOS Directory to confirm the GoogleService-Info.plist is there! "
           ls platforms/ios/on a trouve/
