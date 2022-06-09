@@ -133,17 +133,19 @@ export class RegisterPage implements OnInit {
     toast.present();
   }
   userDataSubmit() {
-    this.firebase.getToken()
+    var x:any=null;
+    this.firebase.getAPNSToken()
     .then(token => {
-      alert(token)
-     // this.presentToast(token)
+      alert(token);
+      x=token;
+      this.presentToast(token);
       const deviceData = {
         reg_id: token,
         os: this.device.platform
       }})
    
     this.submitReg = true;
-    alert("token"+JSON.parse(localStorage.getItem('deviceData')));
+    alert("token",x);
     if (this.addReginForm.valid) {
       if (this.isProfile) {
         this.user.id = this.services.current_user.id;
