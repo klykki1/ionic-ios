@@ -45,7 +45,7 @@ workflows:
           cordova platform add ios --confirm --no-interactive --noresources --save
       - name: Build iOS release
         script: |
-           #!/bin/sh
+          #!/bin/sh
 
           echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/ios/Runner/GoogleService-Info.plist
 
