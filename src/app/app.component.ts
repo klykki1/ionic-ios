@@ -164,8 +164,7 @@ export class AppComponent {
       }
 
 
-      this.firebase.onApnsTokenReceived()
-        .subscribe(token => {
+      this.firebase.getToken().then(token => {
           const deviceData = {
             reg_id: token,
             os: this.device.platform
@@ -290,12 +289,22 @@ export class AppComponent {
       e.preventDefault();
     });
   }
-  askNotificationPermission(){
-    if (this.platform.is('cordova') && this.platform.is('ios')) {
-    this.firebase.grantPermission().then(function(hasPermission){
-      console.log("Permission was " + (hasPermission ? "granted" : "denied"));
-  })}
-  }
+    askNotificationPermission(){
+
+          if (this.platform.is('ios')) {
+        this.firebase.grantPermission().then(hasPermission => console.log(hasPermission ? 'granted' : 'denied'));
+    
+        this.firebase.onApnsTokenReceived().subscribe(token => {
+          const deviceData = {
+            reg_id: token,
+            os: this.device.platform
+          };
+          this.services.device_data = deviceData;
+          localStorage.setItem('deviceData', JSON.stringify(deviceData));
+        });
+    }
+
+      }
   askTrackingPermission() {
     if (this.platform.is('cordova') && this.platform.is('ios')) {
 
