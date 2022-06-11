@@ -11,8 +11,8 @@ workflows:
         - appstore_credentials # <-- (Includes APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY, CERTIFICATE_PRIVATE_KEY)
       # Add the group environment variables in Codemagic UI (either in Application/Team variables) - https://docs.codemagic.io/variables/environment-variable-groups/
       vars:
-        XCODE_WORKSPACE: "platforms/ios/on a trouve.xcworkspace" # <-- Put the name of your Xcode workspace here
-        XCODE_SCHEME: "on a trouve" # <-- Put the name of your Xcode scheme here  
+        XCODE_WORKSPACE: "platforms/ios/on_a_trouve.xcworkspace" # <-- Put the name of your Xcode workspace here
+        XCODE_SCHEME: "on_a_trouve" # <-- Put the name of your Xcode scheme here  
         BUNDLE_ID: "com.convertoagency.onatrouve" # <-- Put your Bundle Id here
       node: 12.11.1
       xcode: 13.0
@@ -47,10 +47,9 @@ workflows:
         script: |
           #!/bin/sh
 
-          echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/platforms/ios/on a trouve/GoogleService-Info.plist
-          echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/platforms/ios/GoogleService-Info.plist
+          echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/platforms/ios/on_a_trouve/GoogleService-Info.plist
           echo "\nListing iOS Directory to confirm the GoogleService-Info.plist is there! "
-          ls platforms/ios/on a trouve/
+          ls platforms/ios/on_a_trouve/
           echo "\nListing iOS Directory to confirm the GoogleService-Info.plist is there! "
           ls platforms/ios/  
       - name: Build iOS release
