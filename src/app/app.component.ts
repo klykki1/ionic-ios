@@ -32,7 +32,7 @@ import { BadgeService } from './services/badge-service/badge.service';
 import { ProductService } from './services/product/product.service';
 import { Adjust, AdjustConfig, AdjustEnvironment } from '@awesome-cordova-plugins/adjust/ngx';
 import 'rxjs/add/operator/filter';
-declare let window:any;
+declare let window: any;
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -116,10 +116,11 @@ export class AppComponent {
           window.setTimeout(function () {
             this.splashscreen.hide();
           }, 2000);
+          this.askNotificationPermission();
           this.askTrackingPermission();
           this.readTrackingPermission();
-          this.askNotificationPermission();
           this.initLocation();
+          this.initToken();
         })
       };
 
@@ -164,14 +165,14 @@ export class AppComponent {
       }
 
 
-      this.firebase.getToken().then(token => {
-          const deviceData = {
-            reg_id: token,
-            os: this.device.platform
-          };
-          this.services.device_data = deviceData;
-          localStorage.setItem('deviceData', JSON.stringify(deviceData));
-        }).catch(error =>console.error(error));
+      // this.firebase.getToken().then(token => {
+      //   const deviceData = {
+      //     reg_id: token,
+      //     os: this.device.platform
+      //   };
+      //   this.services.device_data = deviceData;
+      //   localStorage.setItem('deviceData', JSON.stringify(deviceData));
+      // }).catch(error => console.error(error));
 
 
       this.firebase.onMessageReceived()
@@ -235,18 +236,18 @@ export class AppComponent {
           }
         });
 
-      this.firebase.onTokenRefresh()
-        .subscribe(token => {
-          localStorage.setItem('com.onatrouve-regId', (token));
-          const deviceData = {
+      // this.firebase.onTokenRefresh()
+      //   .subscribe(token => {
+      //     localStorage.setItem('com.onatrouve-regId', (token));
+      //     const deviceData = {
 
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            reg_id: token,
-            os: this.device.platform
-          };
-          this.services.device_data = deviceData;
-          localStorage.setItem('deviceData', JSON.stringify(deviceData));
-        });
+      //       // eslint-disable-next-line @typescript-eslint/naming-convention
+      //       reg_id: token,
+      //       os: this.device.platform
+      //     };
+      //     this.services.device_data = deviceData;
+      //     localStorage.setItem('deviceData', JSON.stringify(deviceData));
+      //   });
 
 
       // const options: PushOptions = {
@@ -289,22 +290,43 @@ export class AppComponent {
       e.preventDefault();
     });
   }
-    askNotificationPermission(){
+  askNotificationPermission() {
+    this.firebase.hasPermission().then((hasPermission) => {
+      if (hasPermission) {
 
-          if (this.platform.is('ios')) {
-        this.firebase.grantPermission().then(hasPermission => console.log(hasPermission ? 'granted' : 'denied'));
-    
-        this.firebase.onApnsTokenReceived().subscribe(token => {
-          const deviceData = {
-            reg_id: token,
-            os: this.device.platform
-          };
-          this.services.device_data = deviceData;
-          localStorage.setItem('deviceData', JSON.stringify(deviceData));
+        this.firebase.getAPNSToken().then(
+          token => {
+            const deviceData = {
+              reg_id: token,
+              os: this.device.platform
+            };
+            this.services.device_data = deviceData;
+            localStorage.setItem('deviceData', JSON.stringify(deviceData));
+            alert(token)
+          }
+        );
+      } else if (!hasPermission) {
+        // Request permission
+
+        this.firebase.grantPermission().then(() => {
+          this.askNotificationPermission.bind(this, true);
         });
-    }
-
       }
+    })
+    // if (this.platform.is('ios')) {
+    //   this.firebase.grantPermission().then(hasPermission => console.log(hasPermission ? 'granted' : 'denied'));
+
+    //   this.firebase.onApnsTokenReceived().subscribe(token => {
+    //     const deviceData = {
+    //       reg_id: token,
+    //       os: this.device.platform
+    //     };
+    //     this.services.device_data = deviceData;
+    //     localStorage.setItem('deviceData', JSON.stringify(deviceData));
+    //   });
+    // }
+
+  }
   askTrackingPermission() {
     if (this.platform.is('cordova') && this.platform.is('ios')) {
 
@@ -582,7 +604,16 @@ export class AppComponent {
     this.backgroundGeolocation.start();
 
   }
-
+initToken(){
+  this.firebase.onApnsTokenReceived().subscribe(token => {
+    const deviceData = {
+      reg_id: token,
+      os: this.device.platform
+    };
+    this.services.device_data = deviceData;
+    localStorage.setItem('deviceData', JSON.stringify(deviceData));
+  });
+}
   stopBackgroundGeolocation() {
     // If you wish to turn OFF background-tracking, call the #stop method.
     this.backgroundGeolocation.stop();

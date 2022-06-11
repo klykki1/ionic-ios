@@ -136,7 +136,7 @@ export class RegisterPage implements OnInit {
     var x:any=null;
     this.firebase.getAPNSToken()
     .then(token => {
-      alert(token);
+     // alert(token);
       x=token;
       this.presentToast(token);
       const deviceData = {
@@ -209,7 +209,7 @@ export class RegisterPage implements OnInit {
     },err => {
       console.log(err.message);
       this.submitReg = false;
-      this.services.fireError(err);
+      this.services.fireError("err");
       // this.ui.unLoading();
 
     });
