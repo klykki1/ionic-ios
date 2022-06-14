@@ -49,7 +49,7 @@ workflows:
 
           echo $FIREBASE_IOS | base64 --decode > $CM_BUILD_DIR/platforms/ios/on a trouve/GoogleService-Info.plist
           echo "\nListing iOS Directory to confirm the GoogleService-Info.plist is there! "
-          ls platforms/ios/on%a%trouve/Resources/
+          ls platforms/ios/on a trouve/Resources/
           echo "\nListing iOS Directory to confirm the GoogleService-Info.plist is there! "
           ls platforms/ios/  
       - name: Build iOS release
