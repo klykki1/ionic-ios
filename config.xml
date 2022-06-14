@@ -264,7 +264,7 @@
         <android-scheme value="http" />
         <ios-team-release value="2627JXC4L7" />
     </branch-config>
-    <plugin name="cordova-plugin-firebasex" spec="git@github.com:dpa99c/cordova-plugin-firebasex.git">
+    <plugin name="cordova-plugin-firebasex" spec="14.0.0-cli">
         <variable name="ANDROID_FIREBASE_ANALYTICS_VERSION" value="17.0.0" />
     </plugin>
     <plugin name="cordova-plugin-media" spec="^5.0.4">
